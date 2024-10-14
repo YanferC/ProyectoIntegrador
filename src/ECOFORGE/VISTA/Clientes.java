@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package CRUD.VISTA;
+package ECOFORGE.VISTA;
 
 /**
  *
  * @author YANFER
  */
-import CRUD.CONTROLADOR.ControladorCrud;
-import CRUD.MODELO.Cliente;
+import ECOFORGE.CONTROLADOR.ControladorCrud;
+import ECOFORGE.MODELO.Cliente;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
