@@ -34,15 +34,16 @@ public class ControladorCrud {
 
     // Método para crear un cliente
     public boolean crearCliente(Cliente cliente) {
-        String sql = "INSERT INTO cliente (cedula, nombre_completo, sisben, direccion, telefono, correo_electronico) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO cliente (numero_Identificacion, nombre_completo, sisben, subsidio_Ministerio, direccion, telefono, correo_electronico) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setString(1, cliente.getCedula());
+            statement.setInt(1, cliente.getNumero_Identificacion());
             statement.setString(2, cliente.getNombreCompleto());
             statement.setString(3, cliente.getSisben());
-            statement.setString(4, cliente.getDireccion());
-            statement.setString(5, cliente.getTelefono());
-            statement.setString(6, cliente.getCorreoElectronico());
+            statement.setInt(4, cliente.getSubsidio_Ministerio());
+            statement.setString(5, cliente.getDireccion());
+            statement.setString(6, cliente.getTelefono());
+            statement.setString(7, cliente.getCorreoElectronico());
 
             int rowsInserted = statement.executeUpdate();
             return rowsInserted > 0;
@@ -53,19 +54,20 @@ public class ControladorCrud {
     }
 
     // Método para leer un cliente por cédula
-    public Cliente obtenerCliente(String cedula) {
-        String sql = "SELECT * FROM cliente WHERE cedula = ?";
+    public Cliente obtenerCliente(String numero_Identificacion) {
+        String sql = "SELECT * FROM cliente WHERE numero_Identificacion = ?";
         Cliente cliente = null;
         try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setString(1, cedula);
+            statement.setString(1, numero_Identificacion);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
                 cliente = new Cliente(
-                        resultSet.getString("cedula"),
+                        resultSet.getInt("numero_Identificacion"),
                         resultSet.getString("nombre_completo"),
                         resultSet.getString("sisben"),
+                        resultSet.getInt("subsidio_Ministerio"),
                         resultSet.getString("direccion"),
                         resultSet.getString("telefono"),
                         resultSet.getString("correo_electronico")
@@ -79,15 +81,17 @@ public class ControladorCrud {
 
     // Método para actualizar un cliente
     public boolean actualizarCliente(Cliente cliente) {
-        String sql = "UPDATE cliente SET nombre_completo = ?, sisben = ?, direccion = ?, telefono = ?, correo_electronico = ? WHERE cedula = ?";
+        String sql = "UPDATE cliente SET nombre_completo = ?, sisben = ?, subsidio_Ministerio = ?, "
+                + " direccion = ?, telefono = ?, correo_electronico = ? WHERE numero_Identificacion = ?";
         try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, cliente.getNombreCompleto());
             statement.setString(2, cliente.getSisben());
-            statement.setString(3, cliente.getDireccion());
-            statement.setString(4, cliente.getTelefono());
-            statement.setString(5, cliente.getCorreoElectronico());
-            statement.setString(6, cliente.getCedula());
+            statement.setInt(3, cliente.getSubsidio_Ministerio());
+            statement.setString(4, cliente.getDireccion());
+            statement.setString(5, cliente.getTelefono());
+            statement.setString(6, cliente.getCorreoElectronico());
+            statement.setInt(7, cliente.getNumero_Identificacion());
 
             int rowsUpdated = statement.executeUpdate();
             return rowsUpdated > 0;
@@ -98,11 +102,11 @@ public class ControladorCrud {
     }
 
     // Método para eliminar un cliente
-    public boolean eliminarCliente(String cedula) {
-        String sql = "DELETE FROM cliente WHERE cedula = ?";
+    public boolean eliminarCliente(Integer Numero_Identificacion) {
+        String sql = "DELETE FROM cliente WHERE numero_Identificacion = ?";
         try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setString(1, cedula);
+            statement.setInt(1, Numero_Identificacion);
 
             int rowsDeleted = statement.executeUpdate();
             return rowsDeleted > 0;
@@ -120,9 +124,10 @@ public class ControladorCrud {
 
             while (resultSet.next()) {
                 Cliente cliente = new Cliente(
-                        resultSet.getString("cedula"),
+                        resultSet.getInt("numero_Identificacion"),
                         resultSet.getString("nombre_completo"),
                         resultSet.getString("sisben"),
+                        resultSet.getInt("subsidio_Ministerio"),
                         resultSet.getString("direccion"),
                         resultSet.getString("telefono"),
                         resultSet.getString("correo_electronico")
@@ -142,6 +147,7 @@ public class ControladorCrud {
         modelo.addColumn("Cédula");
         modelo.addColumn("Nombre Completo");
         modelo.addColumn("Sisben");
+        modelo.addColumn("Subsidio Ministerio");
         modelo.addColumn("Dirección");
         modelo.addColumn("Teléfono");
         modelo.addColumn("Correo Electrónico");
@@ -152,9 +158,10 @@ public class ControladorCrud {
         // Agregar los datos al modelo
         for (Cliente cliente : listaClientes) {
             Object[] fila = {
-                cliente.getCedula(),
+                cliente.getNumero_Identificacion(),
                 cliente.getNombreCompleto(),
                 cliente.getSisben(),
+                cliente.getSubsidio_Ministerio(),
                 cliente.getDireccion(),
                 cliente.getTelefono(),
                 cliente.getCorreoElectronico()
