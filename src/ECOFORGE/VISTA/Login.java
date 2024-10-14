@@ -36,6 +36,7 @@ public class Login extends javax.swing.JFrame {
         jLContraseña = new javax.swing.JLabel();
         jLSeparador2 = new javax.swing.JSeparator();
         jPFContraseña = new javax.swing.JPasswordField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -74,6 +75,9 @@ public class Login extends javax.swing.JFrame {
         jPFContraseña.setText("jPasswordField1");
         jPFContraseña.setBorder(null);
         Fondo.add(jPFContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 280, 30));
+
+        jButton1.setText("Iniciar Sesión");
+        Fondo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,6 +130,7 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Fondo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLContraseña;
     private javax.swing.JLabel jLIcono;
     private javax.swing.JLabel jLInicioSesion;
