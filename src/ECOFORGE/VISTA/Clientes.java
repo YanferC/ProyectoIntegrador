@@ -145,7 +145,7 @@ public class Clientes extends javax.swing.JFrame {
         }
 
         // Obtener la cédula del cliente seleccionado (asumiendo que la cédula está en la primera columna)
-        String cedula = jTable1.getValueAt(filaSeleccionada, 0).toString();
+        int numero_Identificacion = (Integer) jTable1.getValueAt(filaSeleccionada, 0);
 
         // Confirmar la eliminación
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar este cliente?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
@@ -155,7 +155,7 @@ public class Clientes extends javax.swing.JFrame {
             ControladorCrud controlador = new ControladorCrud();
 
             // Intentar eliminar el cliente
-            if (controlador.eliminarCliente(cedula)) {
+            if (controlador.eliminarCliente(numero_Identificacion)) {
                 JOptionPane.showMessageDialog(this, "Cliente eliminado correctamente.");
 
                 // Actualizar la tabla después de eliminar el cliente
@@ -176,19 +176,20 @@ public class Clientes extends javax.swing.JFrame {
         }
 
         // Obtener los datos del cliente seleccionado
-        String cedula = jTable1.getValueAt(filaSeleccionada, 0).toString();
+        Integer numero_Identificacion = Integer.parseInt(jTable1.getValueAt(filaSeleccionada, 0).toString());
         String nombre = jTable1.getValueAt(filaSeleccionada, 1).toString();
         String sisben = jTable1.getValueAt(filaSeleccionada, 2).toString();
-        String direccion = jTable1.getValueAt(filaSeleccionada, 3).toString();
-        String telefono = jTable1.getValueAt(filaSeleccionada, 4).toString();
-        String correo = jTable1.getValueAt(filaSeleccionada, 5).toString();
+        Integer subsidio_Ministerio = Integer.parseInt(jTable1.getValueAt(filaSeleccionada, 3).toString());
+        String direccion = jTable1.getValueAt(filaSeleccionada, 4).toString();
+        String telefono = jTable1.getValueAt(filaSeleccionada, 5).toString();
+        String correo = jTable1.getValueAt(filaSeleccionada, 6).toString();
 
         // Abrir el formulario datosClientes y pasar los datos
         datosClientes actualizarCliente = new datosClientes(this);
         actualizarCliente.setVisible(true);
 
         // Pasar los datos al formulario
-        actualizarCliente.cargarDatos(cedula, nombre, sisben, direccion, telefono, correo);
+        actualizarCliente.cargarDatos(numero_Identificacion, nombre, sisben, subsidio_Ministerio,direccion, telefono, correo);
 
         // Establecer un modo de "actualización"
         actualizarCliente.setModoActualizar(true);      // TODO add your handling code here:
@@ -205,9 +206,10 @@ public class Clientes extends javax.swing.JFrame {
 
         for (Cliente cliente : listaClientes) {
             Object[] fila = {
-                cliente.getCedula(),
+                cliente.getNumero_Identificacion(),
                 cliente.getNombreCompleto(),
                 cliente.getSisben(),
+                cliente.getSubsidio_Ministerio(),
                 cliente.getDireccion(),
                 cliente.getTelefono(),
                 cliente.getCorreoElectronico()

@@ -15,8 +15,8 @@ import java.sql.SQLException;
 public class DatabaseConnection {
     // Parámetros de conexión
     private final String url = "jdbc:oracle:thin:@LAPTOP-T7R63ESD:1521:xe"; // Cambia los parámetros según tu BD
-    private final String user = "CRUD";
-    private final String password = "CRUD";
+    private final String user = "ECOFORGE";
+    private final String password = "ECOFORGE";
     private Connection connection = null;
 
     // Método para conectar

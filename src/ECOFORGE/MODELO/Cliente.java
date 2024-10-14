@@ -10,30 +10,32 @@ package ECOFORGE.MODELO;
  */
 public class Cliente {
 
-    private String cedula;
+    private Integer numero_Identificacion;
     private String nombreCompleto;
     private String sisben;
+    private Integer subsidio_Ministerio;
     private String direccion;
     private String telefono;
     private String correoElectronico;
 
     // Constructor
-    public Cliente(String cedula, String nombreCompleto, String sisben, String direccion, String telefono, String correoElectronico) {
-        this.cedula = cedula;
+    public Cliente(Integer numero_Identificacion, String nombreCompleto, String sisben,Integer subsidio_Ministerio ,String direccion, String telefono, String correoElectronico) {
+        this.numero_Identificacion = numero_Identificacion;
         this.nombreCompleto = nombreCompleto;
         this.sisben = sisben;
+        this.subsidio_Ministerio = subsidio_Ministerio;
         this.direccion = direccion;
         this.telefono = telefono;
         this.correoElectronico = correoElectronico;
     }
 
     // Getters y Setters
-    public String getCedula() {
-        return cedula;
+    public Integer getNumero_Identificacion() {
+        return numero_Identificacion;
     }
 
-    public void setCedula(String cedula) {
-        this.cedula = cedula;
+    public void setNumero_Identificacion(Integer numero_Identificacion) {
+        this.numero_Identificacion = numero_Identificacion;
     }
 
     public String getNombreCompleto() {
@@ -75,4 +77,14 @@ public class Cliente {
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
+
+    public Integer getSubsidio_Ministerio() {
+        return subsidio_Ministerio;
+    }
+
+    public void setSubsidio_Ministerio(Integer subsidio_Ministerio) {
+        this.subsidio_Ministerio = subsidio_Ministerio;
+    }
+    
+    
 }
