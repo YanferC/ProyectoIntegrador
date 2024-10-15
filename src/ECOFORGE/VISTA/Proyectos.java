@@ -8,7 +8,7 @@ package ECOFORGE.VISTA;
  *
  * @author ANDRES
  */
-import ECOFORGE.CONTROLADOR.ControladorCrud;
+import ECOFORGE.CONTROLADOR.ControladorProyecto;
 import ECOFORGE.MODELO.Proyecto;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -22,7 +22,7 @@ public class Proyectos extends javax.swing.JFrame {
 
     public Proyectos() {
         initComponents();
-        controlador = new ControladorCrud();
+        controlador = new ControladorProyecto();
         controlador.conectar();
         controlador.llenarTablaProyectos(jTable1);
         
