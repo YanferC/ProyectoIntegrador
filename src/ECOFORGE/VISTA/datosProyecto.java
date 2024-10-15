@@ -8,13 +8,13 @@ package ECOFORGE.VISTA;
  *
  * @author YANFER
  */
-import ECOFORGE.CONTROLADOR.ControladorCrud;
+import ECOFORGE.CONTROLADOR.ControladorProyecto;
 import ECOFORGE.MODELO.Proyecto;
 import javax.swing.JOptionPane;
 
 public class datosProyecto extends javax.swing.JFrame {
 
-    private ControladorCrud controlador;
+    private ControladorProyecto controlador;
     private boolean isModoActualizar = false;
     private Proyectos formularioProyecto;
 
@@ -24,7 +24,7 @@ public class datosProyecto extends javax.swing.JFrame {
     public datosProyecto(Proyectos formularioProyecto) {
         initComponents();
         this.formularioProyecto = formularioProyecto;
-        controlador = new ControladorCrud();
+        controlador = new ControladorProyecto();
         configurarFormulario();
     }
 
