@@ -44,9 +44,9 @@ public class Clientes extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jbtAgregar = new javax.swing.JButton();
+        jbtActualizar = new javax.swing.JButton();
+        jbtEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -55,24 +55,24 @@ public class Clientes extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jButton1.setLabel("AGREGAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbtAgregar.setLabel("AGREGAR");
+        jbtAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbtAgregarActionPerformed(evt);
             }
         });
 
-        jButton2.setLabel("ACTUALIZAR");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jbtActualizar.setLabel("ACTUALIZAR");
+        jbtActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jbtActualizarActionPerformed(evt);
             }
         });
 
-        jButton3.setLabel("ELIMINAR");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jbtEliminar.setLabel("ELIMINAR");
+        jbtEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jbtEliminarActionPerformed(evt);
             }
         });
 
@@ -82,11 +82,11 @@ public class Clientes extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(86, 86, 86)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbtAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbtActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(88, 88, 88)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbtEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(89, 89, 89))
         );
         jPanel2Layout.setVerticalGroup(
@@ -94,9 +94,9 @@ public class Clientes extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jbtAgregar)
+                    .addComponent(jbtActualizar)
+                    .addComponent(jbtEliminar))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -127,14 +127,14 @@ public class Clientes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jbtAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAgregarActionPerformed
         datosClientes agregarCliente = new datosClientes(this);
         agregarCliente.setVisible(true);  
         
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jbtAgregarActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jbtEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEliminarActionPerformed
         // Verificar que se ha seleccionado un registro en la tabla
         int filaSeleccionada = jTable1.getSelectedRow();
 
@@ -164,9 +164,9 @@ public class Clientes extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Error al eliminar el cliente.");
             }
         }        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jbtEliminarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jbtActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtActualizarActionPerformed
         // Verificar que se ha seleccionado un registro en la tabla
         int filaSeleccionada = jTable1.getSelectedRow();
 
@@ -194,7 +194,7 @@ public class Clientes extends javax.swing.JFrame {
         // Establecer un modo de "actualización"
         actualizarCliente.setModoActualizar(true);      // TODO add your handling code here:
        
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jbtActualizarActionPerformed
 
     public void actualizarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
@@ -254,12 +254,12 @@ public class Clientes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton jbtActualizar;
+    private javax.swing.JButton jbtAgregar;
+    private javax.swing.JButton jbtEliminar;
     // End of variables declaration//GEN-END:variables
 }
