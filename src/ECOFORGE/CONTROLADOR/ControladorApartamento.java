@@ -1,13 +1,13 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+ 
 package ECOFORGE.CONTROLADOR;
 
-/**
+
  *
  * @author YANFER
- */
+
 import ECOFORGE.MODELO.Apartamento;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -173,3 +173,4 @@ public class ControladorApartamento {
         tablaApartamentos.setModel(modelo);
     }
 }
+*/
