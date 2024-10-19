@@ -8,13 +8,19 @@ package ECOFORGE.VISTA;
  *
  * @author YANFER
  */
+import ECOFORGE.CONTROLADOR.ControladorAsesor;
+
 public class Login extends javax.swing.JFrame {
+
+    private ControladorAsesor asesor;
+    private boolean primeraVezUsuario = true, primeraVezContra = true; // Controlar si es la primera vez que se hace clic
 
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+        asesor = new ControladorAsesor();
     }
 
     /**
@@ -36,7 +42,8 @@ public class Login extends javax.swing.JFrame {
         jLContraseña = new javax.swing.JLabel();
         jLSeparador2 = new javax.swing.JSeparator();
         jPFContraseña = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        jbtInicioSesion = new javax.swing.JButton();
+        jbtCrearAsesor = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -62,8 +69,18 @@ public class Login extends javax.swing.JFrame {
 
         jTFNombreUsuario.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jTFNombreUsuario.setForeground(new java.awt.Color(204, 204, 204));
-        jTFNombreUsuario.setText("Ingrese su nombre de Usuario");
+        jTFNombreUsuario.setText("Ingrese su usuario");
         jTFNombreUsuario.setBorder(null);
+        jTFNombreUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFNombreUsuarioMouseClicked(evt);
+            }
+        });
+        jTFNombreUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTFNombreUsuarioKeyTyped(evt);
+            }
+        });
         Fondo.add(jTFNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 280, 30));
 
         jLContraseña.setFont(new java.awt.Font("Roboto Lt", 1, 14)); // NOI18N
@@ -74,10 +91,25 @@ public class Login extends javax.swing.JFrame {
         jPFContraseña.setForeground(new java.awt.Color(204, 204, 204));
         jPFContraseña.setText("jPasswordField1");
         jPFContraseña.setBorder(null);
+        jPFContraseña.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPFContraseñaMouseClicked(evt);
+            }
+        });
         Fondo.add(jPFContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 280, 30));
 
-        jButton1.setText("Iniciar Sesión");
-        Fondo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, -1, -1));
+        jbtInicioSesion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jbtInicioSesion.setText("Iniciar Sesión");
+        jbtInicioSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtInicioSesionActionPerformed(evt);
+            }
+        });
+        Fondo.add(jbtInicioSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 110, 40));
+
+        jbtCrearAsesor.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jbtCrearAsesor.setText("Crear Asesor");
+        Fondo.add(jbtCrearAsesor, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 420, 110, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,6 +124,46 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtInicioSesionActionPerformed
+        String numero_Identificacion = jTFNombreUsuario.getText();
+        Integer tipoRol = asesor.obtenerTipoRol(numero_Identificacion);
+
+        // Verificar si se obtuvo un valor no nulo
+        if (tipoRol != null) {
+            if (tipoRol == 1) { // verificar si es igual a 1 - Asesor
+                // Mostrar la vista del Asesor
+                Asesor vistaAsesor = new Asesor();
+                vistaAsesor.setVisible(true);
+            } else {
+                // De lo contrario mostrar la vista del administrador
+            }
+        } else {
+            // En caso de no encontrar nada mostrar nada o decir que no se puede ingresar
+        }
+    }//GEN-LAST:event_jbtInicioSesionActionPerformed
+
+    private void jTFNombreUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFNombreUsuarioMouseClicked
+        if (primeraVezUsuario) {
+            jTFNombreUsuario.setText(""); // Limpia el contenido
+            primeraVezUsuario = false; // Marca que ya fue limpiado una vez
+        }
+    }//GEN-LAST:event_jTFNombreUsuarioMouseClicked
+
+    private void jPFContraseñaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPFContraseñaMouseClicked
+        if (primeraVezContra) {
+            jPFContraseña.setText(""); // Limpia el contenido
+            primeraVezContra = false; // Marca que ya fue limpiado una vez
+        }
+    }//GEN-LAST:event_jPFContraseñaMouseClicked
+
+    private void jTFNombreUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFNombreUsuarioKeyTyped
+        char caracter = evt.getKeyChar();
+        // Permitir números y el carácter de retroceso
+        if (!(Character.isDigit(caracter) || Character.isISOControl(caracter))) {
+            evt.consume(); // Descartar el evento si no es un número
+        }
+    }//GEN-LAST:event_jTFNombreUsuarioKeyTyped
 
     /**
      * @param args the command line arguments
@@ -130,7 +202,6 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Fondo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLContraseña;
     private javax.swing.JLabel jLIcono;
     private javax.swing.JLabel jLInicioSesion;
@@ -140,5 +211,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLusuario;
     private javax.swing.JPasswordField jPFContraseña;
     private javax.swing.JTextField jTFNombreUsuario;
+    private javax.swing.JButton jbtCrearAsesor;
+    private javax.swing.JButton jbtInicioSesion;
     // End of variables declaration//GEN-END:variables
 }
