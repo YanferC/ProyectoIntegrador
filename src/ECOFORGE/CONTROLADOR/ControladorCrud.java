@@ -8,7 +8,7 @@ package ECOFORGE.CONTROLADOR;
  *
  * @author YANFER
  */
-import ECOFORGE.MODELO.*;
+import ECOFORGE.MODELO.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
