@@ -160,6 +160,7 @@ public class datosClientes extends javax.swing.JFrame {
             // (Ya lo tienes implementado)
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+    
     public void cargarDatos(Integer numero_Identificacion, String nombre, String sisben, Integer subsidio_Ministerio,
             String direccion, String telefono, String correo) {
         jTextFieldCedula.setText(String.valueOf(numero_Identificacion));

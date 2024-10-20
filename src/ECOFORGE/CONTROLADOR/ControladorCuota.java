@@ -146,17 +146,30 @@ public class ControladorCuota {
     }
 
     public void llenarTablaCuotas(JTable tablaCuotas) {
-        DefaultTableModel modelo = new DefaultTableModel();
-
-        // Definir las columnas
-        modelo.addColumn("Id");
-        modelo.addColumn("Numero Cuota");
-        modelo.addColumn("Fecha Vencimiento");
-        modelo.addColumn("Monto Cuota");
-        modelo.addColumn("Estado Cuota");
-        modelo.addColumn("Asesor");
-        modelo.addColumn("Intereses");
+        /**
+         * DefaultTableModel modelo = new DefaultTableModel();
+         *
+         * // Definir las columnas modelo.addColumn("Id");
+         * modelo.addColumn("Numero Cuota"); modelo.addColumn("Fecha
+         * Vencimiento"); modelo.addColumn("Monto Cuota");
+         * modelo.addColumn("Estado Cuota"); modelo.addColumn("Asesor");
+         * modelo.addColumn("Intereses");
         modelo.addColumn("Venta");
+         */
+
+        // Crear el modelo de la tabla con las columnas definidas
+        DefaultTableModel modelo = new DefaultTableModel(
+                new String[]{
+                    "Id", "Numero Cuota", "Fecha Vencimiento",
+                    "Monto Cuota", "Estado Cuota", "Asesor",
+                    "Intereses", "Venta"
+                }, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;  // Bloquear edición de las celdas
+            }
+        };
 
         // Obtener todos las Cuotas
         List<Cuota> listaCuota = obtenerTodasLasCuotas();
