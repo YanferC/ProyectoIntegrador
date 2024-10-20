@@ -15,8 +15,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Asesor extends javax.swing.JFrame {
-    
+
     private ControladorCuota cuota;
+
     /**
      * Creates new form Asesor
      */
@@ -39,9 +40,9 @@ public class Asesor extends javax.swing.JFrame {
         jpFondo = new javax.swing.JPanel();
         jpEncabezado = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        jbtCerrarSesion = new javax.swing.JButton();
         jpInferior = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jbtVenta = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -60,12 +61,12 @@ public class Asesor extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("¡Bienvenido a EcoForge Asesor!");
 
-        jButton2.setBackground(new java.awt.Color(255, 188, 71));
-        jButton2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jButton2.setText("Cerrar Sesión");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jbtCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
+        jbtCerrarSesion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jbtCerrarSesion.setText("Cerrar Sesión");
+        jbtCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jbtCerrarSesionActionPerformed(evt);
             }
         });
 
@@ -77,22 +78,27 @@ public class Asesor extends javax.swing.JFrame {
                 .addGap(310, 310, 310)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(jbtCerrarSesion)
                 .addContainerGap())
         );
         jpEncabezadoLayout.setVerticalGroup(
             jpEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                .addComponent(jButton2))
+                .addComponent(jbtCerrarSesion))
         );
 
         jpFondo.add(jpEncabezado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 30));
 
         jpInferior.setBackground(new java.awt.Color(193, 65, 62));
 
-        jButton1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jButton1.setText("Vender");
+        jbtVenta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jbtVenta.setText("Venta");
+        jbtVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtVentaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpInferiorLayout = new javax.swing.GroupLayout(jpInferior);
         jpInferior.setLayout(jpInferiorLayout);
@@ -100,12 +106,12 @@ public class Asesor extends javax.swing.JFrame {
             jpInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpInferiorLayout.createSequentialGroup()
                 .addContainerGap(690, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbtVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jpInferiorLayout.setVerticalGroup(
             jpInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(jbtVenta, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         jpFondo.add(jpInferior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 790, 40));
@@ -131,9 +137,14 @@ public class Asesor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jbtCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCerrarSesionActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jbtCerrarSesionActionPerformed
+
+    private void jbtVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtVentaActionPerformed
+        Venta venta = new Venta(this);
+        venta.setVisible(true); 
+    }//GEN-LAST:event_jbtVentaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,11 +182,11 @@ public class Asesor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton jbtCerrarSesion;
+    private javax.swing.JButton jbtVenta;
     private javax.swing.JPanel jpEncabezado;
     private javax.swing.JPanel jpFondo;
     private javax.swing.JPanel jpInferior;

@@ -19,12 +19,12 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 
-public class ControladorCrud {
+public class ControladorCliente {
 
     private DatabaseConnection dbConnection;
     private Connection connection;
 
-    public ControladorCrud() {
+    public ControladorCliente() {
         dbConnection = new DatabaseConnection();
     }
 

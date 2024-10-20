@@ -24,7 +24,7 @@ public class ControladorProyecto {
     private DatabaseConnection dbConnection;
     private Connection connection;
 
-    public ControladorCrud() {
+    public ControladorProyecto() {
         dbConnection = new DatabaseConnection();
     }
 
