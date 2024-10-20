@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Proyectos extends javax.swing.JFrame {
 
-    private ControladorCrud controlador;
+    private ControladorProyecto controlador;
     private boolean isUpdating = false;
     
 
@@ -148,7 +148,7 @@ public class Proyectos extends javax.swing.JFrame {
 
         if (confirmacion == JOptionPane.YES_OPTION) {
             // Crear una instancia del controlador
-            ControladorCrud controlador = new ControladorCrud();
+            ControladorProyecto controlador = new ControladorProyecto();
 
             // Intentar eliminar el Proyecto
             if (controlador.eliminarProyecto(codigo_proyecto)) {
@@ -192,7 +192,7 @@ public class Proyectos extends javax.swing.JFrame {
         modelo.setRowCount(0); // Limpiar la tabla
 
         // Obtener todos los Proyectos y agregarlos a la tabla
-        ControladorCrud controlador = new ControladorCrud();
+        ControladorProyecto controlador = new ControladorProyecto();
         List<Proyecto> listaProyectos = controlador.obtenerTodosLosProyectos();
 
         for (Proyecto proyecto : listaProyectos) {

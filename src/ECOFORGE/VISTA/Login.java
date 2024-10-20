@@ -9,11 +9,13 @@ package ECOFORGE.VISTA;
  * @author YANFER
  */
 import ECOFORGE.CONTROLADOR.ControladorAsesor;
+import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
 
 public class Login extends javax.swing.JFrame {
 
     private ControladorAsesor asesor;
     private boolean primeraVezUsuario = true, primeraVezContra = true; // Controlar si es la primera vez que se hace clic
+    ControladorCajaTexto controladorCT = new ControladorCajaTexto();
 
     /**
      * Creates new form Login
@@ -158,11 +160,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jPFContraseñaMouseClicked
 
     private void jTFNombreUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFNombreUsuarioKeyTyped
-        char caracter = evt.getKeyChar();
-        // Permitir números y el carácter de retroceso
-        if (!(Character.isDigit(caracter) || Character.isISOControl(caracter))) {
-            evt.consume(); // Descartar el evento si no es un número
-        }
+        controladorCT.soloNumeros(evt);
     }//GEN-LAST:event_jTFNombreUsuarioKeyTyped
 
     /**

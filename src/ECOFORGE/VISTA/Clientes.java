@@ -8,7 +8,7 @@ package ECOFORGE.VISTA;
  *
  * @author YANFER
  */
-import ECOFORGE.CONTROLADOR.ControladorCrud;
+import ECOFORGE.CONTROLADOR.ControladorCliente;
 import ECOFORGE.MODELO.Cliente;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Clientes extends javax.swing.JFrame {
 
-    private ControladorCrud controlador;
+    private ControladorCliente controlador;
     private boolean isUpdating = false;
     private String cedulaClienteActual;
     
@@ -26,7 +26,7 @@ public class Clientes extends javax.swing.JFrame {
      */
     public Clientes() {
         initComponents();
-        controlador = new ControladorCrud();
+        controlador = new ControladorCliente();
         controlador.conectar();
         controlador.llenarTablaClientes(jTable1);
         
@@ -152,7 +152,7 @@ public class Clientes extends javax.swing.JFrame {
 
         if (confirmacion == JOptionPane.YES_OPTION) {
             // Crear una instancia del controlador
-            ControladorCrud controlador = new ControladorCrud();
+            ControladorCliente controlador = new ControladorCliente();
 
             // Intentar eliminar el cliente
             if (controlador.eliminarCliente(numero_Identificacion)) {
@@ -201,7 +201,7 @@ public class Clientes extends javax.swing.JFrame {
         modelo.setRowCount(0); // Limpiar la tabla
 
         // Obtener todos los clientes y agregarlos a la tabla
-        ControladorCrud controlador = new ControladorCrud();
+        ControladorCliente controlador = new ControladorCliente();
         List<Cliente> listaClientes = controlador.obtenerTodosLosClientes();
 
         for (Cliente cliente : listaClientes) {
