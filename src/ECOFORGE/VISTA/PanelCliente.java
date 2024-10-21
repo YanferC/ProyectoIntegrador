@@ -174,7 +174,7 @@ public class PanelCliente extends javax.swing.JPanel {
 
     private void jbtAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAgregarActionPerformed
         // Obtener datos de los campos de texto
-        Integer numero_Identificacion = Integer.parseInt(jtfNumeroIdentificacion.getText());
+        String numero_Identificacion = jtfNumeroIdentificacion.getText();
         String nombreCompleto = jtfNombreCompleto.getText();
         String sisben = jtfSisben.getText();
         Integer subsidio_Ministerio = Integer.parseInt(jtfSubsidio_Ministerio.getText());

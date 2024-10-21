@@ -142,7 +142,7 @@ public class Asesor extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtCerrarSesionActionPerformed
 
     private void jbtVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtVentaActionPerformed
-        Venta venta = new Venta(this);
+        VentaVista venta = new VentaVista(this);
         venta.setVisible(true); 
     }//GEN-LAST:event_jbtVentaActionPerformed
 

@@ -37,7 +37,7 @@ public class ControladorCliente {
         String sql = "INSERT INTO cliente (numero_Identificacion, nombre_completo, sisben, subsidio_Ministerio, direccion, telefono, correo_electronico) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, cliente.getNumero_Identificacion());
+            statement.setString(1, cliente.getNumero_Identificacion());
             statement.setString(2, cliente.getNombreCompleto());
             statement.setString(3, cliente.getSisben());
             statement.setInt(4, cliente.getSubsidio_Ministerio());
@@ -64,7 +64,7 @@ public class ControladorCliente {
 
             if (resultSet.next()) {
                 cliente = new Cliente(
-                        resultSet.getInt("numero_Identificacion"),
+                        resultSet.getString("numero_Identificacion"),
                         resultSet.getString("nombre_completo"),
                         resultSet.getString("sisben"),
                         resultSet.getInt("subsidio_Ministerio"),
@@ -91,7 +91,7 @@ public class ControladorCliente {
             statement.setString(4, cliente.getDireccion());
             statement.setString(5, cliente.getTelefono());
             statement.setString(6, cliente.getCorreoElectronico());
-            statement.setInt(7, cliente.getNumero_Identificacion());
+            statement.setString(7, cliente.getNumero_Identificacion());
 
             int rowsUpdated = statement.executeUpdate();
             return rowsUpdated > 0;
@@ -124,7 +124,7 @@ public class ControladorCliente {
 
             while (resultSet.next()) {
                 Cliente cliente = new Cliente(
-                        resultSet.getInt("numero_Identificacion"),
+                        resultSet.getString("numero_Identificacion"),
                         resultSet.getString("nombre_completo"),
                         resultSet.getString("sisben"),
                         resultSet.getInt("subsidio_Ministerio"),
