@@ -202,7 +202,7 @@ public class PanelVenta extends javax.swing.JPanel {
 
     private void jbtAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAgregarActionPerformed
        /** // Obtener datos de los campos de texto
-        Integer numero_Identificacion = Integer.parseInt(jtfIdVenta.getText());
+        String numero_Identificacion = jtfIdVenta.getText();
         String nombreCompleto = jtfPrecioTotalVenta.getText();
         String sisben = jTextFieldSisben.getText();
         Integer subsidio_Ministerio = Integer.parseInt(jTextSubsidio_Ministerio.getText());

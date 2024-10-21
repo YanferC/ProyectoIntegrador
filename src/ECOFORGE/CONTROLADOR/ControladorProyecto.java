@@ -39,7 +39,7 @@ public class ControladorProyecto {
         String sql = "INSERT INTO proyecto (codigo_proyecto, nombre_proyecto) VALUES (?, ?)";
         try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, proyecto.getCodigo_proyecto());
+            statement.setString(1, proyecto.getCodigo_proyecto());
             statement.setString(2, proyecto.getNombre_proyecto());
 
             int rowsInserted = statement.executeUpdate();
@@ -61,7 +61,7 @@ public class ControladorProyecto {
 
             if (resultSet.next()) {
                 Proyecto = new Proyecto(
-                    resultSet.getInt("codigo_proyecto"),
+                    resultSet.getString("codigo_proyecto"),
                     resultSet.getString("nombre_proyecto")
                 );
             }
@@ -77,7 +77,7 @@ public class ControladorProyecto {
         try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, Proyecto.getNombre_proyecto());
-            statement.setInt(2, Proyecto.getCodigo_proyecto());
+            statement.setString(2, Proyecto.getCodigo_proyecto());
 
             int rowsUpdated = statement.executeUpdate();
             return rowsUpdated > 0;
@@ -110,7 +110,7 @@ public class ControladorProyecto {
 
             while (resultSet.next()) {
                 Proyecto proyecto = new Proyecto(
-                        resultSet.getInt("codigo_proyecto"),
+                        resultSet.getString("codigo_proyecto"),
                         resultSet.getString("nombre_proyecto")
                 );
                 listaProyecto.add(proyecto);

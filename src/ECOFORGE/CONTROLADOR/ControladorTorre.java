@@ -39,7 +39,7 @@ public class ControladorTorre {
 
             statement.setInt(1, torre.getNumero_torre());
             statement.setInt(2, torre.getNumero_pisos());
-            statement.setInt(3, torre.getCodigo_proyecto());
+            statement.setString(3, torre.getCodigo_proyecto());
 
             int rowsInserted = statement.executeUpdate();
             return rowsInserted > 0;
@@ -62,7 +62,7 @@ public class ControladorTorre {
                 torre = new Torre(
                         resultSet.getInt("numero_torre"),
                         resultSet.getInt("numero_pisos"),
-                        resultSet.getInt("codigo_proyecto")
+                        resultSet.getString("codigo_proyecto")
                 );
             }
         } catch (SQLException e) {
@@ -78,7 +78,7 @@ public class ControladorTorre {
 
             statement.setInt(1, Torre.getNumero_torre());
             statement.setInt(2, Torre.getNumero_pisos());
-            statement.setInt(3, Torre.getCodigo_proyecto());
+            statement.setString(3, Torre.getCodigo_proyecto());
 
             int rowsUpdated = statement.executeUpdate();
             return rowsUpdated > 0;
@@ -114,7 +114,7 @@ public class ControladorTorre {
                 Torre Torre = new Torre(
                         resultSet.getInt("numero_torre"),
                         resultSet.getInt("numero_pisos"),
-                        resultSet.getInt("codigo_proyecto")
+                        resultSet.getString("codigo_proyecto")
                 );
                 listaTorres.add(Torre);
             }
@@ -159,7 +159,7 @@ public class ControladorTorre {
                 Torre Torre = new Torre(
                         resultSet.getInt("numero_torre"),
                         resultSet.getInt("numero_pisos"),
-                        resultSet.getInt("codigo_proyecto")
+                        resultSet.getString("codigo_proyecto")
                 );
                 listaTorres.add(Torre);
             }

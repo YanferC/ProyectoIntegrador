@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ECOFORGE.MODELO;
+package ECOFORGE.CONTROLADOR;
 
 /**
  *
  * @author YANFER
  */
-public class Tipo_Rol {
+public class ControladorAsesor_Venta {
     
 }

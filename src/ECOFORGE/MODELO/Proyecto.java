@@ -9,19 +9,19 @@ package ECOFORGE.MODELO;
  * @author ANDRES
  */
 public class Proyecto {
-    private Integer codigo_proyecto;
+    private String codigo_proyecto;
     private String nombre_proyecto;
 
-    public Proyecto(Integer codigo_proyecto, String nombre_proyecto) {
+    public Proyecto(String codigo_proyecto, String nombre_proyecto) {
         this.codigo_proyecto = codigo_proyecto;
         this.nombre_proyecto = nombre_proyecto;
     }
 
-    public Integer getCodigo_proyecto() {
+    public String getCodigo_proyecto() {
         return codigo_proyecto;
     }
 
-    public void setCodigo_proyecto(Integer codigo_proyecto) {
+    public void setCodigo_proyecto(String codigo_proyecto) {
         this.codigo_proyecto = codigo_proyecto;
     }
 
