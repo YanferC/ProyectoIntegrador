@@ -46,7 +46,7 @@ public class ControladorCuota {
             statement.setDate(3, sqlDate);
             statement.setInt(4, cuota.getMonto_Cuota());
             statement.setString(5, cuota.getEstado_Cuota());
-            statement.setInt(6, cuota.getNumero_Asesor());
+            statement.setString(6, cuota.getNumero_Asesor());
             statement.setInt(7, cuota.getIntereses());
             statement.setInt(8, cuota.getId_Venta());
 
@@ -74,7 +74,7 @@ public class ControladorCuota {
                         resultSet.getDate("fecha_Vencimiento"),
                         resultSet.getInt("monto_Cuota"),
                         resultSet.getString("estado_Cuota"),
-                        resultSet.getInt("numero_Asesor"),
+                        resultSet.getString("numero_Iden_Ase"),
                         resultSet.getInt("intereses"),
                         resultSet.getInt("id_Venta")
                 );
@@ -133,7 +133,7 @@ public class ControladorCuota {
                         resultSet.getDate("fecha_Vencimiento"),
                         resultSet.getInt("monto_Cuota"),
                         resultSet.getString("estado_Cuota"),
-                        resultSet.getInt("numero_Asesor"),
+                        resultSet.getString("numero_Iden_Ase"),
                         resultSet.getInt("intereses"),
                         resultSet.getInt("id_Venta")
                 );

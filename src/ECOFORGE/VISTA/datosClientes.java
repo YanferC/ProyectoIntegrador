@@ -120,9 +120,10 @@ public class datosClientes extends javax.swing.JFrame {
         String correo = jTextFieldCorreo.getText();
 
         // Crear un objeto Cliente
-        Cliente nuevoCliente = new Cliente(numero_Identificacion, nombreCompleto, sisben, subsidio_Ministerio,direccion, telefono, correo);
+        //Cliente nuevoCliente = new Cliente(numero_Identificacion, nombreCompleto, sisben, subsidio_Ministerio,direccion, telefono, correo);
 
         // Agregar cliente utilizando el controlador
+       /**
         if (controlador.crearCliente(nuevoCliente)) {
             JOptionPane.showMessageDialog(this, "Cliente agregado exitosamente.");
 
@@ -132,11 +133,11 @@ public class datosClientes extends javax.swing.JFrame {
             this.dispose(); // Cerrar el formulario
         } else {
             JOptionPane.showMessageDialog(this, "Error al agregar cliente.");
-        }
+        }*/
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (isModoActualizar) {
+        /**if (isModoActualizar) {
             // Código para actualizar el cliente
             Integer numero_Identificacion = Integer.parseInt(jTextFieldCedula.getText());
             String nombreCompleto = jTextFieldNombreCompleto.getText();
@@ -158,7 +159,7 @@ public class datosClientes extends javax.swing.JFrame {
         } else {
             // Código para agregar un nuevo cliente
             // (Ya lo tienes implementado)
-        }        // TODO add your handling code here:
+        }        // TODO add your handling code here:*/
     }//GEN-LAST:event_jButton2ActionPerformed
     
     public void cargarDatos(Integer numero_Identificacion, String nombre, String sisben, Integer subsidio_Ministerio,

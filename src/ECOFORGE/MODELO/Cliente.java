@@ -10,7 +10,7 @@ package ECOFORGE.MODELO;
  */
 public class Cliente {
 
-    private Integer numero_Identificacion;
+    private String numero_Identificacion;
     private String nombreCompleto;
     private String sisben;
     private Integer subsidio_Ministerio;
@@ -19,7 +19,7 @@ public class Cliente {
     private String correoElectronico;
 
     // Constructor
-    public Cliente(Integer numero_Identificacion, String nombreCompleto, String sisben,Integer subsidio_Ministerio ,String direccion, String telefono, String correoElectronico) {
+    public Cliente(String numero_Identificacion, String nombreCompleto, String sisben,Integer subsidio_Ministerio ,String direccion, String telefono, String correoElectronico) {
         this.numero_Identificacion = numero_Identificacion;
         this.nombreCompleto = nombreCompleto;
         this.sisben = sisben;
@@ -30,11 +30,11 @@ public class Cliente {
     }
 
     // Getters y Setters
-    public Integer getNumero_Identificacion() {
+    public String getNumero_Identificacion() {
         return numero_Identificacion;
     }
 
-    public void setNumero_Identificacion(Integer numero_Identificacion) {
+    public void setNumero_Identificacion(String numero_Identificacion) {
         this.numero_Identificacion = numero_Identificacion;
     }
 

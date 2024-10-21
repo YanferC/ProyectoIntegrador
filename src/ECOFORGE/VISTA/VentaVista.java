@@ -12,10 +12,10 @@ import javax.swing.SwingUtilities;
  *
  * @author YANFER
  */
-public class Venta extends javax.swing.JFrame {
+public class VentaVista extends javax.swing.JFrame {
 
     /**
-     * Creates new form Venta
+     * Creates new form VentaVista
      */
     PanelCliente agregarCliente = new PanelCliente();
     CardLayout vistaAgregarCliente;
@@ -24,7 +24,7 @@ public class Venta extends javax.swing.JFrame {
 
     private Asesor formularioVentas;
 
-    public Venta(Asesor formularioVentas) {
+    public VentaVista(Asesor formularioVentas) {
         initComponents();
         this.formularioVentas = formularioVentas;
         vistaAgregarCliente = (CardLayout) agregarCliente.getLayout();
@@ -145,7 +145,7 @@ public class Venta extends javax.swing.JFrame {
 
     public void clienteAgregado() {
         jbtAgregarCliente.setEnabled(false); // Deshabilitar Agregar Cliente
-        jbtRegistrarVenta.setEnabled(true);   // Habilitar Registrar Venta
+        jbtRegistrarVenta.setEnabled(true);   // Habilitar Registrar VentaVista
         jbtRegistrarVentaActionPerformed(null);
     }
 
@@ -176,20 +176,21 @@ public class Venta extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Venta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Venta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Venta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Venta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Venta(new Asesor()).setVisible(true);
+                new VentaVista(new Asesor()).setVisible(true);
             }
         });
     }
