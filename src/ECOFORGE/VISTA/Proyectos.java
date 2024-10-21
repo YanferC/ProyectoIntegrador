@@ -124,7 +124,7 @@ public class Proyectos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        datosProyecto agregarProyecto = new datosProyecto(this);
+        ProyectoVista agregarProyecto = new ProyectoVista(this);
         agregarProyecto.setVisible(true);  
         
         // TODO add your handling code here:
@@ -175,8 +175,8 @@ public class Proyectos extends javax.swing.JFrame {
         Integer codigo_proyecto = Integer.parseInt(jTable1.getValueAt(filaSeleccionada, 0).toString());
         String nombre_proyecto = jTable1.getValueAt(filaSeleccionada, 1).toString();
 
-        // Abrir el formulario datosProyecto y pasar los datos
-        datosProyecto actualizarProyecto = new datosProyecto(this);
+        // Abrir el formulario ProyectoVista y pasar los datos
+        ProyectoVista actualizarProyecto = new ProyectoVista(this);
         actualizarProyecto.setVisible(true);
 
         // Pasar los datos al formulario

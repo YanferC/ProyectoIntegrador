@@ -9,9 +9,10 @@ package ECOFORGE.MODELO;
  * @author YANFER
  */
 public class Torre {
-    private Integer numero_torre, numero_pisos, codigo_proyecto;
+    private Integer numero_torre, numero_pisos;
+    private String codigo_proyecto;
 
-    public Torre(Integer numero_torre, Integer numero_pisos, Integer codigo_proyecto){
+    public Torre(Integer numero_torre, Integer numero_pisos, String codigo_proyecto){
         this.numero_torre = numero_torre;
         this.numero_pisos = numero_pisos;
         this.codigo_proyecto = codigo_proyecto;
@@ -33,11 +34,11 @@ public class Torre {
         this.numero_pisos = numero_pisos;
     }
 
-    public Integer getCodigo_proyecto() {
+    public String getCodigo_proyecto() {
         return codigo_proyecto;
     }
 
-    public void setCodigo_proyecto(Integer codigo_proyecto) {
+    public void setCodigo_proyecto(String codigo_proyecto) {
         this.codigo_proyecto = codigo_proyecto;
     }
     
