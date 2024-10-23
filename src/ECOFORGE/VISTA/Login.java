@@ -62,7 +62,7 @@ public class Login extends javax.swing.JFrame {
 
         jLInicioSesion.setFont(new java.awt.Font("Roboto Bk", 0, 36)); // NOI18N
         jLInicioSesion.setText("INICIAR SESIÓN");
-        Fondo.add(jLInicioSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 270, 60));
+        Fondo.add(jLInicioSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 280, 60));
 
         jLusuario.setFont(new java.awt.Font("Roboto Lt", 1, 14)); // NOI18N
         jLusuario.setText("USUARIO");

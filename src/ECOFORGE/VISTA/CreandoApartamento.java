@@ -5,6 +5,13 @@
 package ECOFORGE.VISTA;
 
 import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
+import java.util.List;
+import ECOFORGE.CONTROLADOR.ControladorTorre;
+import ECOFORGE.MODELO.Torre;
+import ECOFORGE.CONTROLADOR.ControladorApartamento;
+import javax.swing.*;
+import java.awt.event.ActionListener;
+import ECOFORGE.MODELO.Apartamento;
 
 /**
  *
@@ -13,13 +20,59 @@ import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
 public class CreandoApartamento extends javax.swing.JFrame {
 
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
+    ControladorTorre controladorTorre = new ControladorTorre();
+    ControladorApartamento controladorApartamento = new ControladorApartamento();
 
     /**
-     * Creates new form CreandoApartamento_ll
+     * Creates new form CreandoApartamento
      */
     public CreandoApartamento() {
         initComponents();
-        
+        cargarTorres();
+
+        jbtnAgregar.addActionListener(e -> guardarApartamento());
+
+    }
+
+    private void guardarApartamento() {
+        try {
+
+            int numeroApartamento = Integer.parseInt(jtfNumeroApartamento.getText());
+            int valorApartamento = Integer.parseInt(jtfValorApartamento.getText());
+            String tipoInmueble = jtfTipoInmueble.getText();
+            int area = Integer.parseInt(jtfArea.getText());
+            //Obtener el numero de la torre como String y convertirlo a integer
+            String numeroTorreString = (String) jcbNumeroTorre.getSelectedItem();
+            Integer numeroTorre = Integer.parseInt(numeroTorreString);
+
+            //Creamos un objeto apartamento
+            Apartamento apartamento = new Apartamento(numeroApartamento, valorApartamento, tipoInmueble, area, numeroTorre);
+            controladorApartamento.conectar(); //conectamos a la base de datos
+
+            //Llamamos al metodo para guardar el apartamento
+            boolean guardado = controladorApartamento.crearApartamento(apartamento);
+
+            //Verificar si si se guardo correctamente
+            if (guardado) {
+                JOptionPane.showMessageDialog(this, "Apartamento guardado exitosamente.", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al guardar el apartamento.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores validos.", "Error de formto", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void cargarTorres() {
+        jcbNumeroTorre.removeAllItems();
+        List<Torre> torres = controladorTorre.obtenerTodosLosTorres();
+
+        for (Torre torre : torres) {
+            jcbNumeroTorre.addItem(String.valueOf(torre.getNumero_torre()));
+        }
     }
 
     /**
@@ -34,10 +87,11 @@ public class CreandoApartamento extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jbtnAgregar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jtfArea = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jtfTipoApartamento = new javax.swing.JTextField();
+        jtfTipoInmueble = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtNumeroTorre = new javax.swing.JLabel();
         jtfValorApartamento = new javax.swing.JTextField();
@@ -65,21 +119,27 @@ public class CreandoApartamento extends javax.swing.JFrame {
         jbtnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jbtnAgregar.setText("Agregar");
 
+        jButton1.setText("Actualizar");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(164, 164, 164)
+                .addGap(76, 76, 76)
                 .addComponent(jbtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addGap(95, 95, 95)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jbtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(14, 14, 14)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 430, -1));
@@ -99,17 +159,17 @@ public class CreandoApartamento extends javax.swing.JFrame {
         jLabel5.setText("Area m²");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 54, -1));
 
-        jtfTipoApartamento.addActionListener(new java.awt.event.ActionListener() {
+        jtfTipoInmueble.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfTipoApartamentoActionPerformed(evt);
+                jtfTipoInmuebleActionPerformed(evt);
             }
         });
-        jtfTipoApartamento.addKeyListener(new java.awt.event.KeyAdapter() {
+        jtfTipoInmueble.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtfTipoApartamentoKeyTyped(evt);
+                jtfTipoInmuebleKeyTyped(evt);
             }
         });
-        jPanel4.add(jtfTipoApartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 207, 145, 30));
+        jPanel4.add(jtfTipoInmueble, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 207, 145, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Tipo Inmueble");
@@ -142,6 +202,11 @@ public class CreandoApartamento extends javax.swing.JFrame {
         jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
 
         jcbNumeroTorre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbNumeroTorre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbNumeroTorreActionPerformed(evt);
+            }
+        });
         jPanel4.add(jcbNumeroTorre, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 322, 90, 30));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 434, 390));
@@ -156,6 +221,11 @@ public class CreandoApartamento extends javax.swing.JFrame {
 
         jbtCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
         jbtCerrarSesion.setText("Cerrar Sesión");
+        jbtCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtCerrarSesionActionPerformed(evt);
+            }
+        });
 
         jbtEcharAtras.setBackground(new java.awt.Color(255, 188, 71));
         jbtEcharAtras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -201,15 +271,15 @@ public class CreandoApartamento extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtfTipoApartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfTipoApartamentoActionPerformed
+    private void jtfTipoInmuebleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfTipoInmuebleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jtfTipoApartamentoActionPerformed
+    }//GEN-LAST:event_jtfTipoInmuebleActionPerformed
 
     private void jbtEcharAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEcharAtrasActionPerformed
         ApartamentoVista newframe = new ApartamentoVista();
         newframe.setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_jbtEcharAtrasActionPerformed
 
     private void jtfNumeroApartamentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNumeroApartamentoKeyTyped
@@ -220,13 +290,23 @@ public class CreandoApartamento extends javax.swing.JFrame {
         controladorCT.soloNumeros(evt);
     }//GEN-LAST:event_jtfValorApartamentoKeyTyped
 
-    private void jtfTipoApartamentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTipoApartamentoKeyTyped
+    private void jtfTipoInmuebleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTipoInmuebleKeyTyped
         controladorCT.soloLetras(evt);
-    }//GEN-LAST:event_jtfTipoApartamentoKeyTyped
+    }//GEN-LAST:event_jtfTipoInmuebleKeyTyped
 
     private void jtfAreaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfAreaKeyTyped
         controladorCT.soloNumeros(evt);
     }//GEN-LAST:event_jtfAreaKeyTyped
+
+    private void jbtCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCerrarSesionActionPerformed
+        Login newframe = new Login();
+        newframe.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jbtCerrarSesionActionPerformed
+
+    private void jcbNumeroTorreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbNumeroTorreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbNumeroTorreActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,6 +345,7 @@ public class CreandoApartamento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -281,7 +362,7 @@ public class CreandoApartamento extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jcbNumeroTorre;
     private javax.swing.JTextField jtfArea;
     private javax.swing.JTextField jtfNumeroApartamento;
-    private javax.swing.JTextField jtfTipoApartamento;
+    private javax.swing.JTextField jtfTipoInmueble;
     private javax.swing.JTextField jtfValorApartamento;
     private javax.swing.JLabel txtNumeroTorre;
     // End of variables declaration//GEN-END:variables

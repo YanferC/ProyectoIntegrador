@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package ECOFORGE.VISTA;
-
+import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
 /**
  *
  * @author YANFER
@@ -17,6 +17,7 @@ public class ProyectoVista extends javax.swing.JFrame {
     private ControladorProyecto controlador;
     private boolean isModoActualizar = false;
     private Proyectos formularioProyecto;
+    ControladorCajaTexto controladorCT = new ControladorCajaTexto();
 
     /**
      * Creates new form datosProyecto
@@ -37,36 +38,104 @@ public class ProyectoVista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jbtCerrarSesion = new javax.swing.JButton();
+        jbtEcharAtras = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
         jTextFieldCodProyecto = new javax.swing.JTextField();
         jTextFieldNombreProyecto = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Datos del Cliente");
+        setLocationByPlatform(true);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 92, -1, -1));
-        getContentPane().add(jTextFieldCodProyecto, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 171, -1));
-        getContentPane().add(jTextFieldNombreProyecto, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, 192, -1));
+        jPanel2.setBackground(new java.awt.Color(108, 93, 71));
 
-        jLabel1.setText("Codigo");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 46, -1));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Creando proyecto ");
 
-        jLabel2.setText("Nombre");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, 102, -1));
-
-        jButton1.setText("Guardar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbtCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
+        jbtCerrarSesion.setText("Cerrar Sesión");
+        jbtCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbtCerrarSesionActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, 75, -1));
+
+        jbtEcharAtras.setBackground(new java.awt.Color(255, 188, 71));
+        jbtEcharAtras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jbtEcharAtras.setText("Echar Pa' Atrás");
+        jbtEcharAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtEcharAtrasActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jbtEcharAtras)
+                .addGap(40, 40, 40)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbtCerrarSesion)
+                .addGap(33, 33, 33))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbtCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbtEcharAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 50));
+
+        jPanel5.setBackground(new java.awt.Color(175, 229, 239));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTextFieldCodProyecto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldCodProyectoKeyTyped(evt);
+            }
+        });
+        jPanel5.add(jTextFieldCodProyecto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 190, 30));
+
+        jTextFieldNombreProyecto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldNombreProyectoKeyTyped(evt);
+            }
+        });
+        jPanel5.add(jTextFieldNombreProyecto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 190, 30));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Codigo");
+        jPanel5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 60, -1));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setText("Nombre");
+        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 102, 20));
+
+        jPanel6.setBackground(new java.awt.Color(193, 65, 62));
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton2.setText("Actualizar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -74,7 +143,19 @@ public class ProyectoVista extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 300, 99, -1));
+        jPanel6.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 100, 40));
+
+        jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 90, 40));
+
+        jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 510, 70));
+
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 510, 330));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -120,6 +201,27 @@ public class ProyectoVista extends javax.swing.JFrame {
             // (Ya lo tienes implementado)
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jbtCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCerrarSesionActionPerformed
+        Login newframe = new Login();
+        newframe.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jbtCerrarSesionActionPerformed
+
+    private void jbtEcharAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEcharAtrasActionPerformed
+        ApartamentoVista newframe = new ApartamentoVista();
+        newframe.setVisible(true);
+        this.dispose();
+
+    }//GEN-LAST:event_jbtEcharAtrasActionPerformed
+
+    private void jTextFieldNombreProyectoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreProyectoKeyTyped
+        controladorCT.soloLetras(evt);
+    }//GEN-LAST:event_jTextFieldNombreProyectoKeyTyped
+
+    private void jTextFieldCodProyectoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodProyectoKeyTyped
+        
+    }//GEN-LAST:event_jTextFieldCodProyectoKeyTyped
     public void cargarDatos(Integer codigo_proyecto, String nombre_proyecto) {
         jTextFieldCodProyecto.setText(String.valueOf(codigo_proyecto));
         jTextFieldNombreProyecto.setText(nombre_proyecto);
@@ -187,8 +289,13 @@ public class ProyectoVista extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JTextField jTextFieldCodProyecto;
     private javax.swing.JTextField jTextFieldNombreProyecto;
+    private javax.swing.JButton jbtCerrarSesion;
+    private javax.swing.JButton jbtEcharAtras;
     // End of variables declaration//GEN-END:variables
 }

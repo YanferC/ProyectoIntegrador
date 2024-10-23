@@ -57,7 +57,7 @@ public class ApartamentoVista extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Numero Apartamento", "Valor Apartamento", "Tipo Inmueble", "Area", "Numero torre"
+                "Numero Apartamento", "Valor Apartamento", "Tipo Inmueble", "Area m²", "Numero torre"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -132,6 +132,11 @@ public class ApartamentoVista extends javax.swing.JFrame {
 
         jbtnCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
         jbtnCerrarSesion.setText("Cerrar Sesión");
+        jbtnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnCerrarSesionActionPerformed(evt);
+            }
+        });
         jPanel2.add(jbtnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 6, -1, 31));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 50));
@@ -148,6 +153,12 @@ public class ApartamentoVista extends javax.swing.JFrame {
         newframe.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jbtnAgregarActionPerformed
+
+    private void jbtnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCerrarSesionActionPerformed
+        Login newframe = new Login();
+        newframe.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jbtnCerrarSesionActionPerformed
 
     /**
      * @param args the command line arguments
