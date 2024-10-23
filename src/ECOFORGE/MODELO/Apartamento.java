@@ -64,5 +64,4 @@ public class Apartamento { //Declaramos las variables//
     }
     
     
-    
 }
