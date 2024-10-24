@@ -11,6 +11,7 @@ import ECOFORGE.CONTROLADOR.ControladorApartamento;
 public class ApartamentoVista extends javax.swing.JFrame {
     
     private ControladorApartamento apartamento;
+    private  CreandoApartamento creandoApartamento;
     /**
      * Creates new form ApartamentoVista
      */
@@ -19,8 +20,19 @@ public class ApartamentoVista extends javax.swing.JFrame {
         apartamento = new ControladorApartamento();
         apartamento.conectar();
         apartamento.llenarTablaApartamentos(jtbTablaApartamento);
+        
+        creandoApartamento = new CreandoApartamento();
+        
     }
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -145,7 +157,8 @@ public class ApartamentoVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActualizarActionPerformed
-        // TODO add your handling code here:
+       
+        
     }//GEN-LAST:event_jbtnActualizarActionPerformed
 
     private void jbtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAgregarActionPerformed
