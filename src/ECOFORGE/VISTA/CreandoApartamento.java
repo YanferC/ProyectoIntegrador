@@ -31,10 +31,12 @@ public class CreandoApartamento extends javax.swing.JFrame {
         cargarTorres();
 
         jbtnAgregar.addActionListener(e -> guardarApartamento());
+        
+        
 
     }
 
-    private void guardarApartamento() {
+    public void guardarApartamento() {
         try {
 
             int numeroApartamento = Integer.parseInt(jtfNumeroApartamento.getText());
@@ -75,6 +77,8 @@ public class CreandoApartamento extends javax.swing.JFrame {
         }
     }
 
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -87,7 +91,6 @@ public class CreandoApartamento extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jbtnAgregar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jtfArea = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -118,28 +121,27 @@ public class CreandoApartamento extends javax.swing.JFrame {
 
         jbtnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jbtnAgregar.setText("Agregar");
-
-        jButton1.setText("Actualizar");
+        jbtnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnAgregarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(76, 76, 76)
+                .addGap(156, 156, 156)
                 .addComponent(jbtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(95, 95, 95)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(186, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addComponent(jbtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 430, -1));
@@ -308,6 +310,10 @@ public class CreandoApartamento extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbNumeroTorreActionPerformed
 
+    private void jbtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAgregarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtnAgregarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -345,7 +351,6 @@ public class CreandoApartamento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
