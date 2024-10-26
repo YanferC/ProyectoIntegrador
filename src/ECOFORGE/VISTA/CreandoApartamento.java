@@ -3,12 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package ECOFORGE.VISTA;
+import javax.swing.JOptionPane;
 
 import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
 import java.util.List;
 import ECOFORGE.CONTROLADOR.ControladorTorre;
 import ECOFORGE.MODELO.Torre;
 import ECOFORGE.CONTROLADOR.ControladorApartamento;
+import ECOFORGE.CONTROLADOR.ControladorUtilidades;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import ECOFORGE.MODELO.Apartamento;
@@ -22,15 +24,19 @@ public class CreandoApartamento extends javax.swing.JFrame {
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
     ControladorTorre controladorTorre = new ControladorTorre();
     ControladorApartamento controladorApartamento = new ControladorApartamento();
-
-    /**
+    
+    
+    /** 
      * Creates new form CreandoApartamento
      */
     public CreandoApartamento() {
         initComponents();
         cargarTorres();
+        ControladorUtilidades.centrarVentana(this);
 
         jbtnAgregar.addActionListener(e -> guardarApartamento());
+        
+        
         
         
 
@@ -57,6 +63,8 @@ public class CreandoApartamento extends javax.swing.JFrame {
             //Verificar si si se guardo correctamente
             if (guardado) {
                 JOptionPane.showMessageDialog(this, "Apartamento guardado exitosamente.", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                ApartamentoVista apartamentoVista = new ApartamentoVista(); 
+                apartamentoVista.setVisible(true);
                 this.dispose();
 
             } else {
@@ -77,6 +85,41 @@ public class CreandoApartamento extends javax.swing.JFrame {
         }
     }
 
+    
+    public void actualizarApartamento() {
+        try {
+
+            int numeroApartamento = Integer.parseInt(jtfNumeroApartamento.getText());
+            int valorApartamento = Integer.parseInt(jtfValorApartamento.getText());
+            String tipoInmueble = jtfTipoInmueble.getText();
+            int area = Integer.parseInt(jtfArea.getText());
+            //Obtener el numero de la torre como String y convertirlo a integer
+            String numeroTorreString = (String) jcbNumeroTorre.getSelectedItem();
+            Integer numeroTorre = Integer.parseInt(numeroTorreString);
+
+            //Creamos un objeto apartamento
+            Apartamento apartamento = new Apartamento(numeroApartamento, valorApartamento, tipoInmueble, area, numeroTorre);
+            controladorApartamento.conectar(); //conectamos a la base de datos
+
+            //Llamamos al metodo para guardar el apartamento
+            boolean actualizado = controladorApartamento.actualizarApartamento(apartamento);
+
+            //Verificar si si se guardo correctamente
+            if (actualizado) {
+                JOptionPane.showMessageDialog(this, "Apartamento actualizado exitosamente.", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al actualizar el apartamento.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores validos.", "Error de formto", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    
+    
     
 
     /**

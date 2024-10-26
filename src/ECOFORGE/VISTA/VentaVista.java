@@ -29,6 +29,8 @@ public class VentaVista extends javax.swing.JFrame {
         this.formularioVentas = formularioVentas;
         vistaAgregarCliente = (CardLayout) agregarCliente.getLayout();
         vistaAgregarVenta = (CardLayout) agregarVenta.getLayout();
+        
+        
 
         // Inicializar el controlador de ventas
         ControladorVentas controladorVentas = new ControladorVentas(this);

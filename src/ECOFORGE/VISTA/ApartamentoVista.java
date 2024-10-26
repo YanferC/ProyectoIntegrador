@@ -3,36 +3,49 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package ECOFORGE.VISTA;
+
 import ECOFORGE.CONTROLADOR.ControladorApartamento;
+import ECOFORGE.CONTROLADOR.ControladorUtilidades;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JOptionPane;
+import ECOFORGE.MODELO.Apartamento;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JTable;
+import ECOFORGE.VISTA.CreandoApartamento;
+
 /**
  *
  * @author SEBASTIAN
  */
 public class ApartamentoVista extends javax.swing.JFrame {
+
+    private ControladorApartamento apartamento; //Controlador para gestionar la lógica de Apartamento
+    private CreandoApartamento creandoApartamento; // Ventana para crear nuevos apartamentos
     
-    private ControladorApartamento apartamento;
-    private  CreandoApartamento creandoApartamento;
+
     /**
-     * Creates new form ApartamentoVista
+     * Constructor que inicializa la vista de Apartamento.
      */
     public ApartamentoVista() {
-        initComponents();
-        apartamento = new ControladorApartamento();
-        apartamento.conectar();
-        apartamento.llenarTablaApartamentos(jtbTablaApartamento);
-        
-        creandoApartamento = new CreandoApartamento();
+
+        initComponents(); //Inicializa los componentes gráficos del JFrame
+        apartamento = new ControladorApartamento(); // Instancia el controlador de Apartamento
+        apartamento.conectar(); // Conecta el controlador a la base de datos o modelo
+        apartamento.llenarTablaApartamentos(jtbTablaApartamento); // Llena la tabla con datos de Apartamentos
+        ControladorUtilidades.centrarVentana(this); // Centra la ventana en la pantalla
+        jbtnActualizar.addActionListener(e -> actualizarApartamento());
+
         
     }
+
     
     
-    
-    
-    
-    
-    
-    
-    
+    public void actualizarApartamento() {
+        
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,6 +65,7 @@ public class ApartamentoVista extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jbtnCerrarSesion = new javax.swing.JButton();
+        jbtnEcharAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -96,6 +110,7 @@ public class ApartamentoVista extends javax.swing.JFrame {
 
         jbtnActualizar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jbtnActualizar.setText("Actualizar");
+        jbtnActualizar.setName(""); // NOI18N
         jbtnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnActualizarActionPerformed(evt);
@@ -139,8 +154,8 @@ public class ApartamentoVista extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("¡Bienvenido a EcoForge Administrador!");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 430, 43));
+        jLabel1.setText("Apartamento");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 160, 43));
 
         jbtnCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
         jbtnCerrarSesion.setText("Cerrar Sesión");
@@ -151,27 +166,42 @@ public class ApartamentoVista extends javax.swing.JFrame {
         });
         jPanel2.add(jbtnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 6, -1, 31));
 
+        jbtnEcharAtras.setBackground(new java.awt.Color(255, 188, 71));
+        jbtnEcharAtras.setText("Echar Pa' Atrás");
+        jbtnEcharAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnEcharAtrasActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jbtnEcharAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 110, 30));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 50));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActualizarActionPerformed
-       
-        
+
+
     }//GEN-LAST:event_jbtnActualizarActionPerformed
-
+    // Este método se ejecuta cuando se hace clic en el botón de agregar
     private void jbtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAgregarActionPerformed
-        CreandoApartamento newframe = new CreandoApartamento();
-        newframe.setVisible(true);
-        this.dispose();
+        CreandoApartamento newframe = new CreandoApartamento(); // Crea una nueva ventana para agregar un apartamento
+        newframe.setVisible(true); // Muestra la nueva ventana
+        this.dispose(); // Cierra la ventana actual
     }//GEN-LAST:event_jbtnAgregarActionPerformed
-
+    // Este método se ejecuta cuando se hace clic en el botón de cerrar sesión
     private void jbtnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCerrarSesionActionPerformed
         Login newframe = new Login();
         newframe.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jbtnCerrarSesionActionPerformed
+    // Este método se ejecuta cuando se hace clic en el botón de regresar
+    private void jbtnEcharAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEcharAtrasActionPerformed
+        DashBoard newframe = new DashBoard();
+        newframe.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jbtnEcharAtrasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -217,6 +247,7 @@ public class ApartamentoVista extends javax.swing.JFrame {
     private javax.swing.JButton jbtnActualizar;
     private javax.swing.JButton jbtnAgregar;
     private javax.swing.JButton jbtnCerrarSesion;
+    private javax.swing.JButton jbtnEcharAtras;
     private javax.swing.JButton jbtnEliminar;
     private javax.swing.JTable jtbTablaApartamento;
     // End of variables declaration//GEN-END:variables

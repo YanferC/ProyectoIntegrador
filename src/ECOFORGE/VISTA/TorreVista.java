@@ -3,18 +3,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package ECOFORGE.VISTA;
-
+import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
+import ECOFORGE.CONTROLADOR.ControladorUtilidades;
+import ECOFORGE.CONTROLADOR.ControladorVistaTorreProyecto;
 /**
  *
  * @author juans
  */
 public class TorreVista extends javax.swing.JFrame {
-
+    ControladorCajaTexto controladorCT = new ControladorCajaTexto();
+    
+    
     /**
      * Creates new form TorreVista
      */
     public TorreVista() {
         initComponents();
+        ControladorUtilidades.centrarVentana(this);
+        
+    }
+    
+    public void setCodigoProyecto(String codigo){
+        jtCodProyec.setText(codigo);
     }
 
     /**
@@ -29,18 +39,18 @@ public class TorreVista extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jbtCerrarSesion = new javax.swing.JButton();
-        jbtEcharAtras = new javax.swing.JButton();
+        jbtnCerrarSesion = new javax.swing.JButton();
+        jbtnEcharAtras = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jbtnAgregar = new javax.swing.JButton();
+        jbtnCancelar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jtNumPisos = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jtNumTorre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jtCodProyec = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -53,20 +63,20 @@ public class TorreVista extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Creando Torre ");
 
-        jbtCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
-        jbtCerrarSesion.setText("Cerrar Sesión");
-        jbtCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+        jbtnCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
+        jbtnCerrarSesion.setText("Cerrar Sesión");
+        jbtnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtCerrarSesionActionPerformed(evt);
+                jbtnCerrarSesionActionPerformed(evt);
             }
         });
 
-        jbtEcharAtras.setBackground(new java.awt.Color(255, 188, 71));
-        jbtEcharAtras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jbtEcharAtras.setText("Echar Pa' Atrás");
-        jbtEcharAtras.addActionListener(new java.awt.event.ActionListener() {
+        jbtnEcharAtras.setBackground(new java.awt.Color(255, 188, 71));
+        jbtnEcharAtras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jbtnEcharAtras.setText("Echar Pa' Atrás");
+        jbtnEcharAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtEcharAtrasActionPerformed(evt);
+                jbtnEcharAtrasActionPerformed(evt);
             }
         });
 
@@ -76,11 +86,11 @@ public class TorreVista extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jbtEcharAtras)
+                .addComponent(jbtnEcharAtras)
                 .addGap(40, 40, 40)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbtCerrarSesion)
+                .addComponent(jbtnCerrarSesion)
                 .addGap(33, 33, 33))
         );
         jPanel2Layout.setVerticalGroup(
@@ -89,35 +99,40 @@ public class TorreVista extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbtCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbtEcharAtras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jbtnCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtnEcharAtras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(193, 65, 62));
 
-        jButton1.setText("Agregar");
+        jbtnAgregar.setText("Agregar");
 
-        jButton2.setText("jButton2");
+        jbtnCancelar.setText("Cancelar");
+        jbtnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(98, 98, 98))
+                .addGap(117, 117, 117)
+                .addComponent(jbtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(95, 95, 95)
+                .addComponent(jbtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(13, 13, 13)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -126,19 +141,30 @@ public class TorreVista extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Numero Pisos");
 
+        jtNumPisos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtNumPisosKeyTyped(evt);
+            }
+        });
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Numero Torre");
 
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        jtNumTorre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField1KeyTyped(evt);
+                jtNumTorreKeyTyped(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Codigo Proyecto");
 
-        jTextField3.setEnabled(false);
+        jtCodProyec.setEnabled(false);
+        jtCodProyec.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtCodProyecKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -148,17 +174,17 @@ public class TorreVista extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtNumTorre, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtNumPisos, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(135, 135, 135)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtCodProyec, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -170,12 +196,12 @@ public class TorreVista extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtNumTorre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtNumPisos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(53, 53, 53)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtCodProyec, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -217,21 +243,36 @@ public class TorreVista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCerrarSesionActionPerformed
+    private void jbtnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCerrarSesionActionPerformed
         Login newframe = new Login();
         newframe.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jbtCerrarSesionActionPerformed
+    }//GEN-LAST:event_jbtnCerrarSesionActionPerformed
 
-    private void jbtEcharAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEcharAtrasActionPerformed
-        ApartamentoVista newframe = new ApartamentoVista();
+    private void jbtnEcharAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEcharAtrasActionPerformed
+        datosTorreVista newframe = new datosTorreVista();
         newframe.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jbtEcharAtrasActionPerformed
+    }//GEN-LAST:event_jbtnEcharAtrasActionPerformed
 
-    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+    private void jtNumTorreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNumTorreKeyTyped
+        controladorCT.soloNumeros(evt);
         
-    }//GEN-LAST:event_jTextField1KeyTyped
+    }//GEN-LAST:event_jtNumTorreKeyTyped
+
+    private void jtNumPisosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNumPisosKeyTyped
+        controladorCT.soloNumeros(evt);
+    }//GEN-LAST:event_jtNumPisosKeyTyped
+
+    private void jtCodProyecKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtCodProyecKeyTyped
+        controladorCT.soloNumeros(evt);
+    }//GEN-LAST:event_jtCodProyecKeyTyped
+
+    private void jbtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCancelarActionPerformed
+        datosTorreVista newframe = new datosTorreVista();
+        newframe.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jbtnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -269,8 +310,6 @@ public class TorreVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -279,10 +318,12 @@ public class TorreVista extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JButton jbtCerrarSesion;
-    private javax.swing.JButton jbtEcharAtras;
+    private javax.swing.JButton jbtnAgregar;
+    private javax.swing.JButton jbtnCancelar;
+    private javax.swing.JButton jbtnCerrarSesion;
+    private javax.swing.JButton jbtnEcharAtras;
+    private javax.swing.JTextField jtCodProyec;
+    private javax.swing.JTextField jtNumPisos;
+    private javax.swing.JTextField jtNumTorre;
     // End of variables declaration//GEN-END:variables
 }

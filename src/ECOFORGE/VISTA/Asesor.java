@@ -9,6 +9,7 @@ package ECOFORGE.VISTA;
  * @author YANFER
  */
 import ECOFORGE.CONTROLADOR.ControladorCuota;
+
 import ECOFORGE.MODELO.Cuota;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -26,6 +27,7 @@ public class Asesor extends javax.swing.JFrame {
         cuota = new ControladorCuota();
         cuota.conectar();
         cuota.llenarTablaCuotas(jTable1);
+        
     }
 
     /**
