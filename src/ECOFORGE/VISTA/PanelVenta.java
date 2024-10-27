@@ -168,7 +168,6 @@ public class PanelVenta extends javax.swing.JPanel {
 
         jcbTipoPago.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jcbTipoPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "De Contado", "A Cuotas" }));
-        jcbTipoPago.setSelectedIndex(0);
         jPanel2.add(jcbTipoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 190, -1));
 
         jftfFechaEscritura.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
@@ -179,6 +178,11 @@ public class PanelVenta extends javax.swing.JPanel {
         jftfFechaVenta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
         jftfFechaVenta.setEnabled(false);
         jftfFechaVenta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jftfFechaVenta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jftfFechaVentaKeyTyped(evt);
+            }
+        });
         jPanel2.add(jftfFechaVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 190, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 410, 450));
@@ -188,6 +192,7 @@ public class PanelVenta extends javax.swing.JPanel {
 
     private void jtfPrecioTotalVentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPrecioTotalVentaKeyTyped
         controladorCT.soloLetras(evt);
+        controladorCT.longitudCaracter(jtfPrecioTotalVenta, 10, evt);
     }//GEN-LAST:event_jtfPrecioTotalVentaKeyTyped
 
     private void jtfMatriculaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfMatriculaKeyTyped
@@ -223,6 +228,10 @@ public class PanelVenta extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Error al agregar cliente.");
         }*/
     }//GEN-LAST:event_jbtAgregarActionPerformed
+
+    private void jftfFechaVentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jftfFechaVentaKeyTyped
+        
+    }//GEN-LAST:event_jftfFechaVentaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
