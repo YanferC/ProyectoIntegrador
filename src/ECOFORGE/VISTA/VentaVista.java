@@ -22,9 +22,9 @@ public class VentaVista extends javax.swing.JFrame {
     PanelVenta agregarVenta = new PanelVenta();
     CardLayout vistaAgregarVenta;
 
-    private Asesor formularioVentas;
+    private AsesorVista formularioVentas;
 
-    public VentaVista(Asesor formularioVentas) {
+    public VentaVista(AsesorVista formularioVentas) {
         initComponents();
         this.formularioVentas = formularioVentas;
         vistaAgregarCliente = (CardLayout) agregarCliente.getLayout();
@@ -88,7 +88,7 @@ public class VentaVista extends javax.swing.JFrame {
         jpFondo.add(jpEncabezado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 50));
 
         jpPanelBotones.setBackground(new java.awt.Color(255, 255, 255));
-        jpPanelBotones.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(247, 99, 94), 3, true));
+        jpPanelBotones.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(193, 65, 62), 3, true));
         jpPanelBotones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jbtAgregarCliente.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -195,7 +195,7 @@ public class VentaVista extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentaVista(new Asesor()).setVisible(true);
+                new VentaVista(new AsesorVista()).setVisible(true);
             }
         });
     }

@@ -9,6 +9,8 @@ package ECOFORGE.VISTA;
  * @author YANFER
  */
 import ECOFORGE.CONTROLADOR.ControladorCliente;
+import ECOFORGE.CONTROLADOR.ControladorConectar;
+import ECOFORGE.CONTROLADOR.DatabaseConnection;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
 import ECOFORGE.MODELO.Cliente;
 import java.util.List;
@@ -18,21 +20,47 @@ import javax.swing.table.DefaultTableModel;
 public class Clientes extends javax.swing.JFrame {
 
     private ControladorCliente controlador;
+    private ControladorConectar controladorConectar;
     private boolean isUpdating = false;
     private String cedulaClienteActual;
-    
 
     /**
      * Creates new form Clientes
      */
     public Clientes() {
         initComponents();
-        controlador = new ControladorCliente();
-        controlador.conectar();
-        controlador.llenarTablaClientes(jTable1);
-        ControladorUtilidades.centrarVentana(this);
-        
 
+        // Inicializar el controlador de conexión y lo conectamos conectarlo
+        controladorConectar = new ControladorConectar(new DatabaseConnection());
+        controladorConectar.conectar();
+        
+        // Pasar la instancia de controladorConectar al controlador del cliente
+        controlador = new ControladorCliente(controladorConectar);
+        
+        // Llenamos la tabla
+        List<Cliente> listaClientes = controlador.obtenerTodosLosClientes();
+        llenarTablaClientes(listaClientes); 
+
+    }
+
+    public void llenarTablaClientes(List<Cliente> listaClientes) {
+        
+        DefaultTableModel modelo = (DefaultTableModel) tCliente.getModel();
+        modelo.setRowCount(0); // Limpiar las filas anteriores
+
+        // Agregar los datos al modelo
+        for (Cliente cliente : listaClientes) {
+            Object[] fila = {
+                cliente.getNumero_Identificacion(),
+                cliente.getNombreCompleto(),
+                cliente.getSisben(),
+                cliente.getSubsidio_Ministerio(),
+                cliente.getDireccion(),
+                cliente.getTelefono(),
+                cliente.getCorreoElectronico()
+            };
+            modelo.addRow(fila);
+        }
     }
 
     /**
@@ -50,7 +78,7 @@ public class Clientes extends javax.swing.JFrame {
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tCliente = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -110,8 +138,8 @@ public class Clientes extends javax.swing.JFrame {
 
         jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 296, -1, 50));
 
-        jTable1.setModel(new DefaultTableModel(new Object[][]{}, new String[]{"Cédula", "Nombre Completo", "Sisben", "Dirección", "Telefono", "Correo Electrónico"}));
-        jScrollPane1.setViewportView(jTable1);
+        tCliente.setModel(new DefaultTableModel(new Object[][]{}, new String[]{"Cédula", "Nombre Completo", "Sisben", "Dirección", "Telefono", "Correo Electrónico"}));
+        jScrollPane1.setViewportView(tCliente);
 
         jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 722, 170));
 
@@ -172,14 +200,14 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         datosClientes agregarCliente = new datosClientes(this);
-        agregarCliente.setVisible(true);  
-        
+        agregarCliente.setVisible(true);
+
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // Verificar que se ha seleccionado un registro en la tabla
-        int filaSeleccionada = jTable1.getSelectedRow();
+        int filaSeleccionada = tCliente.getSelectedRow();
 
         if (filaSeleccionada == -1) {
             // Si no se ha seleccionado ninguna fila
@@ -188,14 +216,15 @@ public class Clientes extends javax.swing.JFrame {
         }
 
         // Obtener la cédula del cliente seleccionado (asumiendo que la cédula está en la primera columna)
-        int numero_Identificacion = (Integer) jTable1.getValueAt(filaSeleccionada, 0);
+        int numero_Identificacion = (Integer) tCliente.getValueAt(filaSeleccionada, 0);
 
         // Confirmar la eliminación
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar este cliente?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
 
         if (confirmacion == JOptionPane.YES_OPTION) {
+
             // Crear una instancia del controlador
-            ControladorCliente controlador = new ControladorCliente();
+            ControladorCliente controlador = new ControladorCliente(controladorConectar);
 
             // Intentar eliminar el cliente
             if (controlador.eliminarCliente(numero_Identificacion)) {
@@ -211,7 +240,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // Verificar que se ha seleccionado un registro en la tabla
-        int filaSeleccionada = jTable1.getSelectedRow();
+        int filaSeleccionada = tCliente.getSelectedRow();
 
         if (filaSeleccionada == -1) {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione un cliente para actualizar.");
@@ -219,24 +248,24 @@ public class Clientes extends javax.swing.JFrame {
         }
 
         // Obtener los datos del cliente seleccionado
-        Integer numero_Identificacion = Integer.parseInt(jTable1.getValueAt(filaSeleccionada, 0).toString());
-        String nombre = jTable1.getValueAt(filaSeleccionada, 1).toString();
-        String sisben = jTable1.getValueAt(filaSeleccionada, 2).toString();
-        Integer subsidio_Ministerio = Integer.parseInt(jTable1.getValueAt(filaSeleccionada, 3).toString());
-        String direccion = jTable1.getValueAt(filaSeleccionada, 4).toString();
-        String telefono = jTable1.getValueAt(filaSeleccionada, 5).toString();
-        String correo = jTable1.getValueAt(filaSeleccionada, 6).toString();
+        Integer numero_Identificacion = Integer.parseInt(tCliente.getValueAt(filaSeleccionada, 0).toString());
+        String nombre = tCliente.getValueAt(filaSeleccionada, 1).toString();
+        String sisben = tCliente.getValueAt(filaSeleccionada, 2).toString();
+        Integer subsidio_Ministerio = Integer.parseInt(tCliente.getValueAt(filaSeleccionada, 3).toString());
+        String direccion = tCliente.getValueAt(filaSeleccionada, 4).toString();
+        String telefono = tCliente.getValueAt(filaSeleccionada, 5).toString();
+        String correo = tCliente.getValueAt(filaSeleccionada, 6).toString();
 
         // Abrir el formulario datosClientes y pasar los datos
         datosClientes actualizarCliente = new datosClientes(this);
         actualizarCliente.setVisible(true);
 
         // Pasar los datos al formulario
-        actualizarCliente.cargarDatos(numero_Identificacion, nombre, sisben, subsidio_Ministerio,direccion, telefono, correo);
+        actualizarCliente.cargarDatos(numero_Identificacion, nombre, sisben, subsidio_Ministerio, direccion, telefono, correo);
 
         // Establecer un modo de "actualización"
         actualizarCliente.setModoActualizar(true);      // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -246,11 +275,11 @@ public class Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void actualizarTabla() {
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tCliente.getModel();
         modelo.setRowCount(0); // Limpiar la tabla
 
         // Obtener todos los clientes y agregarlos a la tabla
-        ControladorCliente controlador = new ControladorCliente();
+        ControladorCliente controlador = new ControladorCliente(controladorConectar);
         List<Cliente> listaClientes = controlador.obtenerTodosLosClientes();
 
         for (Cliente cliente : listaClientes) {
@@ -312,6 +341,6 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tCliente;
     // End of variables declaration//GEN-END:variables
 }
