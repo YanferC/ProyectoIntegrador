@@ -29,6 +29,8 @@ public class VentaVista extends javax.swing.JFrame {
         this.formularioVentas = formularioVentas;
         vistaAgregarCliente = (CardLayout) agregarCliente.getLayout();
         vistaAgregarVenta = (CardLayout) agregarVenta.getLayout();
+        
+        
 
         // Inicializar el controlador de ventas
         ControladorVentas controladorVentas = new ControladorVentas(this);
@@ -48,7 +50,7 @@ public class VentaVista extends javax.swing.JFrame {
 
         jpFondo = new javax.swing.JPanel();
         jpEncabezado = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jpPanelBotones = new javax.swing.JPanel();
         jbtAgregarCliente = new javax.swing.JButton();
@@ -67,15 +69,15 @@ public class VentaVista extends javax.swing.JFrame {
         jpEncabezado.setBackground(new java.awt.Color(108, 93, 71));
         jpEncabezado.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setBackground(new java.awt.Color(255, 188, 71));
-        jButton1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jButton1.setText("Regresar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresar.setBackground(new java.awt.Color(255, 188, 71));
+        btnRegresar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnRegresarActionPerformed(evt);
             }
         });
-        jpEncabezado.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, -1));
+        jpEncabezado.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 30));
 
         jLabel1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -132,9 +134,9 @@ public class VentaVista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void jbtAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAgregarClienteActionPerformed
         jpPaneles.add(agregarCliente, "Agregar Cliente");
@@ -196,7 +198,7 @@ public class VentaVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton jbtAgregarCliente;
     private javax.swing.JButton jbtRegistrarCuota;

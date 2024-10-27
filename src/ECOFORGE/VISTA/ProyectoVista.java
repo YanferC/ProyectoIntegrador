@@ -4,11 +4,13 @@
  */
 package ECOFORGE.VISTA;
 import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
+import ECOFORGE.CONTROLADOR.ControladorVistaTorreProyecto;
 /**
  *
  * @author YANFER
  */
 import ECOFORGE.CONTROLADOR.ControladorProyecto;
+import ECOFORGE.CONTROLADOR.ControladorUtilidades;
 import ECOFORGE.MODELO.Proyecto;
 import javax.swing.JOptionPane;
 
@@ -16,18 +18,27 @@ public class ProyectoVista extends javax.swing.JFrame {
 
     private ControladorProyecto controlador;
     private boolean isModoActualizar = false;
-    private Proyectos formularioProyecto;
+    private datosProyectosVista formularioProyecto;
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
+    private ControladorVistaTorreProyecto controladorr;    
+    
 
     /**
      * Creates new form datosProyecto
      */
-    public ProyectoVista(Proyectos formularioProyecto) {
+    public ProyectoVista(datosProyectosVista formularioProyecto) {
         initComponents();
         this.formularioProyecto = formularioProyecto;
         controlador = new ControladorProyecto();
         configurarFormulario();
+        controladorr = new  ControladorVistaTorreProyecto(this);
+        ControladorUtilidades.centrarVentana(this);
     }
+    
+    public String getCodigoProyecto(){
+        return  jTextFieldCodProyecto.getText();
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,16 +51,16 @@ public class ProyectoVista extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jbtCerrarSesion = new javax.swing.JButton();
-        jbtEcharAtras = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
+        btnEcharAtras = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jTextFieldCodProyecto = new javax.swing.JTextField();
         jTextFieldNombreProyecto = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -60,24 +71,25 @@ public class ProyectoVista extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(108, 93, 71));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Creando proyecto ");
 
-        jbtCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
-        jbtCerrarSesion.setText("Cerrar Sesión");
-        jbtCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
+        btnCerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtCerrarSesionActionPerformed(evt);
+                btnCerrarSesionActionPerformed(evt);
             }
         });
 
-        jbtEcharAtras.setBackground(new java.awt.Color(255, 188, 71));
-        jbtEcharAtras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jbtEcharAtras.setText("Echar Pa' Atrás");
-        jbtEcharAtras.addActionListener(new java.awt.event.ActionListener() {
+        btnEcharAtras.setBackground(new java.awt.Color(255, 188, 71));
+        btnEcharAtras.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btnEcharAtras.setText("Atrás");
+        btnEcharAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtEcharAtrasActionPerformed(evt);
+                btnEcharAtrasActionPerformed(evt);
             }
         });
 
@@ -87,23 +99,23 @@ public class ProyectoVista extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jbtEcharAtras)
-                .addGap(40, 40, 40)
+                .addComponent(btnEcharAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbtCerrarSesion)
-                .addGap(33, 33, 33))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCerrarSesion)
+                .addGap(14, 14, 14))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbtCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbtEcharAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEcharAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -127,34 +139,47 @@ public class ProyectoVista extends javax.swing.JFrame {
         });
         jPanel5.add(jTextFieldNombreProyecto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 190, 30));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         jLabel1.setText("Codigo");
         jPanel5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 60, -1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         jLabel2.setText("Nombre");
         jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 102, 20));
 
         jPanel6.setBackground(new java.awt.Color(193, 65, 62));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton2.setText("Actualizar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Actualizar_30.png"))); // NOI18N
+        btnActualizar.setText("Actualizar");
+        btnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnActualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnActualizarActionPerformed(evt);
             }
         });
-        jPanel6.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 100, 40));
+        jPanel6.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 90, 50));
 
-        jButton1.setText("Guardar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Guardar_30.png"))); // NOI18N
+        btnGuardar.setText("Guardar");
+        btnGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
-        jPanel6.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 90, 40));
+        btnGuardar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                btnGuardarKeyTyped(evt);
+            }
+        });
+        jPanel6.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 80, 50));
 
-        jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 510, 70));
+        jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 510, 80));
 
         jPanel1.setBackground(new java.awt.Color(175, 229, 239));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -177,10 +202,11 @@ public class ProyectoVista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // Obtener datos de los campos de texto
         String codigo_proyecto = jTextFieldCodProyecto.getText();
         String nombre_proyecto = jTextFieldNombreProyecto.getText();
+        
 
         // Crear un objeto Proyecto
         Proyecto nuevoProyecto = new Proyecto(codigo_proyecto, nombre_proyecto);
@@ -189,16 +215,19 @@ public class ProyectoVista extends javax.swing.JFrame {
         if (controlador.crearProyecto(nuevoProyecto)) {
             JOptionPane.showMessageDialog(this, "Proyecto agregado exitosamente.");
 
+            
             // Actualizar la tabla en el formulario Proyecto
             formularioProyecto.actualizarTabla();
+            datosProyectosVista datosProyectos = new datosProyectosVista();
+            datosProyectos.setVisible(true); 
 
             this.dispose(); // Cerrar el formulario
         } else {
             JOptionPane.showMessageDialog(this, "Error al agregar Proyecto.");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         if (isModoActualizar) {
             // Código para actualizar el Proyecto
             String codigo_proyecto = jTextFieldCodProyecto.getText();
@@ -217,28 +246,33 @@ public class ProyectoVista extends javax.swing.JFrame {
             // Código para agregar un nuevo Proyecto
             // (Ya lo tienes implementado)
         }        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
-    private void jbtCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCerrarSesionActionPerformed
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         Login newframe = new Login();
         newframe.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jbtCerrarSesionActionPerformed
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
-    private void jbtEcharAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEcharAtrasActionPerformed
-        ApartamentoVista newframe = new ApartamentoVista();
+    private void btnEcharAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEcharAtrasActionPerformed
+        datosProyectosVista newframe = new datosProyectosVista();
         newframe.setVisible(true);
         this.dispose();
 
-    }//GEN-LAST:event_jbtEcharAtrasActionPerformed
+    }//GEN-LAST:event_btnEcharAtrasActionPerformed
 
     private void jTextFieldNombreProyectoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreProyectoKeyTyped
         controladorCT.soloLetras(evt);
+        controladorCT.longitudCaracter(jTextFieldNombreProyecto,50, evt);
     }//GEN-LAST:event_jTextFieldNombreProyectoKeyTyped
 
     private void jTextFieldCodProyectoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodProyectoKeyTyped
         
     }//GEN-LAST:event_jTextFieldCodProyectoKeyTyped
+
+    private void btnGuardarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnGuardarKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardarKeyTyped
     public void cargarDatos(Integer codigo_proyecto, String nombre_proyecto) {
         jTextFieldCodProyecto.setText(String.valueOf(codigo_proyecto));
         jTextFieldNombreProyecto.setText(nombre_proyecto);
@@ -255,11 +289,11 @@ public class ProyectoVista extends javax.swing.JFrame {
         // jButton2.setEnabled(true); // Desactivar el botón de Actualizar
         // jButton1.setEnabled(true);     // Activar el botón de Agregar
         if (isModoActualizar) {
-            jButton2.setEnabled(true);  // Activar el botón de Actualizar
-            jButton1.setEnabled(false);    // Desactivar el botón de Agregar
+            btnActualizar.setEnabled(true);  // Activar el botón de Actualizar
+            btnGuardar.setEnabled(false);    // Desactivar el botón de Agregar
         } else {
-            jButton2.setEnabled(false); // Desactivar el botón de Actualizar
-            jButton1.setEnabled(true);     // Activar el botón de Agregar
+            btnActualizar.setEnabled(false); // Desactivar el botón de Actualizar
+            btnGuardar.setEnabled(true);     // Activar el botón de Agregar
         }
     }
     
@@ -267,6 +301,7 @@ public class ProyectoVista extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -296,14 +331,16 @@ public class ProyectoVista extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProyectoVista(new Proyectos()).setVisible(true);
+                new ProyectoVista(new datosProyectosVista()).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnEcharAtras;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -313,7 +350,5 @@ public class ProyectoVista extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JTextField jTextFieldCodProyecto;
     private javax.swing.JTextField jTextFieldNombreProyecto;
-    private javax.swing.JButton jbtCerrarSesion;
-    private javax.swing.JButton jbtEcharAtras;
     // End of variables declaration//GEN-END:variables
 }
