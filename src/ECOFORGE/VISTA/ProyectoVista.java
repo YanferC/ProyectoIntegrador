@@ -51,16 +51,16 @@ public class ProyectoVista extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jbtnCerrarSesion = new javax.swing.JButton();
-        jbtnEcharAtras = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
+        btnEcharAtras = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jTextFieldCodProyecto = new javax.swing.JTextField();
         jTextFieldNombreProyecto = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jbtnActualizar = new javax.swing.JButton();
-        jbtnGuardar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -75,20 +75,20 @@ public class ProyectoVista extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Creando proyecto ");
 
-        jbtnCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
-        jbtnCerrarSesion.setText("Cerrar Sesión");
-        jbtnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
+        btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnCerrarSesionActionPerformed(evt);
+                btnCerrarSesionActionPerformed(evt);
             }
         });
 
-        jbtnEcharAtras.setBackground(new java.awt.Color(255, 188, 71));
-        jbtnEcharAtras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jbtnEcharAtras.setText("Echar Pa' Atrás");
-        jbtnEcharAtras.addActionListener(new java.awt.event.ActionListener() {
+        btnEcharAtras.setBackground(new java.awt.Color(255, 188, 71));
+        btnEcharAtras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnEcharAtras.setText("Atrás");
+        btnEcharAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnEcharAtrasActionPerformed(evt);
+                btnEcharAtrasActionPerformed(evt);
             }
         });
 
@@ -98,23 +98,23 @@ public class ProyectoVista extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jbtnEcharAtras)
-                .addGap(40, 40, 40)
+                .addComponent(btnEcharAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbtnCerrarSesion)
-                .addGap(33, 33, 33))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addComponent(btnCerrarSesion)
+                .addGap(14, 14, 14))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbtnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbtnEcharAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEcharAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -149,26 +149,26 @@ public class ProyectoVista extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(193, 65, 62));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jbtnActualizar.setText("Actualizar");
-        jbtnActualizar.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnActualizarActionPerformed(evt);
+                btnActualizarActionPerformed(evt);
             }
         });
-        jPanel6.add(jbtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 100, 40));
+        jPanel6.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 100, 40));
 
-        jbtnGuardar.setText("Guardar");
-        jbtnGuardar.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnGuardarActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
-        jbtnGuardar.addKeyListener(new java.awt.event.KeyAdapter() {
+        btnGuardar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jbtnGuardarKeyTyped(evt);
+                btnGuardarKeyTyped(evt);
             }
         });
-        jPanel6.add(jbtnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 90, 40));
+        jPanel6.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 90, 40));
 
         jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 510, 70));
 
@@ -193,7 +193,7 @@ public class ProyectoVista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void jbtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // Obtener datos de los campos de texto
         String codigo_proyecto = jTextFieldCodProyecto.getText();
         String nombre_proyecto = jTextFieldNombreProyecto.getText();
@@ -216,9 +216,9 @@ public class ProyectoVista extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Error al agregar Proyecto.");
         }
-    }//GEN-LAST:event_jbtnGuardarActionPerformed
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void jbtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActualizarActionPerformed
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         if (isModoActualizar) {
             // Código para actualizar el Proyecto
             String codigo_proyecto = jTextFieldCodProyecto.getText();
@@ -237,20 +237,20 @@ public class ProyectoVista extends javax.swing.JFrame {
             // Código para agregar un nuevo Proyecto
             // (Ya lo tienes implementado)
         }        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtnActualizarActionPerformed
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
-    private void jbtnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCerrarSesionActionPerformed
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         Login newframe = new Login();
         newframe.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jbtnCerrarSesionActionPerformed
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
-    private void jbtnEcharAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEcharAtrasActionPerformed
+    private void btnEcharAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEcharAtrasActionPerformed
         datosProyectosVista newframe = new datosProyectosVista();
         newframe.setVisible(true);
         this.dispose();
 
-    }//GEN-LAST:event_jbtnEcharAtrasActionPerformed
+    }//GEN-LAST:event_btnEcharAtrasActionPerformed
 
     private void jTextFieldNombreProyectoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreProyectoKeyTyped
         controladorCT.soloLetras(evt);
@@ -260,9 +260,9 @@ public class ProyectoVista extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jTextFieldCodProyectoKeyTyped
 
-    private void jbtnGuardarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtnGuardarKeyTyped
+    private void btnGuardarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnGuardarKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbtnGuardarKeyTyped
+    }//GEN-LAST:event_btnGuardarKeyTyped
     public void cargarDatos(Integer codigo_proyecto, String nombre_proyecto) {
         jTextFieldCodProyecto.setText(String.valueOf(codigo_proyecto));
         jTextFieldNombreProyecto.setText(nombre_proyecto);
@@ -279,11 +279,11 @@ public class ProyectoVista extends javax.swing.JFrame {
         // jButton2.setEnabled(true); // Desactivar el botón de Actualizar
         // jButton1.setEnabled(true);     // Activar el botón de Agregar
         if (isModoActualizar) {
-            jbtnActualizar.setEnabled(true);  // Activar el botón de Actualizar
-            jbtnGuardar.setEnabled(false);    // Desactivar el botón de Agregar
+            btnActualizar.setEnabled(true);  // Activar el botón de Actualizar
+            btnGuardar.setEnabled(false);    // Desactivar el botón de Agregar
         } else {
-            jbtnActualizar.setEnabled(false); // Desactivar el botón de Actualizar
-            jbtnGuardar.setEnabled(true);     // Activar el botón de Agregar
+            btnActualizar.setEnabled(false); // Desactivar el botón de Actualizar
+            btnGuardar.setEnabled(true);     // Activar el botón de Agregar
         }
     }
     
@@ -327,6 +327,10 @@ public class ProyectoVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnEcharAtras;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -336,9 +340,5 @@ public class ProyectoVista extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JTextField jTextFieldCodProyecto;
     private javax.swing.JTextField jTextFieldNombreProyecto;
-    private javax.swing.JButton jbtnActualizar;
-    private javax.swing.JButton jbtnCerrarSesion;
-    private javax.swing.JButton jbtnEcharAtras;
-    private javax.swing.JButton jbtnGuardar;
     // End of variables declaration//GEN-END:variables
 }

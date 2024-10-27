@@ -42,15 +42,14 @@ public class Asesor extends javax.swing.JFrame {
         jpFondo = new javax.swing.JPanel();
         jpEncabezado = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jbtCerrarSesion = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
         jpInferior = new javax.swing.JPanel();
-        jbtVenta = new javax.swing.JButton();
+        btnVenta = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
-        setPreferredSize(new java.awt.Dimension(800, 500));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -59,16 +58,16 @@ public class Asesor extends javax.swing.JFrame {
 
         jpEncabezado.setBackground(new java.awt.Color(108, 93, 71));
 
-        jLabel1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("¡Bienvenido a EcoForge Asesor!");
 
-        jbtCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
-        jbtCerrarSesion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jbtCerrarSesion.setText("Cerrar Sesión");
-        jbtCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
+        btnCerrarSesion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtCerrarSesionActionPerformed(evt);
+                btnCerrarSesionActionPerformed(evt);
             }
         });
 
@@ -77,28 +76,33 @@ public class Asesor extends javax.swing.JFrame {
         jpEncabezadoLayout.setHorizontalGroup(
             jpEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpEncabezadoLayout.createSequentialGroup()
-                .addGap(310, 310, 310)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
-                .addComponent(jbtCerrarSesion)
+                .addContainerGap(316, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(155, 155, 155)
+                .addComponent(btnCerrarSesion)
                 .addContainerGap())
         );
         jpEncabezadoLayout.setVerticalGroup(
             jpEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                .addComponent(jbtCerrarSesion))
+            .addGroup(jpEncabezadoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jpEncabezadoLayout.createSequentialGroup()
+                        .addComponent(btnCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(3, 3, 3))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
-        jpFondo.add(jpEncabezado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 30));
+        jpFondo.add(jpEncabezado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 40));
 
         jpInferior.setBackground(new java.awt.Color(193, 65, 62));
 
-        jbtVenta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jbtVenta.setText("Venta");
-        jbtVenta.addActionListener(new java.awt.event.ActionListener() {
+        btnVenta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btnVenta.setText("Venta");
+        btnVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtVentaActionPerformed(evt);
+                btnVentaActionPerformed(evt);
             }
         });
 
@@ -108,15 +112,18 @@ public class Asesor extends javax.swing.JFrame {
             jpInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpInferiorLayout.createSequentialGroup()
                 .addContainerGap(690, Short.MAX_VALUE)
-                .addComponent(jbtVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jpInferiorLayout.setVerticalGroup(
             jpInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jbtVenta, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addGroup(jpInferiorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnVenta, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jpFondo.add(jpInferior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 790, 40));
+        jpFondo.add(jpInferior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 790, 50));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -132,21 +139,21 @@ public class Asesor extends javax.swing.JFrame {
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(jTable1);
 
-        jpFondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 790, 390));
+        jpFondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 790, 380));
 
         getContentPane().add(jpFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCerrarSesionActionPerformed
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jbtCerrarSesionActionPerformed
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
-    private void jbtVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtVentaActionPerformed
+    private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
         VentaVista venta = new VentaVista(this);
         venta.setVisible(true); 
-    }//GEN-LAST:event_jbtVentaActionPerformed
+    }//GEN-LAST:event_btnVentaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,11 +191,11 @@ public class Asesor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnVenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JButton jbtCerrarSesion;
-    private javax.swing.JButton jbtVenta;
     private javax.swing.JPanel jpEncabezado;
     private javax.swing.JPanel jpFondo;
     private javax.swing.JPanel jpInferior;

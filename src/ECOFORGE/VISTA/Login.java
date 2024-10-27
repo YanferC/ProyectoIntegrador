@@ -44,8 +44,8 @@ public class Login extends javax.swing.JFrame {
         jLContraseña = new javax.swing.JLabel();
         jLSeparador2 = new javax.swing.JSeparator();
         jPFContraseña = new javax.swing.JPasswordField();
-        jbtInicioSesion = new javax.swing.JButton();
-        jbtCrearAsesor = new javax.swing.JButton();
+        btnInicioSesion = new javax.swing.JButton();
+        btnCrearAsesor = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -100,18 +100,18 @@ public class Login extends javax.swing.JFrame {
         });
         Fondo.add(jPFContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 280, 30));
 
-        jbtInicioSesion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jbtInicioSesion.setText("Iniciar Sesión");
-        jbtInicioSesion.addActionListener(new java.awt.event.ActionListener() {
+        btnInicioSesion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btnInicioSesion.setText("Iniciar Sesión");
+        btnInicioSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtInicioSesionActionPerformed(evt);
+                btnInicioSesionActionPerformed(evt);
             }
         });
-        Fondo.add(jbtInicioSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 110, 40));
+        Fondo.add(btnInicioSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 110, 40));
 
-        jbtCrearAsesor.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jbtCrearAsesor.setText("Crear Asesor");
-        Fondo.add(jbtCrearAsesor, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 420, 110, 40));
+        btnCrearAsesor.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btnCrearAsesor.setText("Crear Asesor");
+        Fondo.add(btnCrearAsesor, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 420, 110, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,7 +127,7 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtInicioSesionActionPerformed
+    private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
         String numero_Identificacion = jTFNombreUsuario.getText();
         Integer tipoRol = asesor.obtenerTipoRol(numero_Identificacion);
 
@@ -143,7 +143,7 @@ public class Login extends javax.swing.JFrame {
         } else {
             // En caso de no encontrar nada mostrar nada o decir que no se puede ingresar
         }
-    }//GEN-LAST:event_jbtInicioSesionActionPerformed
+    }//GEN-LAST:event_btnInicioSesionActionPerformed
 
     private void jTFNombreUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFNombreUsuarioMouseClicked
         if (primeraVezUsuario) {
@@ -200,6 +200,8 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Fondo;
+    private javax.swing.JButton btnCrearAsesor;
+    private javax.swing.JButton btnInicioSesion;
     private javax.swing.JLabel jLContraseña;
     private javax.swing.JLabel jLIcono;
     private javax.swing.JLabel jLInicioSesion;
@@ -209,7 +211,5 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLusuario;
     private javax.swing.JPasswordField jPFContraseña;
     private javax.swing.JTextField jTFNombreUsuario;
-    private javax.swing.JButton jbtCrearAsesor;
-    private javax.swing.JButton jbtInicioSesion;
     // End of variables declaration//GEN-END:variables
 }

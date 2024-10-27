@@ -34,7 +34,7 @@ public class ApartamentoVista extends javax.swing.JFrame {
         apartamento.conectar(); // Conecta el controlador a la base de datos o modelo
         apartamento.llenarTablaApartamentos(jtbTablaApartamento); // Llena la tabla con datos de Apartamentos
         ControladorUtilidades.centrarVentana(this); // Centra la ventana en la pantalla
-        jbtnActualizar.addActionListener(e -> actualizarApartamento());
+        btnActualizar.addActionListener(e -> actualizarApartamento());
 
         
     }
@@ -59,13 +59,13 @@ public class ApartamentoVista extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbTablaApartamento = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jbtnAgregar = new javax.swing.JButton();
-        jbtnActualizar = new javax.swing.JButton();
-        jbtnEliminar = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jbtnCerrarSesion = new javax.swing.JButton();
-        jbtnEcharAtras = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
+        btnEcharAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -100,25 +100,25 @@ public class ApartamentoVista extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(193, 65, 62));
 
-        jbtnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jbtnAgregar.setText("Agregar");
-        jbtnAgregar.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnAgregarActionPerformed(evt);
+                btnAgregarActionPerformed(evt);
             }
         });
 
-        jbtnActualizar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jbtnActualizar.setText("Actualizar");
-        jbtnActualizar.setName(""); // NOI18N
-        jbtnActualizar.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnActualizar.setText("Actualizar");
+        btnActualizar.setName(""); // NOI18N
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnActualizarActionPerformed(evt);
+                btnActualizarActionPerformed(evt);
             }
         });
 
-        jbtnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jbtnEliminar.setText("Eliminar");
+        btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnEliminar.setText("Eliminar");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -126,11 +126,11 @@ public class ApartamentoVista extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(194, 194, 194)
-                .addComponent(jbtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62)
-                .addComponent(jbtnActualizar)
+                .addComponent(btnActualizar)
                 .addGap(64, 64, 64)
-                .addComponent(jbtnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(174, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -138,9 +138,9 @@ public class ApartamentoVista extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(23, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
 
@@ -157,51 +157,53 @@ public class ApartamentoVista extends javax.swing.JFrame {
         jLabel1.setText("Apartamento");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 160, 43));
 
-        jbtnCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
-        jbtnCerrarSesion.setText("Cerrar Sesión");
-        jbtnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
+        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnCerrarSesionActionPerformed(evt);
+                btnCerrarSesionActionPerformed(evt);
             }
         });
-        jPanel2.add(jbtnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 6, -1, 31));
+        jPanel2.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 10, -1, 31));
 
-        jbtnEcharAtras.setBackground(new java.awt.Color(255, 188, 71));
-        jbtnEcharAtras.setText("Echar Pa' Atrás");
-        jbtnEcharAtras.addActionListener(new java.awt.event.ActionListener() {
+        btnEcharAtras.setBackground(new java.awt.Color(255, 188, 71));
+        btnEcharAtras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnEcharAtras.setText("Regresar");
+        btnEcharAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnEcharAtrasActionPerformed(evt);
+                btnEcharAtrasActionPerformed(evt);
             }
         });
-        jPanel2.add(jbtnEcharAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 110, 30));
+        jPanel2.add(btnEcharAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 110, 30));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 50));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActualizarActionPerformed
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
 
 
-    }//GEN-LAST:event_jbtnActualizarActionPerformed
+    }//GEN-LAST:event_btnActualizarActionPerformed
     // Este método se ejecuta cuando se hace clic en el botón de agregar
-    private void jbtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAgregarActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         CreandoApartamento newframe = new CreandoApartamento(); // Crea una nueva ventana para agregar un apartamento
         newframe.setVisible(true); // Muestra la nueva ventana
         this.dispose(); // Cierra la ventana actual
-    }//GEN-LAST:event_jbtnAgregarActionPerformed
+    }//GEN-LAST:event_btnAgregarActionPerformed
     // Este método se ejecuta cuando se hace clic en el botón de cerrar sesión
-    private void jbtnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCerrarSesionActionPerformed
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         Login newframe = new Login();
         newframe.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jbtnCerrarSesionActionPerformed
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
     // Este método se ejecuta cuando se hace clic en el botón de regresar
-    private void jbtnEcharAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEcharAtrasActionPerformed
-        DashBoard newframe = new DashBoard();
+    private void btnEcharAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEcharAtrasActionPerformed
+        DashBoardPrincipal newframe = new DashBoardPrincipal();
         newframe.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jbtnEcharAtrasActionPerformed
+    }//GEN-LAST:event_btnEcharAtrasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -239,16 +241,16 @@ public class ApartamentoVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnEcharAtras;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton jbtnActualizar;
-    private javax.swing.JButton jbtnAgregar;
-    private javax.swing.JButton jbtnCerrarSesion;
-    private javax.swing.JButton jbtnEcharAtras;
-    private javax.swing.JButton jbtnEliminar;
     private javax.swing.JTable jtbTablaApartamento;
     // End of variables declaration//GEN-END:variables
 }
