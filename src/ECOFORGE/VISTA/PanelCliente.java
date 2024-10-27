@@ -110,9 +110,19 @@ public class PanelCliente extends javax.swing.JPanel {
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 170, -1));
 
         jtfDireccion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jtfDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfDireccionKeyTyped(evt);
+            }
+        });
         jPanel2.add(jtfDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, 192, -1));
 
         jtfCorreoElectronico.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jtfCorreoElectronico.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfCorreoElectronicoKeyTyped(evt);
+            }
+        });
         jPanel2.add(jtfCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 340, 192, -1));
 
         jtfSisben.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -221,20 +231,31 @@ public class PanelCliente extends javax.swing.JPanel {
 
     private void jtfSubsidio_MinisterioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfSubsidio_MinisterioKeyTyped
         controladorCT.soloNumeros(evt);
+        controladorCT.longitudCaracter(jtfSubsidio_Ministerio, 10, evt);
     }//GEN-LAST:event_jtfSubsidio_MinisterioKeyTyped
 
     private void jtfTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTelefonoKeyTyped
         controladorCT.soloNumeros(evt);
-        controladorCT.longitudCaracter(jtfTelefono, 10, evt);
+        controladorCT.longitudCaracter(jtfTelefono, 20, evt);
     }//GEN-LAST:event_jtfTelefonoKeyTyped
 
     private void jtfNombreCompletoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreCompletoKeyTyped
         controladorCT.soloLetras(evt);
+        controladorCT.longitudCaracter(jtfNombreCompleto, 50, evt);
     }//GEN-LAST:event_jtfNombreCompletoKeyTyped
 
     private void jtfSisbenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfSisbenKeyTyped
         controladorCT.longitudCaracter(jtfSisben, 2, evt);
+        
     }//GEN-LAST:event_jtfSisbenKeyTyped
+
+    private void jtfDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDireccionKeyTyped
+        controladorCT.longitudCaracter(jtfDireccion, 50, evt);
+    }//GEN-LAST:event_jtfDireccionKeyTyped
+
+    private void jtfCorreoElectronicoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCorreoElectronicoKeyTyped
+        controladorCT.longitudCaracter(jtfCorreoElectronico, 30, evt);
+    }//GEN-LAST:event_jtfCorreoElectronicoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

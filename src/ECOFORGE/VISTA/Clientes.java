@@ -11,6 +11,7 @@ package ECOFORGE.VISTA;
 import ECOFORGE.CONTROLADOR.ControladorCliente;
 import ECOFORGE.CONTROLADOR.ControladorConectar;
 import ECOFORGE.CONTROLADOR.DatabaseConnection;
+import ECOFORGE.CONTROLADOR.ControladorUtilidades;
 import ECOFORGE.MODELO.Cliente;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -28,6 +29,7 @@ public class Clientes extends javax.swing.JFrame {
      */
     public Clientes() {
         initComponents();
+
         // Inicializar el controlador de conexión y lo conectamos conectarlo
         controladorConectar = new ControladorConectar(new DatabaseConnection());
         controladorConectar.conectar();
@@ -78,8 +80,8 @@ public class Clientes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tCliente = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        btnAtrás = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Clientes");
@@ -143,36 +145,44 @@ public class Clientes extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(108, 92, 71));
 
-        btnAtrás.setBackground(new java.awt.Color(255, 188, 71));
-        btnAtrás.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnAtrás.setText("Atrás");
-
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 32)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Clientes");
+
+        jButton1.setBackground(new java.awt.Color(255, 188, 71));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Regresar_30.png"))); // NOI18N
+        jButton1.setFocusPainted(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(btnAtrás, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(188, 188, 188)
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(269, 269, 269)
                 .addComponent(jLabel1)
-                .addContainerGap(319, Short.MAX_VALUE))
+                .addContainerGap(284, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAtrás, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 722, -1));
+        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 722, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -258,6 +268,12 @@ public class Clientes extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnActualizarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        DashBoardPrincipal newframe = new DashBoardPrincipal();
+        newframe.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public void actualizarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) tCliente.getModel();
         modelo.setRowCount(0); // Limpiar la tabla
@@ -318,8 +334,8 @@ public class Clientes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnAtrás;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

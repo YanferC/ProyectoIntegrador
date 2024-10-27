@@ -50,8 +50,8 @@ public class VentaVista extends javax.swing.JFrame {
 
         jpFondo = new javax.swing.JPanel();
         jpEncabezado = new javax.swing.JPanel();
-        btnRegresar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jpPanelBotones = new javax.swing.JPanel();
         jbtAgregarCliente = new javax.swing.JButton();
         jbtRegistrarVenta = new javax.swing.JButton();
@@ -69,20 +69,21 @@ public class VentaVista extends javax.swing.JFrame {
         jpEncabezado.setBackground(new java.awt.Color(108, 93, 71));
         jpEncabezado.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnRegresar.setBackground(new java.awt.Color(255, 188, 71));
-        btnRegresar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        btnRegresar.setText("Regresar");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
-        jpEncabezado.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 30));
-
         jLabel1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("¡EcoForge - Forjando un Futuro Ecológico!");
         jpEncabezado.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, -1, -1));
+
+        jButton1.setBackground(new java.awt.Color(255, 188, 72));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Regresar_30.png"))); // NOI18N
+        jButton1.setFocusPainted(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jpEncabezado.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, -1));
 
         jpFondo.add(jpEncabezado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 50));
 
@@ -134,10 +135,6 @@ public class VentaVista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnRegresarActionPerformed
-
     private void jbtAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAgregarClienteActionPerformed
         jpPaneles.add(agregarCliente, "Agregar Cliente");
         vistaAgregarCliente.show(agregarCliente, "Agregar Cliente");
@@ -160,6 +157,12 @@ public class VentaVista extends javax.swing.JFrame {
         SwingUtilities.updateComponentTreeUI(this);
         this.repaint();
     }//GEN-LAST:event_jbtRegistrarVentaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Asesor newframe = new Asesor();
+        newframe.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,7 +201,7 @@ public class VentaVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton jbtAgregarCliente;
     private javax.swing.JButton jbtRegistrarCuota;

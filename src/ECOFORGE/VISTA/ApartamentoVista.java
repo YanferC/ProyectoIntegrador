@@ -65,7 +65,7 @@ public class ApartamentoVista extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JButton();
-        btnEcharAtras = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -96,12 +96,15 @@ public class ApartamentoVista extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtbTablaApartamento);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 820, 300));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -4, 820, 310));
 
         jPanel3.setBackground(new java.awt.Color(193, 65, 62));
 
         btnAgregar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Agregar_30.png"))); // NOI18N
         btnAgregar.setText("Agregar");
+        btnAgregar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAgregar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
@@ -109,8 +112,11 @@ public class ApartamentoVista extends javax.swing.JFrame {
         });
 
         btnActualizar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Actualizar_30.png"))); // NOI18N
         btnActualizar.setText("Actualizar");
+        btnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnActualizar.setName(""); // NOI18N
+        btnActualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
@@ -118,35 +124,43 @@ public class ApartamentoVista extends javax.swing.JFrame {
         });
 
         btnEliminar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Eliminar_30.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
+        btnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(194, 194, 194)
+                .addGap(163, 163, 163)
                 .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62)
+                .addGap(85, 85, 85)
                 .addComponent(btnActualizar)
-                .addGap(64, 64, 64)
+                .addGap(81, 81, 81)
                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19))
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 824, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 820, 90));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 45, 820, 420));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 55, 820, 410));
 
         jPanel2.setBackground(new java.awt.Color(108, 93, 71));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -155,7 +169,7 @@ public class ApartamentoVista extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Apartamento");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 160, 43));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, 160, 43));
 
         btnCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
         btnCerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -167,17 +181,18 @@ public class ApartamentoVista extends javax.swing.JFrame {
         });
         jPanel2.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 10, -1, 31));
 
-        btnEcharAtras.setBackground(new java.awt.Color(255, 188, 71));
-        btnEcharAtras.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        btnEcharAtras.setText("Regresar");
-        btnEcharAtras.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setBackground(new java.awt.Color(255, 188, 71));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Regresar_30.png"))); // NOI18N
+        jButton1.setFocusPainted(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEcharAtrasActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(btnEcharAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 110, 30));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 40));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 50));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 60));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -198,12 +213,16 @@ public class ApartamentoVista extends javax.swing.JFrame {
         newframe.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
-    // Este método se ejecuta cuando se hace clic en el botón de regresar
-    private void btnEcharAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEcharAtrasActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         DashBoardPrincipal newframe = new DashBoardPrincipal();
         newframe.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnEcharAtrasActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -244,8 +263,8 @@ public class ApartamentoVista extends javax.swing.JFrame {
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCerrarSesion;
-    private javax.swing.JButton btnEcharAtras;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
