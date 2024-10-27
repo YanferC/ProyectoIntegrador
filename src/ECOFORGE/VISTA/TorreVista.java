@@ -52,13 +52,14 @@ public class TorreVista extends javax.swing.JFrame {
         jtCodProyec = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("EcoForge");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(175, 229, 239));
 
         jPanel2.setBackground(new java.awt.Color(108, 93, 71));
 
-        jLabel3.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Roboto", 0, 30)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Creando Torre ");
 
@@ -79,9 +80,9 @@ public class TorreVista extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(173, 173, 173))
+                .addGap(101, 101, 101)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(143, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -10,6 +10,7 @@ package ECOFORGE.VISTA;
  */
 import ECOFORGE.CONTROLADOR.ControladorAsesor;
 import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
+import ECOFORGE.CONTROLADOR.ControladorUtilidades;
 
 public class Login extends javax.swing.JFrame {
 
@@ -23,6 +24,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         asesor = new ControladorAsesor();
+        ControladorUtilidades.centrarVentana(this);
     }
 
     /**
@@ -48,6 +50,7 @@ public class Login extends javax.swing.JFrame {
         btnCrearAsesor = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("EcoForge");
         setLocationByPlatform(true);
         setResizable(false);
 

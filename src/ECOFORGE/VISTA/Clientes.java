@@ -56,7 +56,7 @@ public class Clientes extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Clientes");
+        setTitle("EcoForge");
 
         jPanel3.setBackground(new java.awt.Color(175, 229, 239));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -117,7 +117,7 @@ public class Clientes extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(108, 92, 71));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 32)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Clientes");
 
@@ -140,7 +140,7 @@ public class Clientes extends javax.swing.JFrame {
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(269, 269, 269)
                 .addComponent(jLabel1)
-                .addContainerGap(284, Short.MAX_VALUE))
+                .addContainerGap(291, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -149,11 +149,11 @@ public class CreandoApartamento extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnCerrarSesion = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("EcoForge");
         setBackground(new java.awt.Color(175, 229, 239));
         setLocationByPlatform(true);
         setResizable(false);
@@ -188,11 +188,11 @@ public class CreandoApartamento extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addComponent(btnAgregar)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 446, 430, 70));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 436, 430, 80));
 
         jPanel4.setBackground(new java.awt.Color(175, 229, 239));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Apartamento"));
@@ -274,20 +274,10 @@ public class CreandoApartamento extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(108, 93, 71));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 30)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Creación de apartamento");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(237, 6, 283, 40));
-
-        btnCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
-        btnCerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        btnCerrarSesion.setText("Cerrar Sesión");
-        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesionActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 6, 123, 32));
+        jLabel1.setText("Creando apartamento");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 300, 40));
 
         jButton1.setBackground(new java.awt.Color(255, 188, 72));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Regresar_30.png"))); // NOI18N
@@ -332,12 +322,6 @@ public class CreandoApartamento extends javax.swing.JFrame {
         controladorCT.soloNumeros(evt);
         controladorCT.longitudCaracter(jtfArea,3, evt);
     }//GEN-LAST:event_jtfAreaKeyTyped
-
-    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        Login newframe = new Login();
-        newframe.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void jcbNumeroTorreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbNumeroTorreActionPerformed
         // TODO add your handling code here:
@@ -391,7 +375,6 @@ public class CreandoApartamento extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;

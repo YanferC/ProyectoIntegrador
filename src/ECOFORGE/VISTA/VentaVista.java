@@ -59,6 +59,7 @@ public class VentaVista extends javax.swing.JFrame {
         jpPaneles = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("EcoForge");
         setLocationByPlatform(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -69,10 +70,10 @@ public class VentaVista extends javax.swing.JFrame {
         jpEncabezado.setBackground(new java.awt.Color(108, 93, 71));
         jpEncabezado.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 30)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("¡EcoForge - Forjando un Futuro Ecológico!");
-        jpEncabezado.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, -1, -1));
+        jpEncabezado.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 4, -1, 40));
 
         jButton1.setBackground(new java.awt.Color(255, 188, 72));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Regresar_30.png"))); // NOI18N
