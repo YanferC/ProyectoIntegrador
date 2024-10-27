@@ -85,7 +85,7 @@ public class VentaVista extends javax.swing.JFrame {
         jpFondo.add(jpEncabezado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 50));
 
         jpPanelBotones.setBackground(new java.awt.Color(255, 255, 255));
-        jpPanelBotones.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(247, 99, 94), 3, true));
+        jpPanelBotones.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(193, 65, 62), 3, true));
         jpPanelBotones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jbtAgregarCliente.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N

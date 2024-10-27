@@ -24,20 +24,20 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ControladorVentas implements ClienteAddedListener {
+
     private VentaVista vista;
     private DatabaseConnection dbConnection;
     private Connection connection;
-    
-    
+
     public ControladorVentas(VentaVista vista) {
         dbConnection = new DatabaseConnection();
         this.vista = vista;
     }
-    
+
     public void conectar() {
         connection = dbConnection.connect(); // Conectar a la base de datos
     }
-    
+
     // Método para crear un venta
     public boolean crearVenta(Venta venta) {
         String sql = "INSERT INTO venta (ID, PRECIO_TOTAL_VENTA, TIPO_PAGO, FECHA_VENTA, NUMERO_CUOTAS, MATRICULA, FECHA_ESCRITURA, NUMERO_APARTAMENTO, NUMERO_IDENT_CLI) "
@@ -46,7 +46,7 @@ public class ControladorVentas implements ClienteAddedListener {
 
             Date sqlDate = new Date(venta.getFecha_Venta().getTime());
             Date sqlDate2 = new Date(venta.getFecha_Escritura().getTime());
-            
+
             statement.setInt(1, venta.getId());
             statement.setInt(2, venta.getPrecio_Total_Venta());
             statement.setInt(3, venta.getTipo_Pago());
@@ -66,7 +66,24 @@ public class ControladorVentas implements ClienteAddedListener {
     }
     
     
-    
+    //se crea el siguiente método para consultar la secuencia del id para la venta
+    public int consultarIdVenta() {
+        String sql = "SELECT seq_Venta.NEXTVAL AS ID FROM dual";
+        int idVenta = -1;  // Inicializamos con un valor por defecto.
+
+        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql); ResultSet resultSet = statement.executeQuery()) {
+
+            if (resultSet.next()) {
+                idVenta = resultSet.getInt("ID");  // Tomamos el valor de la secuencia.
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener ID de Venta: " + e.getMessage());
+        }
+
+        return idVenta;
+    }
+
     @Override
     public void onClienteAdded() {
         vista.clienteAgregado(); // Llamar al método que habilita el botón
