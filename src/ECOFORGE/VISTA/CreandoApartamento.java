@@ -165,7 +165,7 @@ public class CreandoApartamento extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(193, 65, 62));
 
-        btnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAgregar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,6 +194,7 @@ public class CreandoApartamento extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(175, 229, 239));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Apartamento"));
+        jPanel4.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jtfArea.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -203,7 +204,7 @@ public class CreandoApartamento extends javax.swing.JFrame {
         });
         jPanel4.add(jtfArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, 144, 31));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel5.setText("Area m²");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 54, -1));
 
@@ -219,11 +220,11 @@ public class CreandoApartamento extends javax.swing.JFrame {
         });
         jPanel4.add(jtfTipoInmueble, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 207, 145, 30));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel4.setText("Tipo Inmueble");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 93, -1));
 
-        txtNumeroTorre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtNumeroTorre.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtNumeroTorre.setText("Numero Torre");
         jPanel4.add(txtNumeroTorre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 97, -1));
 
@@ -234,7 +235,7 @@ public class CreandoApartamento extends javax.swing.JFrame {
         });
         jPanel4.add(jtfValorApartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, 154, 32));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel3.setText("Valor Apartamento");
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 127, -1));
 
@@ -245,7 +246,7 @@ public class CreandoApartamento extends javax.swing.JFrame {
         });
         jPanel4.add(jtfNumeroApartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 153, 30));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel2.setText("Numero Apartamento");
         jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
 
@@ -263,6 +264,7 @@ public class CreandoApartamento extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel4.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, 120, 30));
 
+        jLabel8.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jLabel8.setText("Numero Proyecto");
         jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 300, -1, -1));
 
@@ -272,12 +274,12 @@ public class CreandoApartamento extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(108, 93, 71));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Creación de apartamento");
 
         btnCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
-        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnCerrarSesion.setText("Cerrar Sesión");
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,7 +288,7 @@ public class CreandoApartamento extends javax.swing.JFrame {
         });
 
         btnEcharAtras.setBackground(new java.awt.Color(255, 188, 71));
-        btnEcharAtras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnEcharAtras.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnEcharAtras.setText("Atrás");
         btnEcharAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -82,7 +82,7 @@
             <Component class="javax.swing.JButton" name="btnAgregar">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="0"/>
+                  <Font name="Roboto" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Agregar"/>
               </Properties>
@@ -101,6 +101,9 @@
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Datos Apartamento"/>
               </Border>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto" size="12" style="0"/>
             </Property>
           </Properties>
           <Constraints>
@@ -126,7 +129,7 @@
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="0"/>
+                  <Font name="Roboto" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Area m&#xb2;"/>
               </Properties>
@@ -150,7 +153,7 @@
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="0"/>
+                  <Font name="Roboto" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Tipo Inmueble"/>
               </Properties>
@@ -163,7 +166,7 @@
             <Component class="javax.swing.JLabel" name="txtNumeroTorre">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="0"/>
+                  <Font name="Roboto" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Numero Torre"/>
               </Properties>
@@ -186,7 +189,7 @@
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="0"/>
+                  <Font name="Roboto" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Valor Apartamento"/>
               </Properties>
@@ -209,7 +212,7 @@
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="0"/>
+                  <Font name="Roboto" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Numero Apartamento"/>
               </Properties>
@@ -274,6 +277,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Roboto" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Numero Proyecto"/>
               </Properties>
               <Constraints>
@@ -335,7 +341,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="24" style="0"/>
+              <Font name="Roboto" size="24" style="0"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -349,7 +355,7 @@
               <Color blue="47" green="bc" red="ff" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="14" style="0"/>
+              <Font name="Roboto" size="14" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cerrar Sesi&#xf3;n"/>
           </Properties>
@@ -363,7 +369,7 @@
               <Color blue="47" green="bc" red="ff" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="14" style="0"/>
+              <Font name="Roboto" size="14" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Atr&#xe1;s"/>
           </Properties>

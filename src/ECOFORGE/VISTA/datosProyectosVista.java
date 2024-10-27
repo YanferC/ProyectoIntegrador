@@ -63,11 +63,12 @@ public class datosProyectosVista extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(108, 93, 71));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Roboto", 0, 30)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Proyecto");
 
         jbtCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
+        jbtCerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jbtCerrarSesion.setText("Cerrar Sesión");
         jbtCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,7 +77,7 @@ public class datosProyectosVista extends javax.swing.JFrame {
         });
 
         jbtEcharAtras.setBackground(new java.awt.Color(255, 188, 71));
-        jbtEcharAtras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jbtEcharAtras.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jbtEcharAtras.setText("Atrás");
         jbtEcharAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,9 +92,9 @@ public class datosProyectosVista extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jbtEcharAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 248, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
                 .addComponent(jLabel3)
-                .addGap(225, 225, 225)
+                .addGap(202, 202, 202)
                 .addComponent(jbtCerrarSesion)
                 .addGap(17, 17, 17))
         );
@@ -118,6 +119,7 @@ public class datosProyectosVista extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(193, 65, 62));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnAgregar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btnAgregar.setLabel("AGREGAR");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,6 +128,7 @@ public class datosProyectosVista extends javax.swing.JFrame {
         });
         jPanel2.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 110, 40));
 
+        btnActualizar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btnActualizar.setLabel("ACTUALIZAR");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,6 +137,7 @@ public class datosProyectosVista extends javax.swing.JFrame {
         });
         jPanel2.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, -1, 40));
 
+        btnEliminar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btnEliminar.setLabel("ELIMINAR");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
