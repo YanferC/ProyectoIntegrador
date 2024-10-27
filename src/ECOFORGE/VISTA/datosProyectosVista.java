@@ -54,7 +54,7 @@ public class datosProyectosVista extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Clientes");
+        setTitle("EcoForge");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -69,7 +69,7 @@ public class datosProyectosVista extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Roboto", 0, 30)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Proyecto");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, -1, 50));
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, -1, 60));
 
         jbtCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
         jbtCerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
