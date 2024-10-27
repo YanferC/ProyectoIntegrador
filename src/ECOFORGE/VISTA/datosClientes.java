@@ -23,9 +23,9 @@ public class datosClientes extends javax.swing.JFrame {
      */
     public datosClientes(Clientes formularioClientes) {
         initComponents();
-        this.formularioClientes = formularioClientes;
+        /**this.formularioClientes = formularioClientes;
         controlador = new ControladorCliente();
-        configurarFormulario();
+        configurarFormulario();´*/
     }
 
     /**

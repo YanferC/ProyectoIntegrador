@@ -22,9 +22,9 @@ public class VentaVista extends javax.swing.JFrame {
     PanelVenta agregarVenta = new PanelVenta();
     CardLayout vistaAgregarVenta;
 
-    private Asesor formularioVentas;
+    private AsesorVista formularioVentas;
 
-    public VentaVista(Asesor formularioVentas) {
+    public VentaVista(AsesorVista formularioVentas) {
         initComponents();
         this.formularioVentas = formularioVentas;
         vistaAgregarCliente = (CardLayout) agregarCliente.getLayout();
@@ -192,7 +192,7 @@ public class VentaVista extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentaVista(new Asesor()).setVisible(true);
+                new VentaVista(new AsesorVista()).setVisible(true);
             }
         });
     }

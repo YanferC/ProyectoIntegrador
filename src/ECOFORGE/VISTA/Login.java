@@ -131,18 +131,22 @@ public class Login extends javax.swing.JFrame {
         String numero_Identificacion = jTFNombreUsuario.getText();
         Integer tipoRol = asesor.obtenerTipoRol(numero_Identificacion);
 
-        // Verificar si se obtuvo un valor no nulo
+        /*// Verificar si se obtuvo un valor no nulo
         if (tipoRol != null) {
-            if (tipoRol == 1) { // verificar si es igual a 1 - Asesor
-                // Mostrar la vista del Asesor
-                Asesor vistaAsesor = new Asesor();
+            if (tipoRol == 1) { // verificar si es igual a 1 - AsesorVista
+                // Mostrar la vista del AsesorVista
+                AsesorVista vistaAsesor = new AsesorVista();
                 vistaAsesor.setVisible(true);
             } else {
                 // De lo contrario mostrar la vista del administrador
             }
         } else {
             // En caso de no encontrar nada mostrar nada o decir que no se puede ingresar
-        }
+        }*/
+        
+        DashBoardPrincipal ventanaprincipal = new DashBoardPrincipal();
+        ventanaprincipal.setVisible(true);
+        
     }//GEN-LAST:event_btnInicioSesionActionPerformed
 
     private void jTFNombreUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFNombreUsuarioMouseClicked
