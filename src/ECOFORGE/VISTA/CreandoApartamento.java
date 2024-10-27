@@ -145,13 +145,12 @@ public class CreandoApartamento extends javax.swing.JFrame {
         jtfNumeroApartamento = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jcbNumeroTorre = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JButton();
-        btnEcharAtras = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -166,7 +165,10 @@ public class CreandoApartamento extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(193, 65, 62));
 
         btnAgregar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Agregar_30.png"))); // NOI18N
         btnAgregar.setText("Agregar");
+        btnAgregar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAgregar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
@@ -178,19 +180,19 @@ public class CreandoApartamento extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(156, 156, 156)
+                .addGap(160, 160, 160)
                 .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(186, Short.MAX_VALUE))
+                .addContainerGap(182, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 430, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 446, 430, 70));
 
         jPanel4.setBackground(new java.awt.Color(175, 229, 239));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Apartamento"));
@@ -202,7 +204,7 @@ public class CreandoApartamento extends javax.swing.JFrame {
                 jtfAreaKeyTyped(evt);
             }
         });
-        jPanel4.add(jtfArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, 144, 31));
+        jPanel4.add(jtfArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 144, 31));
 
         jLabel5.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel5.setText("Area m²");
@@ -258,9 +260,6 @@ public class CreandoApartamento extends javax.swing.JFrame {
         });
         jPanel4.add(jcbNumeroTorre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 90, 30));
 
-        jLabel6.setText("*");
-        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, -1, -1));
-
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel4.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, 120, 30));
 
@@ -270,13 +269,15 @@ public class CreandoApartamento extends javax.swing.JFrame {
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 434, 390));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, -1, 520));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, 510));
 
         jPanel2.setBackground(new java.awt.Color(108, 93, 71));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Creación de apartamento");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(237, 6, 283, 40));
 
         btnCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
         btnCerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -286,44 +287,20 @@ public class CreandoApartamento extends javax.swing.JFrame {
                 btnCerrarSesionActionPerformed(evt);
             }
         });
+        jPanel2.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 6, 123, 32));
 
-        btnEcharAtras.setBackground(new java.awt.Color(255, 188, 71));
-        btnEcharAtras.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        btnEcharAtras.setText("Atrás");
-        btnEcharAtras.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setBackground(new java.awt.Color(255, 188, 72));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Regresar_30.png"))); // NOI18N
+        jButton1.setFocusPainted(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEcharAtrasActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 40));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnEcharAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
-                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEcharAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, -1));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 60));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Vis_CreandoApartamento.jpg"))); // NOI18N
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, 310, 540));
@@ -335,27 +312,25 @@ public class CreandoApartamento extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfTipoInmuebleActionPerformed
 
-    private void btnEcharAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEcharAtrasActionPerformed
-        ApartamentoVista newframe = new ApartamentoVista();
-        newframe.setVisible(true);
-        this.dispose();
-
-    }//GEN-LAST:event_btnEcharAtrasActionPerformed
-
     private void jtfNumeroApartamentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNumeroApartamentoKeyTyped
         controladorCT.soloNumeros(evt);
+        controladorCT.longitudCaracter(jtfNumeroApartamento,3, evt);
     }//GEN-LAST:event_jtfNumeroApartamentoKeyTyped
 
     private void jtfValorApartamentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfValorApartamentoKeyTyped
         controladorCT.soloNumeros(evt);
+        controladorCT.longitudCaracter(jtfValorApartamento,10, evt);
     }//GEN-LAST:event_jtfValorApartamentoKeyTyped
 
     private void jtfTipoInmuebleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTipoInmuebleKeyTyped
         controladorCT.soloLetras(evt);
+        controladorCT.longitudCaracter(jtfTipoInmueble,20, evt);
+        
     }//GEN-LAST:event_jtfTipoInmuebleKeyTyped
 
     private void jtfAreaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfAreaKeyTyped
         controladorCT.soloNumeros(evt);
+        controladorCT.longitudCaracter(jtfArea,3, evt);
     }//GEN-LAST:event_jtfAreaKeyTyped
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
@@ -371,6 +346,12 @@ public class CreandoApartamento extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ApartamentoVista newframe = new ApartamentoVista();
+        newframe.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -411,14 +392,13 @@ public class CreandoApartamento extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCerrarSesion;
-    private javax.swing.JButton btnEcharAtras;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
