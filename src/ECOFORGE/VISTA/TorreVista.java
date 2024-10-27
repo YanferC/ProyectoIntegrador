@@ -59,11 +59,12 @@ public class TorreVista extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(108, 93, 71));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Creando Torre ");
 
         btnCerrarSesión.setBackground(new java.awt.Color(255, 188, 71));
+        btnCerrarSesión.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btnCerrarSesión.setText("Cerrar Sesión");
         btnCerrarSesión.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,7 +73,7 @@ public class TorreVista extends javax.swing.JFrame {
         });
 
         btnAtrás.setBackground(new java.awt.Color(255, 188, 71));
-        btnAtrás.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAtrás.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnAtrás.setText("Atrás");
         btnAtrás.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,8 +107,10 @@ public class TorreVista extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(193, 65, 62));
 
+        btnAgregar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btnAgregar.setText("Agregar");
 
+        btnCancelar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,7 +141,7 @@ public class TorreVista extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(175, 229, 239));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel2.setText("Numero Pisos");
 
         jtNumPisos.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -147,7 +150,7 @@ public class TorreVista extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel1.setText("Numero Torre");
 
         jtNumTorre.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -156,7 +159,7 @@ public class TorreVista extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel4.setText("Codigo Proyecto");
 
         jtCodProyec.setEnabled(false);

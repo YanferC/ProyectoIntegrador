@@ -100,7 +100,7 @@ public class ApartamentoVista extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(193, 65, 62));
 
-        btnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnAgregar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,7 +108,7 @@ public class ApartamentoVista extends javax.swing.JFrame {
             }
         });
 
-        btnActualizar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnActualizar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         btnActualizar.setText("Actualizar");
         btnActualizar.setName(""); // NOI18N
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -117,7 +117,7 @@ public class ApartamentoVista extends javax.swing.JFrame {
             }
         });
 
-        btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnEliminar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         btnEliminar.setText("Eliminar");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -131,7 +131,7 @@ public class ApartamentoVista extends javax.swing.JFrame {
                 .addComponent(btnActualizar)
                 .addGap(64, 64, 64)
                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,13 +152,13 @@ public class ApartamentoVista extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Apartamento");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 160, 43));
 
         btnCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
-        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnCerrarSesion.setText("Cerrar Sesión");
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,7 +168,7 @@ public class ApartamentoVista extends javax.swing.JFrame {
         jPanel2.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 10, -1, 31));
 
         btnEcharAtras.setBackground(new java.awt.Color(255, 188, 71));
-        btnEcharAtras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnEcharAtras.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnEcharAtras.setText("Regresar");
         btnEcharAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

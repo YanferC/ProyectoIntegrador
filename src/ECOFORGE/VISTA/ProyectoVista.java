@@ -71,11 +71,12 @@ public class ProyectoVista extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(108, 93, 71));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Creando proyecto ");
 
         btnCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
+        btnCerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnCerrarSesion.setText("Cerrar Sesión");
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,7 +85,7 @@ public class ProyectoVista extends javax.swing.JFrame {
         });
 
         btnEcharAtras.setBackground(new java.awt.Color(255, 188, 71));
-        btnEcharAtras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnEcharAtras.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         btnEcharAtras.setText("Atrás");
         btnEcharAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,9 +100,9 @@ public class ProyectoVista extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnEcharAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCerrarSesion)
                 .addGap(14, 14, 14))
         );
@@ -138,26 +139,34 @@ public class ProyectoVista extends javax.swing.JFrame {
         });
         jPanel5.add(jTextFieldNombreProyecto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 190, 30));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         jLabel1.setText("Codigo");
         jPanel5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 60, -1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         jLabel2.setText("Nombre");
         jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 102, 20));
 
         jPanel6.setBackground(new java.awt.Color(193, 65, 62));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnActualizar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Actualizar_30.png"))); // NOI18N
         btnActualizar.setText("Actualizar");
+        btnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnActualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
             }
         });
-        jPanel6.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 100, 40));
+        jPanel6.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 90, 50));
 
+        btnGuardar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Guardar_30.png"))); // NOI18N
         btnGuardar.setText("Guardar");
+        btnGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -168,9 +177,9 @@ public class ProyectoVista extends javax.swing.JFrame {
                 btnGuardarKeyTyped(evt);
             }
         });
-        jPanel6.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 90, 40));
+        jPanel6.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 80, 50));
 
-        jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 510, 70));
+        jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 510, 80));
 
         jPanel1.setBackground(new java.awt.Color(175, 229, 239));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -254,6 +263,7 @@ public class ProyectoVista extends javax.swing.JFrame {
 
     private void jTextFieldNombreProyectoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreProyectoKeyTyped
         controladorCT.soloLetras(evt);
+        controladorCT.longitudCaracter(jTextFieldNombreProyecto,50, evt);
     }//GEN-LAST:event_jTextFieldNombreProyectoKeyTyped
 
     private void jTextFieldCodProyectoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodProyectoKeyTyped
