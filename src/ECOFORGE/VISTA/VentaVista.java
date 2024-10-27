@@ -22,9 +22,9 @@ public class VentaVista extends javax.swing.JFrame {
     PanelVenta agregarVenta = new PanelVenta();
     CardLayout vistaAgregarVenta;
 
-    private AsesorVista formularioVentas;
+    private CuotaVista formularioVentas;
 
-    public VentaVista(AsesorVista formularioVentas) {
+    public VentaVista(CuotaVista formularioVentas) {
         initComponents();
         this.formularioVentas = formularioVentas;
         vistaAgregarCliente = (CardLayout) agregarCliente.getLayout();
@@ -159,7 +159,7 @@ public class VentaVista extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtRegistrarVentaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Asesor newframe = new Asesor();
+        CuotaVista newframe = new CuotaVista();
         newframe.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -195,7 +195,7 @@ public class VentaVista extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentaVista(new AsesorVista()).setVisible(true);
+                new VentaVista(new CuotaVista()).setVisible(true);
             }
         });
     }
