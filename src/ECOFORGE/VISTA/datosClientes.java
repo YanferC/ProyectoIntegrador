@@ -16,16 +16,16 @@ public class datosClientes extends javax.swing.JFrame {
 
     private ControladorCliente controlador;
     private boolean isModoActualizar = false;
-    private Clientes formularioClientes;
+    private ClienteVista formularioClientes;
 
     /**
      * Creates new form datosClientes
      */
-    public datosClientes(Clientes formularioClientes) {
+    public datosClientes(ClienteVista formularioClientes) {
         initComponents();
-        this.formularioClientes = formularioClientes;
+        /**this.formularioClientes = formularioClientes;
         controlador = new ControladorCliente();
-        configurarFormulario();
+        configurarFormulario();´*/
     }
 
     /**
@@ -220,7 +220,7 @@ public class datosClientes extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new datosClientes(new Clientes()).setVisible(true);
+                new datosClientes(new ClienteVista()).setVisible(true);
             }
         });
     }

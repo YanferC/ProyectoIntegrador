@@ -21,21 +21,16 @@ import javax.swing.table.DefaultTableModel;
 
 public class ControladorCliente {
 
-    private DatabaseConnection dbConnection;
-    private Connection connection;
+    private final Connection conexion;
 
-    public ControladorCliente() {
-        dbConnection = new DatabaseConnection();
-    }
-
-    public void conectar() {
-        connection = dbConnection.connect(); // Conectar a la base de datos
+    public ControladorCliente(ControladorConectar controladorConectar) {
+        this.conexion = controladorConectar.getConexion();
     }
 
     // Método para crear un cliente
     public boolean crearCliente(Cliente cliente) {
         String sql = "INSERT INTO cliente (numero_Identificacion, nombre_completo, sisben, subsidio_Ministerio, direccion, telefono, correo_electronico) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
 
             statement.setString(1, cliente.getNumero_Identificacion());
             statement.setString(2, cliente.getNombreCompleto());
@@ -57,7 +52,7 @@ public class ControladorCliente {
     public Cliente obtenerCliente(String numero_Identificacion) {
         String sql = "SELECT * FROM cliente WHERE numero_Identificacion = ?";
         Cliente cliente = null;
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
 
             statement.setString(1, numero_Identificacion);
             ResultSet resultSet = statement.executeQuery();
@@ -83,7 +78,7 @@ public class ControladorCliente {
     public boolean actualizarCliente(Cliente cliente) {
         String sql = "UPDATE cliente SET nombre_completo = ?, sisben = ?, subsidio_Ministerio = ?, "
                 + " direccion = ?, telefono = ?, correo_electronico = ? WHERE numero_Identificacion = ?";
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
 
             statement.setString(1, cliente.getNombreCompleto());
             statement.setString(2, cliente.getSisben());
@@ -104,7 +99,7 @@ public class ControladorCliente {
     // Método para eliminar un cliente
     public boolean eliminarCliente(Integer Numero_Identificacion) {
         String sql = "DELETE FROM cliente WHERE numero_Identificacion = ?";
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
 
             statement.setInt(1, Numero_Identificacion);
 
@@ -120,7 +115,7 @@ public class ControladorCliente {
     public List<Cliente> obtenerTodosLosClientes() {
         String sql = "SELECT * FROM cliente";
         List<Cliente> listaClientes = new ArrayList<>();
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql); ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = conexion.prepareStatement(sql); ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
                 Cliente cliente = new Cliente(
@@ -138,38 +133,5 @@ public class ControladorCliente {
             System.out.println("Error al obtener clientes: " + e.getMessage());
         }
         return listaClientes;
-    }
-
-    public void llenarTablaClientes(JTable tablaClientes) {
-        DefaultTableModel modelo = new DefaultTableModel();
-
-        // Definir las columnas
-        modelo.addColumn("Cédula");
-        modelo.addColumn("Nombre Completo");
-        modelo.addColumn("Sisben");
-        modelo.addColumn("Subsidio Ministerio");
-        modelo.addColumn("Dirección");
-        modelo.addColumn("Teléfono");
-        modelo.addColumn("Correo Electrónico");
-
-        // Obtener todos los clientes
-        List<Cliente> listaClientes = obtenerTodosLosClientes();
-
-        // Agregar los datos al modelo
-        for (Cliente cliente : listaClientes) {
-            Object[] fila = {
-                cliente.getNumero_Identificacion(),
-                cliente.getNombreCompleto(),
-                cliente.getSisben(),
-                cliente.getSubsidio_Ministerio(),
-                cliente.getDireccion(),
-                cliente.getTelefono(),
-                cliente.getCorreoElectronico()
-            };
-            modelo.addRow(fila);
-        }
-
-        // Asignar el modelo al JTable
-        tablaClientes.setModel(modelo);
     }
 }

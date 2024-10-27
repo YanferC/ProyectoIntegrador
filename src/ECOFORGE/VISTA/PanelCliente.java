@@ -8,6 +8,8 @@ import ECOFORGE.MODELO.Cliente;
 import javax.swing.JOptionPane;
 import ECOFORGE.CONTROLADOR.ControladorCliente;
 import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
+import ECOFORGE.CONTROLADOR.ControladorConectar;
+import ECOFORGE.CONTROLADOR.DatabaseConnection;
 
 /**
  *
@@ -18,13 +20,19 @@ public class PanelCliente extends javax.swing.JPanel {
     private ControladorCliente controlador;
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
     private ClienteAddedListener clienteAddedListener;
+    private ControladorConectar controladorConectar;
 
     /**
      * Creates new form PanelCliente
      */
     public PanelCliente() {
         initComponents();
-        controlador = new ControladorCliente();
+        // Inicializar el controlador de conexión y lo conectamos conectarlo
+        controladorConectar = new ControladorConectar(new DatabaseConnection());
+        controladorConectar.conectar();
+        
+        // Pasar la instancia de controladorConectar al controlador del cliente
+        controlador = new ControladorCliente(controladorConectar);
     }
 
     /**
