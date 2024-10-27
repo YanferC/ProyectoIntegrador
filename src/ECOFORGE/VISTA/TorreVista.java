@@ -242,15 +242,18 @@ public class TorreVista extends javax.swing.JFrame {
 
     private void jtNumTorreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNumTorreKeyTyped
         controladorCT.soloNumeros(evt);
+        controladorCT.longitudCaracter(jtNumTorre,3, evt);
         
     }//GEN-LAST:event_jtNumTorreKeyTyped
 
     private void jtNumPisosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNumPisosKeyTyped
         controladorCT.soloNumeros(evt);
+        controladorCT.longitudCaracter(jtNumPisos,3, evt);
     }//GEN-LAST:event_jtNumPisosKeyTyped
 
     private void jtCodProyecKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtCodProyecKeyTyped
         controladorCT.soloNumeros(evt);
+        controladorCT.longitudCaracter(jtCodProyec,10, evt);
     }//GEN-LAST:event_jtCodProyecKeyTyped
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

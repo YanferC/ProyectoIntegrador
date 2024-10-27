@@ -241,7 +241,7 @@ public class ProyectoVista extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldNombreProyectoKeyTyped
 
     private void jTextFieldCodProyectoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodProyectoKeyTyped
-        
+        controladorCT.longitudCaracter(jTextFieldCodProyecto,10, evt);
     }//GEN-LAST:event_jTextFieldCodProyectoKeyTyped
 
     private void btnGuardarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnGuardarKeyTyped

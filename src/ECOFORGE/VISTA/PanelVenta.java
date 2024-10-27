@@ -156,6 +156,11 @@ public class PanelVenta extends javax.swing.JPanel {
 
         jtfNumeroApartamento.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jtfNumeroApartamento.setEnabled(false);
+        jtfNumeroApartamento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfNumeroApartamentoKeyTyped(evt);
+            }
+        });
         jPanel2.add(jtfNumeroApartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, 192, -1));
 
         jLabel9.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
@@ -197,7 +202,7 @@ public class PanelVenta extends javax.swing.JPanel {
 
     private void jtfMatriculaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfMatriculaKeyTyped
         controladorCT.soloNumeros(evt);
-        controladorCT.longitudCaracter(jtfMatricula, 10, evt);
+        controladorCT.longitudCaracter(jtfMatricula, 5, evt);
     }//GEN-LAST:event_jtfMatriculaKeyTyped
 
     private void jtfIdVentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfIdVentaKeyTyped
@@ -232,6 +237,10 @@ public class PanelVenta extends javax.swing.JPanel {
     private void jftfFechaVentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jftfFechaVentaKeyTyped
         
     }//GEN-LAST:event_jftfFechaVentaKeyTyped
+
+    private void jtfNumeroApartamentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNumeroApartamentoKeyTyped
+        controladorCT.longitudCaracter(jtfNumeroApartamento, 3, evt);
+    }//GEN-LAST:event_jtfNumeroApartamentoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
