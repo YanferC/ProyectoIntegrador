@@ -7,6 +7,7 @@ package ECOFORGE.VISTA;
 import ECOFORGE.CONTROLADOR.ControladorVentas;
 import java.awt.CardLayout;
 import javax.swing.SwingUtilities;
+import ECOFORGE.CONTROLADOR.ControladorUtilidades;
 
 /**
  *
@@ -22,13 +23,14 @@ public class VentaVista extends javax.swing.JFrame {
     PanelVenta agregarVenta = new PanelVenta();
     CardLayout vistaAgregarVenta;
 
-    private CuotaVista formularioVentas;
+    private CuotaVista formularioVentas;  // Instancia del formulario de cuotas asociado a las ventas
 
     public VentaVista(CuotaVista formularioVentas) {
-        initComponents();
+        initComponents(); // Inicializa los componentes de la interfaz
         this.formularioVentas = formularioVentas;
-        vistaAgregarCliente = (CardLayout) agregarCliente.getLayout();
-        vistaAgregarVenta = (CardLayout) agregarVenta.getLayout();
+        vistaAgregarCliente = (CardLayout) agregarCliente.getLayout();// Inicializa el layout del panel de cliente
+        vistaAgregarVenta = (CardLayout) agregarVenta.getLayout();// Inicializa el layout del panel de venta
+        ControladorUtilidades.centrarVentana(this);
         
         
 

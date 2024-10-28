@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  * @author juans
  */
 public class TorreVista extends javax.swing.JFrame {
-
+    // Declaración de variables y controladores utilizados en la gestión de Torres
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
     private ControladorTorre controlador;
     private ControladorConectar controladorConectar;
@@ -44,9 +44,10 @@ public class TorreVista extends javax.swing.JFrame {
     }
 
     private void cargarProyectos() {
-        jcbCodigoProyecto.removeAllItems();
+         // Método que carga todos los proyectos disponibles en un JComboBox
+        jcbCodigoProyecto.removeAllItems();// Limpia los elementos actuales del JComboBox
         ControladorProyecto controladorProyecto = new ControladorProyecto(controladorConectar);
-
+         // Obtiene la lista de todos los proyectos desde el controlador
         List<Proyecto> proyectos = controladorProyecto.obtenerTodosLosProyectos();
 
         for (Proyecto proyecto : proyectos) {

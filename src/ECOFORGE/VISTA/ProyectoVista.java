@@ -17,7 +17,7 @@ import ECOFORGE.MODELO.Proyecto;
 import javax.swing.JOptionPane;
 
 public class ProyectoVista extends javax.swing.JFrame {
-
+    // Declaración de variables y controladores utilizados en la gestión de proyectos
     private ControladorProyecto controlador;
     private ControladorConectar controladorConectar;
     private boolean isModoActualizar = false;
