@@ -9,6 +9,7 @@ package ECOFORGE.VISTA;
  * @author YANFER
  */
 import ECOFORGE.CONTROLADOR.ControladorCuota;
+import ECOFORGE.CONTROLADOR.ControladorUtilidades;
 
 import ECOFORGE.MODELO.Cuota;
 import java.util.List;
@@ -27,6 +28,7 @@ public class CuotaVista extends javax.swing.JFrame {
         cuota = new ControladorCuota();
         cuota.conectar();
         cuota.llenarTablaCuotas(jTable1);
+        ControladorUtilidades.centrarVentana(this);
         
     }
 
@@ -58,7 +60,7 @@ public class CuotaVista extends javax.swing.JFrame {
 
         jpEncabezado.setBackground(new java.awt.Color(108, 93, 71));
 
-        jLabel1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("¡Bienvenido a EcoForge Asesor!");
 
@@ -76,8 +78,8 @@ public class CuotaVista extends javax.swing.JFrame {
         jpEncabezadoLayout.setHorizontalGroup(
             jpEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpEncabezadoLayout.createSequentialGroup()
-                .addContainerGap(316, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(266, Short.MAX_VALUE)
+                .addComponent(jLabel1)
                 .addGap(155, 155, 155)
                 .addComponent(btnCerrarSesion)
                 .addContainerGap())
@@ -99,7 +101,10 @@ public class CuotaVista extends javax.swing.JFrame {
         jpInferior.setBackground(new java.awt.Color(193, 65, 62));
 
         btnVenta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btnVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Venta_30.png"))); // NOI18N
         btnVenta.setText("Venta");
+        btnVenta.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnVenta.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVentaActionPerformed(evt);
@@ -119,11 +124,11 @@ public class CuotaVista extends javax.swing.JFrame {
             jpInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpInferiorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnVenta, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(btnVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jpFondo.add(jpInferior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 790, 50));
+        jpFondo.add(jpInferior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 790, 70));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
