@@ -244,6 +244,7 @@ public class datosProyectosVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+         // Método que se ejecuta al hacer clic en el botón "Agregar".
         ProyectoVista agregarProyecto = new ProyectoVista(this);
         agregarProyecto.setVisible(true);
         agregarProyecto.btnActualizar.setEnabled(false);

@@ -24,11 +24,12 @@ public class datosVentaVista extends javax.swing.JFrame {
      * Creates new form Asesor
      */
     public datosVentaVista() {
-        initComponents();
-        cuota = new ControladorCuota();
-        cuota.conectar();
-        cuota.llenarTablaCuotas(jTable1);
-        ControladorUtilidades.centrarVentana(this);
+         // Constructor de la clase datosVentaVista, que inicializa los componentes de la interfaz
+        initComponents();// Inicializa los componentes de la interfaz gráfica
+        cuota = new ControladorCuota();// Crea una instancia del controlador de cuotas
+        cuota.conectar();// Establece la conexión necesaria para gestionar las cuotas
+        cuota.llenarTablaCuotas(jTable1);// Llena la tabla de cuotas con datos en jTable1
+        ControladorUtilidades.centrarVentana(this);// Centra la ventana en la pantalla
         
     }
 
