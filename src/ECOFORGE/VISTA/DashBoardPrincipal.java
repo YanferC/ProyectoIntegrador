@@ -283,13 +283,13 @@ public class DashBoardPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnApartamento;
+    public javax.swing.JButton btnApartamento;
     private javax.swing.JButton btnCerrarSesion;
-    private javax.swing.JButton btnCliente;
-    private javax.swing.JButton btnCuota;
-    private javax.swing.JButton btnProyecto;
-    private javax.swing.JButton btnTorre;
-    private javax.swing.JButton btnVentas;
+    public javax.swing.JButton btnCliente;
+    public javax.swing.JButton btnCuota;
+    public javax.swing.JButton btnProyecto;
+    public javax.swing.JButton btnTorre;
+    public javax.swing.JButton btnVentas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

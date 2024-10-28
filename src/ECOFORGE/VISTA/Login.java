@@ -8,13 +8,18 @@ package ECOFORGE.VISTA;
  *
  * @author YANFER
  */
-import ECOFORGE.CONTROLADOR.ControladorAsesor;
+
 import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
+import ECOFORGE.CONTROLADOR.ControladorConectar;
+import ECOFORGE.CONTROLADOR.ControladorLogin;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
+import ECOFORGE.CONTROLADOR.DatabaseConnection;
+import ECOFORGE.MODELO.LoginUsuario;
 
 public class Login extends javax.swing.JFrame {
 
-    private ControladorAsesor asesor;
+    private ControladorLogin login;
+    private ControladorConectar controladorConectar;
     private boolean primeraVezUsuario = true, primeraVezContra = true; // Controlar si es la primera vez que se hace clic
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
 
@@ -23,7 +28,11 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-        asesor = new ControladorAsesor();
+        // Inicializar el controlador de conexión y lo conectamos conectarlo
+        controladorConectar = new ControladorConectar(new DatabaseConnection());
+        controladorConectar.conectar();
+        
+        login = new ControladorLogin(controladorConectar);
         ControladorUtilidades.centrarVentana(this);
     }
 
@@ -131,25 +140,32 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
-        String numero_Identificacion = jTFNombreUsuario.getText();
-        Integer tipoRol = asesor.obtenerTipoRol(numero_Identificacion);
 
-        /*// Verificar si se obtuvo un valor no nulo
-        if (tipoRol != null) {
-            if (tipoRol == 1) { // verificar si es igual a 1 - AsesorVista
-                // Mostrar la vista del AsesorVista
-                AsesorVista vistaAsesor = new AsesorVista();
-                vistaAsesor.setVisible(true);
-            } else {
-                // De lo contrario mostrar la vista del administrador
+        String Passwoard = jPFContraseña.getText();
+        String ID_USUARIO = jTFNombreUsuario.getText();
+
+        LoginUsuario usuario = login.validarCredenciales(ID_USUARIO, Passwoard);
+
+        if (usuario != null) {
+            if ("1".equals(usuario.getTIPO_ROL())) {
+                DashBoardPrincipal ventanaprincipal = new DashBoardPrincipal();
+                ventanaprincipal.setVisible(true);
+                /// Aquí desactivar botones de administrador en el DashBoard
+                ventanaprincipal.btnProyecto.setEnabled(false);
+                ventanaprincipal.btnTorre.setEnabled(false);
+                ventanaprincipal.btnApartamento.setEnabled(false);
+                
+            } else if ("2".equals(usuario.getTIPO_ROL())) {
+                DashBoardPrincipal ventanaprincipal = new DashBoardPrincipal();
+                ventanaprincipal.setVisible(true);
+                /// Aquí desactivar botones de Aasesor en el DashBoard
+                ventanaprincipal.btnVentas.setEnabled(false);
+                ventanaprincipal.btnCuota.setEnabled(false);
+                ventanaprincipal.btnCliente.setEnabled(false);
             }
         } else {
-            // En caso de no encontrar nada mostrar nada o decir que no se puede ingresar
-        }*/
-        
-        DashBoardPrincipal ventanaprincipal = new DashBoardPrincipal();
-        ventanaprincipal.setVisible(true);
-        
+            System.out.println("Credenciales incorrectas.");
+        }
     }//GEN-LAST:event_btnInicioSesionActionPerformed
 
     private void jTFNombreUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFNombreUsuarioMouseClicked

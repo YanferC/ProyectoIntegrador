@@ -20,21 +20,16 @@ import javax.swing.table.DefaultTableModel;
 
 public class ControladorApartamento {
 
-    private DatabaseConnection dbConnection;
-    private Connection connection;
+    private final Connection conexion;
 
-    public ControladorApartamento() {
-        dbConnection = new DatabaseConnection();
-    }
-
-    public void conectar() {
-        connection = dbConnection.connect(); // Conectar a la base de datos
+    public ControladorApartamento(ControladorConectar controladorConectar) {
+        this.conexion = controladorConectar.getConexion();
     }
 
     // Método para crear un Apartamento
     public boolean crearApartamento(Apartamento apartamento) {
-        String sql = "INSERT INTO Apartamento (numero_Apartamento, valor_Apartamento, tipo_Inmueble, area, numero_Torre) VALUES (?, ?, ?, ?, ?)";
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        String sql = "INSERT INTO Apartamento (NUMERO_APARTAMENTO, VALOR_APARTAMENTO , tipo_Inmueble, area, numero_Torre) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
 
             statement.setInt(1, apartamento.getNumero_Apartamento());
             statement.setInt(2, apartamento.getValor_Apartamento());
@@ -54,7 +49,7 @@ public class ControladorApartamento {
     public Apartamento obtenerApartamento(String numero_Apartamento) {
         String sql = "SELECT * FROM Apartamento WHERE numero_Apartamento = ?";
         Apartamento apartamento = null;
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
 
             statement.setString(1, numero_Apartamento);
             ResultSet resultSet = statement.executeQuery();
@@ -76,13 +71,15 @@ public class ControladorApartamento {
 
     // Método para actualizar un Apartamento
     public boolean actualizarApartamento(Apartamento apartamento) {
-        String sql = "UPDATE Apartamento SET  valor_Inmueble = ?, tipo_Inmueble = ?, area = ?, numero_Torre = ?";
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        String sql = "UPDATE Apartamento SET valor_Apartamento = ?, tipo_Inmueble = ?, area = ?, numero_Torre = ?"
+                + " Where numero_apartamento = ?";
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
 
             statement.setInt(1, apartamento.getValor_Apartamento());
             statement.setString(2, apartamento.getTipo_Inmueble());
             statement.setInt(3, apartamento.getArea());
             statement.setInt(4, apartamento.getNumero_Torre());
+            statement.setInt(5, apartamento.getNumero_Apartamento());
 
             int rowsUpdated = statement.executeUpdate();
             return rowsUpdated > 0;
@@ -95,7 +92,7 @@ public class ControladorApartamento {
     // Método para eliminar un Apartamento
     public boolean eliminarApartamento(Integer Numero_Apartamento) {
         String sql = "DELETE FROM Apartamento WHERE numero_Apartamento = ?";
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
 
             statement.setInt(1, Numero_Apartamento);
 
@@ -111,7 +108,7 @@ public class ControladorApartamento {
     public List<Apartamento> obtenerTodosLosApartamentos() {
         String sql = "SELECT * FROM Apartamento";
         List<Apartamento> listaApartamentos = new ArrayList<>();
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql); ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = conexion.prepareStatement(sql); ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
                 Apartamento apartamento = new Apartamento(
@@ -129,32 +126,4 @@ public class ControladorApartamento {
         return listaApartamentos;
     }
 
-    public void llenarTablaApartamentos(JTable tablaApartamentos) {
-        DefaultTableModel modelo = new DefaultTableModel();
-
-        // Definir las columnas
-        modelo.addColumn("Numero Apartamento");
-        modelo.addColumn("Valor Apartamento");
-        modelo.addColumn("Tipo Inmueble");
-        modelo.addColumn("Área");
-        modelo.addColumn("Numero Torre");
-
-        // Obtener todos los Apartamentos
-        List<Apartamento> listaApartamentos = obtenerTodosLosApartamentos();
-
-        // Agregar los datos al modelo
-        for (Apartamento apartamento : listaApartamentos) {
-            Object[] fila = {
-                apartamento.getNumero_Apartamento(),
-                apartamento.getValor_Apartamento(),
-                apartamento.getTipo_Inmueble(),
-                apartamento.getArea(),
-                apartamento.getNumero_Torre()
-            };
-            modelo.addRow(fila);
-        }
-
-        // Asignar el modelo al JTable
-        tablaApartamentos.setModel(modelo);
-    }
 }

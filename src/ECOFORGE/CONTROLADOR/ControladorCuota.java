@@ -18,7 +18,6 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Date;
-import javax.swing.*;
 import java.awt.*;
 
 public class ControladorCuota {

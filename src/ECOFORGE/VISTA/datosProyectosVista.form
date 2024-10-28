@@ -133,22 +133,22 @@
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="60" width="770" height="260"/>
+                  <AbsoluteConstraints x="0" y="60" width="770" height="380"/>
                 </Constraint>
               </Constraints>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable1">
+                <Component class="javax.swing.JTable" name="tProyecto">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new DefaultTableModel(new Object[][]{}, new String[]{&quot;C&#xe9;dula&quot;, &quot;Nombre Completo&quot;, &quot;Sisben&quot;, &quot;Direcci&#xf3;n&quot;, &quot;Telefono&quot;, &quot;Correo Electr&#xf3;nico&quot;})" type="code"/>
+                      <Connection code="new DefaultTableModel(new Object[][]{}, new String[]{&quot;C&#xf3;digo Proyecto&quot;, &quot;Nombre Proyecto&quot;})" type="code"/>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0"/>
                     </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                      <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                      <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                     </Property>
                   </Properties>
                   <AuxValues>

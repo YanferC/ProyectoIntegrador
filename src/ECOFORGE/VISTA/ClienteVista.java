@@ -141,7 +141,7 @@ public class ClienteVista extends javax.swing.JFrame {
         tCliente.setModel(new DefaultTableModel(new Object[][]{}, new String[]{"Cédula", "Nombre Completo", "Sisben", "Dirección", "Telefono", "Correo Electrónico"}));
         jScrollPane1.setViewportView(tCliente);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 722, 170));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 720, 250));
 
         jPanel1.setBackground(new java.awt.Color(108, 92, 71));
 

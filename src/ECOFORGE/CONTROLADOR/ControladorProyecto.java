@@ -15,21 +15,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 
 public class ControladorProyecto {
 
-    private DatabaseConnection dbConnection;
-    private Connection connection;
+    private final Connection conexion;
 
-    public ControladorProyecto() {
-        dbConnection = new DatabaseConnection();
-    }
-
-    public void conectar() {
-        connection = dbConnection.connect(); // Conectar a la base de datos
+    public ControladorProyecto(ControladorConectar controladorConectar) {
+        this.conexion = controladorConectar.getConexion();
     }
 
     // PROYECTOS
@@ -37,7 +30,7 @@ public class ControladorProyecto {
     // Método para crear un proyecto
     public boolean crearProyecto(Proyecto proyecto) {
         String sql = "INSERT INTO proyecto (codigo_proyecto, nombre_proyecto) VALUES (?, ?)";
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
 
             statement.setString(1, proyecto.getCodigo_proyecto());
             statement.setString(2, proyecto.getNombre_proyecto());
@@ -54,7 +47,7 @@ public class ControladorProyecto {
     public Proyecto obtenerProyecto(String codigo_proyecto) {
         String sql = "SELECT * FROM proyecto WHERE codigo_proyecto = ?";
         Proyecto Proyecto = null;
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
 
             statement.setString(1, codigo_proyecto);
             ResultSet resultSet = statement.executeQuery();
@@ -74,7 +67,7 @@ public class ControladorProyecto {
     // Método para actualizar un Proyecto
     public boolean actualizarProyecto(Proyecto Proyecto) {
         String sql = "UPDATE proyecto SET nombre_proyecto = ? WHERE codigo_proyecto = ?";
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
 
             statement.setString(1, Proyecto.getNombre_proyecto());
             statement.setString(2, Proyecto.getCodigo_proyecto());
@@ -88,11 +81,11 @@ public class ControladorProyecto {
     }
 
     // Método para eliminar un Proyecto
-    public boolean eliminarProyecto(Integer codigo_proyecto) {
+        public boolean eliminarProyecto(String codigo_proyecto) {
         String sql = "DELETE FROM Proyecto WHERE codigo_proyecto = ?";
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
 
-            statement.setInt(1, codigo_proyecto);
+            statement.setString(1, codigo_proyecto);
 
             int rowsDeleted = statement.executeUpdate();
             return rowsDeleted > 0;
@@ -106,7 +99,7 @@ public class ControladorProyecto {
     public List<Proyecto> obtenerTodosLosProyectos() {
         String sql = "SELECT * FROM proyecto";
         List<Proyecto> listaProyecto = new ArrayList<>();
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql); ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = conexion.prepareStatement(sql); ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
                 Proyecto proyecto = new Proyecto(
@@ -119,28 +112,5 @@ public class ControladorProyecto {
             System.out.println("Error al obtener proyectos: " + e.getMessage());
         }
         return listaProyecto;
-    }
-
-    public void llenarTablaProyectos(JTable tablaProyectos) {
-        DefaultTableModel modelo = new DefaultTableModel();
-
-        // Definir las columnas
-        modelo.addColumn("Codigo");
-        modelo.addColumn("Nombre Proyecto");
-
-        // Obtener todos los Proyectos
-        List<Proyecto> listaProyectos = obtenerTodosLosProyectos();
-
-        // Agregar los datos al modelo
-        for (Proyecto proyecto : listaProyectos) {
-            Object[] fila = {
-                proyecto.getCodigo_proyecto(),
-                proyecto.getNombre_proyecto(),
-            };
-            modelo.addRow(fila);
-        }
-
-        // Asignar el modelo al JTable
-        tablaProyectos.setModel(modelo);
     }
 }
