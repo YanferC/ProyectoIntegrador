@@ -6,7 +6,7 @@ package ECOFORGE.MODELO;
 
 /**
  *
- * @author ANDRES
+ * @author YANFER
  */
 public class Proyecto {
     private String codigo_proyecto;

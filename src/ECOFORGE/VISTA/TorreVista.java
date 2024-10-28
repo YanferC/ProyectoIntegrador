@@ -3,28 +3,55 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package ECOFORGE.VISTA;
+
 import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
+import ECOFORGE.CONTROLADOR.ControladorConectar;
+import ECOFORGE.CONTROLADOR.ControladorTorre;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
-import ECOFORGE.CONTROLADOR.ControladorVistaTorreProyecto;
+import ECOFORGE.CONTROLADOR.ControladorProyecto;
+import ECOFORGE.CONTROLADOR.DatabaseConnection;
+import ECOFORGE.MODELO.Proyecto;
+import ECOFORGE.MODELO.Torre;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author juans
  */
 public class TorreVista extends javax.swing.JFrame {
+
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
-    
-    
+    private ControladorTorre controlador;
+    private ControladorConectar controladorConectar;
+    private datosTorreVista formularioTorre;
+
     /**
      * Creates new form TorreVista
      */
-    public TorreVista() {
+    public TorreVista(datosTorreVista formularioTorre) {
         initComponents();
+        this.formularioTorre = formularioTorre;
+
+        // Inicializar el controlador de conexión y lo conectamos conectarlo
+        controladorConectar = new ControladorConectar(new DatabaseConnection());
+        controladorConectar.conectar();
+
+        controlador = new ControladorTorre(controladorConectar);
         ControladorUtilidades.centrarVentana(this);
-        
+
+        cargarProyectos();
     }
-    
-    public void setCodigoProyecto(String codigo){
-        jtCodProyec.setText(codigo);
+
+    private void cargarProyectos() {
+        jcbCodigoProyecto.removeAllItems();
+        ControladorProyecto controladorProyecto = new ControladorProyecto(controladorConectar);
+
+        List<Proyecto> proyectos = controladorProyecto.obtenerTodosLosProyectos();
+
+        for (Proyecto proyecto : proyectos) {
+            jcbCodigoProyecto.addItem(proyecto.getCodigo_proyecto());
+        }
     }
 
     /**
@@ -42,14 +69,14 @@ public class TorreVista extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         btnAgregar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jtNumPisos = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jtNumTorre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jtCodProyec = new javax.swing.JTextField();
+        jcbCodigoProyecto = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EcoForge");
@@ -101,15 +128,20 @@ public class TorreVista extends javax.swing.JFrame {
         btnAgregar.setText("Agregar");
         btnAgregar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAgregar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
-        btnCancelar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Cancelar_30.png"))); // NOI18N
-        btnCancelar.setText("Cancelar");
-        btnCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        btnActualizar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Actualizar_30.png"))); // NOI18N
+        btnActualizar.setText("Actualizar");
+        btnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnActualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
             }
         });
 
@@ -121,7 +153,7 @@ public class TorreVista extends javax.swing.JFrame {
                 .addGap(117, 117, 117)
                 .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(95, 95, 95)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -130,7 +162,7 @@ public class TorreVista extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
-                    .addComponent(btnCancelar))
+                    .addComponent(btnActualizar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -155,12 +187,12 @@ public class TorreVista extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel4.setText("Codigo Proyecto");
+        jLabel4.setText("Código Proyecto");
 
-        jtCodProyec.setEnabled(false);
-        jtCodProyec.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtCodProyecKeyTyped(evt);
+        jcbCodigoProyecto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbCodigoProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbCodigoProyectoActionPerformed(evt);
             }
         });
 
@@ -180,9 +212,9 @@ public class TorreVista extends javax.swing.JFrame {
                 .addGap(34, 34, 34))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(136, 136, 136)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtCodProyec, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jcbCodigoProyecto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -199,8 +231,8 @@ public class TorreVista extends javax.swing.JFrame {
                 .addGap(53, 53, 53)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtCodProyec, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addComponent(jcbCodigoProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -243,31 +275,74 @@ public class TorreVista extends javax.swing.JFrame {
 
     private void jtNumTorreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNumTorreKeyTyped
         controladorCT.soloNumeros(evt);
-        controladorCT.longitudCaracter(jtNumTorre,3, evt);
-        
+        controladorCT.longitudCaracter(jtNumTorre, 3, evt);
+
     }//GEN-LAST:event_jtNumTorreKeyTyped
 
     private void jtNumPisosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNumPisosKeyTyped
         controladorCT.soloNumeros(evt);
-        controladorCT.longitudCaracter(jtNumPisos,3, evt);
+        controladorCT.longitudCaracter(jtNumPisos, 3, evt);
     }//GEN-LAST:event_jtNumPisosKeyTyped
 
-    private void jtCodProyecKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtCodProyecKeyTyped
-        controladorCT.soloNumeros(evt);
-        controladorCT.longitudCaracter(jtCodProyec,10, evt);
-    }//GEN-LAST:event_jtCodProyecKeyTyped
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // Código para actualizar el Proyecto
+        Integer numero_Torre = Integer.parseInt(jtNumTorre.getText());
+        Integer numero_Pisos = Integer.parseInt(jtNumPisos.getText());
+        String codigo_proyecto = (String) jcbCodigoProyecto.getSelectedItem();
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        datosTorreVista newframe = new datosTorreVista();
-        newframe.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnCancelarActionPerformed
+        Torre actualizarTorre = new Torre(numero_Torre, numero_Pisos, codigo_proyecto);
+        // Llamar al controlador para actualizar
+        if (controlador.actualizarTorre(actualizarTorre)) {
+            JOptionPane.showMessageDialog(this, "Torre actualizada correctamente.");
+            // Cerrar el formulario después de actualizar
+            formularioTorre.actualizarTabla();
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al actualizar la Torre.");
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnActualizarActionPerformed
+    public void cargarDatos(Integer numero_Torre, Integer numero_Pisos, String codigo_proyecto) {
+        jtNumTorre.setText(String.valueOf(numero_Torre));
+        jtNumPisos.setText(String.valueOf(numero_Pisos));
+        //jcbCodigoProyecto.addItem(codigo_proyecto);
+        jcbCodigoProyecto.setSelectedItem(codigo_proyecto);
+        // Deshabilitar el combobox del código del proyecto para que no sea modificable
+        //jcbCodigoProyecto.setEnabled(false);
+        jtNumTorre.setEnabled(false);
+    }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         datosTorreVista newframe = new datosTorreVista();
         newframe.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // Obtener datos de los campos de texto
+        Integer numero_Torre = Integer.parseInt(jtNumTorre.getText());
+        Integer numero_Pisos = Integer.parseInt(jtNumPisos.getText());
+        String codigo_proyecto = (String) jcbCodigoProyecto.getSelectedItem();
+
+        Torre torre = new Torre(numero_Torre, numero_Pisos, codigo_proyecto);
+
+        if (controlador.crearTorre(torre)) {
+            JOptionPane.showMessageDialog(this, "Torre agregada exitosamente.");
+
+            // Actualizar la tabla en el formulario Proyecto
+            formularioTorre.actualizarTabla();
+            datosTorreVista datosTorres = new datosTorreVista();
+            datosTorres.setVisible(true);
+
+            this.dispose(); // Cerrar el formulario
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al agregar Torre.");
+        }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void jcbCodigoProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCodigoProyectoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbCodigoProyectoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,14 +374,14 @@ public class TorreVista extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TorreVista().setVisible(true);
+                new TorreVista(new datosTorreVista()).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnCancelar;
+    public javax.swing.JButton btnActualizar;
+    public javax.swing.JButton btnAgregar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -316,7 +391,7 @@ public class TorreVista extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jtCodProyec;
+    private javax.swing.JComboBox<String> jcbCodigoProyecto;
     private javax.swing.JTextField jtNumPisos;
     private javax.swing.JTextField jtNumTorre;
     // End of variables declaration//GEN-END:variables

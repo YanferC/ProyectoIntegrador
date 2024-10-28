@@ -5,7 +5,9 @@
 package ECOFORGE.VISTA;
 
 import ECOFORGE.CONTROLADOR.ControladorApartamento;
+import ECOFORGE.CONTROLADOR.ControladorConectar;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
+import ECOFORGE.CONTROLADOR.DatabaseConnection;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
@@ -13,13 +15,16 @@ import ECOFORGE.MODELO.Apartamento;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
 import ECOFORGE.VISTA.CreandoApartamento;
+import java.awt.Color;
+import java.util.List;
 
 /**
  *
  * @author SEBASTIAN
  */
 public class ApartamentoVista extends javax.swing.JFrame {
-
+    
+    private ControladorConectar controladorConectar;
     private ControladorApartamento apartamento; //Controlador para gestionar la lógica de Apartamento
     private CreandoApartamento creandoApartamento; // Ventana para crear nuevos apartamentos
     
@@ -30,21 +35,54 @@ public class ApartamentoVista extends javax.swing.JFrame {
     public ApartamentoVista() {
 
         initComponents(); //Inicializa los componentes gráficos del JFrame
-        apartamento = new ControladorApartamento(); // Instancia el controlador de Apartamento
-        apartamento.conectar(); // Conecta el controlador a la base de datos o modelo
-        apartamento.llenarTablaApartamentos(jtbTablaApartamento); // Llena la tabla con datos de Apartamentos
+        // Inicializar el controlador de conexión y lo conectamos conectarlo
+        controladorConectar = new ControladorConectar(new DatabaseConnection());
+        controladorConectar.conectar();
+
+        apartamento = new ControladorApartamento(controladorConectar); // Instancia el controlador de Apartamento
+
         ControladorUtilidades.centrarVentana(this); // Centra la ventana en la pantalla
-        btnActualizar.addActionListener(e -> actualizarApartamento());
 
-        
+        // Llenamos la tabla
+        List<Apartamento> listaApartamentos = apartamento.obtenerTodosLosApartamentos();
+        llenarTablaApartamento(listaApartamentos);
     }
 
-    
-    
-    public void actualizarApartamento() {
+    public void llenarTablaApartamento(List<Apartamento> listaApartamentos) {
+        //DefaultTableModel modelo = (DefaultTableModel) tProyecto.getModel();
         
+        // Crear el modelo de la tabla con las columnas definidas
+        DefaultTableModel modelo = new DefaultTableModel(
+                new String[]{
+                    "Número Apartamento", "Valor Apartamento", "Tipo Inmueble",
+                    "Área", "Número Torre"
+                }, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;  // Bloquear edición de las celdas
+            }
+        };
 
+        // Agregar los datos al modelo
+        for (Apartamento apartamento : listaApartamentos) {
+            Object[] fila = {
+                apartamento.getNumero_Apartamento(),
+                apartamento.getValor_Apartamento(),
+                apartamento.getTipo_Inmueble(),
+                apartamento.getArea(),
+                apartamento.getNumero_Torre(),};
+            modelo.addRow(fila);
+        }
+        
+        tApartamento.setModel(modelo);
+        tApartamento.setBackground(Color.decode("#AFE5EF"));
+        tApartamento.setForeground(Color.BLACK);             // Texto en negro
+        tApartamento.setSelectionBackground(new Color(100, 150, 255)); // Fondo al seleccionar
+        tApartamento.setSelectionForeground(Color.WHITE);    // Texto al seleccionar
     }
+    
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -57,7 +95,7 @@ public class ApartamentoVista extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtbTablaApartamento = new javax.swing.JTable();
+        tApartamento = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         btnAgregar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
@@ -76,7 +114,7 @@ public class ApartamentoVista extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(175, 229, 239));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jtbTablaApartamento.setModel(new javax.swing.table.DefaultTableModel(
+        tApartamento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -95,7 +133,7 @@ public class ApartamentoVista extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jtbTablaApartamento);
+        jScrollPane1.setViewportView(tApartamento);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -4, 820, 310));
 
@@ -199,24 +237,74 @@ public class ApartamentoVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+         // Verificar que se ha seleccionado un registro en la tabla
+        int filaSeleccionada = tApartamento.getSelectedRow();
 
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un Apartamento para actualizar.");
+            return;
+        }
+
+        // Obtener los datos del Proyecto seleccionado
+        Integer numero_Apartamento = Integer.parseInt(tApartamento.getValueAt(filaSeleccionada, 0).toString());
+        Integer valor_Apartamento = Integer.parseInt(tApartamento.getValueAt(filaSeleccionada, 1).toString());
+        String tipo_Inmueble  = tApartamento.getValueAt(filaSeleccionada, 2).toString();
+        Integer area = Integer.parseInt(tApartamento.getValueAt(filaSeleccionada, 3).toString());
+        Integer numero_Torre = Integer.parseInt(tApartamento.getValueAt(filaSeleccionada, 4).toString());
+
+        // Abrir el formulario CreandoApartamento y pasar los datos
+        CreandoApartamento actualizarApartamento = new CreandoApartamento(this);
+        actualizarApartamento.setVisible(true);
+        actualizarApartamento.btnAgregar.setEnabled(false);
+        // Pasar los datos al formulario
+        actualizarApartamento.cargarDatos(numero_Apartamento, valor_Apartamento, tipo_Inmueble, area, numero_Torre);
+
+             // TODO add your handling code here:
 
     }//GEN-LAST:event_btnActualizarActionPerformed
     // Este método se ejecuta cuando se hace clic en el botón de agregar
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        CreandoApartamento newframe = new CreandoApartamento(); // Crea una nueva ventana para agregar un apartamento
-        newframe.setVisible(true); // Muestra la nueva ventana
+        CreandoApartamento apartamentoVistaC = new CreandoApartamento(this); // Crea una nueva ventana para agregar un apartamento
+        apartamentoVistaC.setVisible(true); // Muestra la nueva ventana
+        apartamentoVistaC.btnActualizar.setEnabled(false);
         this.dispose(); // Cierra la ventana actual
     }//GEN-LAST:event_btnAgregarActionPerformed
     // Este método se ejecuta cuando se hace clic en el botón de cerrar sesión
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        Login newframe = new Login();
-        newframe.setVisible(true);
+        
         this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        // Verificar que se ha seleccionado un registro en la tabla
+        int filaSeleccionada = tApartamento.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            // Si no se ha seleccionado ninguna fila
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un Apartamento para eliminar.");
+            return;
+        }
+
+        // Obtener el número del apartamento seleccionado (asumiendo que el número está en la primera columna)
+        Integer numero_Apartamento = Integer.parseInt(tApartamento.getValueAt(filaSeleccionada, 0).toString());
+
+        // Confirmar la eliminación
+        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar este Apartamento?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            // Crear una instancia del controlador
+            ControladorApartamento controlador = new ControladorApartamento(controladorConectar);
+
+            // Intentar eliminar el Apartamento
+            if (controlador.eliminarApartamento(numero_Apartamento)) {
+                JOptionPane.showMessageDialog(this, "Apartamento eliminado correctamente.");
+
+                // Actualizar la tabla después de eliminar el Apartamento
+                actualizarTabla();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al eliminar el Apartamento.");
+            }
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -224,7 +312,26 @@ public class ApartamentoVista extends javax.swing.JFrame {
         newframe.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+    
+    public void actualizarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) tApartamento.getModel();
+        modelo.setRowCount(0); // Limpiar la tabla
 
+        // Obtener todos los Apartamentos y agregarlos a la tabla
+        ControladorApartamento controlador = new ControladorApartamento(controladorConectar);
+        List<Apartamento> listaApartamentos = controlador.obtenerTodosLosApartamentos();
+
+        for (Apartamento apartamento : listaApartamentos) {
+            Object[] fila = {
+                apartamento.getNumero_Apartamento(),
+                apartamento.getValor_Apartamento(),
+                apartamento.getTipo_Inmueble(),
+                apartamento.getArea(),
+                apartamento.getNumero_Torre(),};
+            modelo.addRow(fila);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -271,6 +378,6 @@ public class ApartamentoVista extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jtbTablaApartamento;
+    private javax.swing.JTable tApartamento;
     // End of variables declaration//GEN-END:variables
 }

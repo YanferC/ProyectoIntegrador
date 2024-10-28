@@ -6,29 +6,68 @@ package ECOFORGE.VISTA;
 
 /**
  *
- * @author ANDRES
+ * @author SEBASTIAN
  */
+import ECOFORGE.CONTROLADOR.ControladorConectar;
 import ECOFORGE.CONTROLADOR.ControladorProyecto;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
+import ECOFORGE.CONTROLADOR.DatabaseConnection;
 import ECOFORGE.MODELO.Proyecto;
+import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class datosProyectosVista extends javax.swing.JFrame {
 
+    private ControladorConectar controladorConectar;
     private ControladorProyecto controlador;
-    private boolean isUpdating = false;
     
 
     public datosProyectosVista() {
         initComponents();
-        controlador = new ControladorProyecto();
-        controlador.conectar();
-        controlador.llenarTablaProyectos(jTable1);
-        ControladorUtilidades.centrarVentana(this);
-        
 
+        // Inicializar el controlador de conexión y lo conectamos conectarlo
+        controladorConectar = new ControladorConectar(new DatabaseConnection());
+        controladorConectar.conectar();
+
+        controlador = new ControladorProyecto(controladorConectar);
+
+        ControladorUtilidades.centrarVentana(this);
+
+        // Llenamos la tabla
+        List<Proyecto> listaProyectos = controlador.obtenerTodosLosProyectos();
+        llenarTablaProyectos(listaProyectos);
+    }
+
+    public void llenarTablaProyectos(List<Proyecto> listaProyectos) {
+        //DefaultTableModel modelo = (DefaultTableModel) tProyecto.getModel();
+        
+        // Crear el modelo de la tabla con las columnas definidas
+        DefaultTableModel modelo = new DefaultTableModel(
+                new String[]{
+                    "Código Proyecto", "Nombre Proyecto"
+                }, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;  // Bloquear edición de las celdas
+            }
+        };
+
+        // Agregar los datos al modelo
+        for (Proyecto proyecto : listaProyectos) {
+            Object[] fila = {
+                proyecto.getCodigo_proyecto(),
+                proyecto.getNombre_proyecto(),};
+            modelo.addRow(fila);
+        }
+        
+        tProyecto.setModel(modelo);
+        tProyecto.setBackground(Color.decode("#AFE5EF"));
+        tProyecto.setForeground(Color.BLACK);             // Texto en negro
+        tProyecto.setSelectionBackground(new Color(100, 150, 255)); // Fondo al seleccionar
+        tProyecto.setSelectionForeground(Color.WHITE);    // Texto al seleccionar
     }
 
     /**
@@ -47,7 +86,7 @@ public class datosProyectosVista extends javax.swing.JFrame {
         jbtCerrarSesion = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tProyecto = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         btnAgregar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
@@ -94,10 +133,11 @@ public class datosProyectosVista extends javax.swing.JFrame {
 
         jPanel5.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 60));
 
-        jTable1.setModel(new DefaultTableModel(new Object[][]{}, new String[]{"Cédula", "Nombre Completo", "Sisben", "Dirección", "Telefono", "Correo Electrónico"}));
-        jScrollPane1.setViewportView(jTable1);
+        tProyecto.setModel(new DefaultTableModel(new Object[][]{}, new String[]{"Código Proyecto", "Nombre Proyecto"}));
+        tProyecto.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tProyecto);
 
-        jPanel5.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 770, 260));
+        jPanel5.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 770, 380));
 
         jPanel2.setBackground(new java.awt.Color(193, 65, 62));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -149,7 +189,7 @@ public class datosProyectosVista extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // Verificar que se ha seleccionado un registro en la tabla
-        int filaSeleccionada = jTable1.getSelectedRow();
+        int filaSeleccionada = tProyecto.getSelectedRow();
 
         if (filaSeleccionada == -1) {
             // Si no se ha seleccionado ninguna fila
@@ -157,15 +197,15 @@ public class datosProyectosVista extends javax.swing.JFrame {
             return;
         }
 
-        // Obtener la cédula del Proyecto seleccionado (asumiendo que la cédula está en la primera columna)
-        int codigo_proyecto = (Integer) jTable1.getValueAt(filaSeleccionada, 0);
+        // Obtener el código del Proyecto seleccionado (asumiendo que el código está en la primera columna)
+        String codigo_proyecto = tProyecto.getValueAt(filaSeleccionada, 0).toString();
 
         // Confirmar la eliminación
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar este proyecto?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
 
         if (confirmacion == JOptionPane.YES_OPTION) {
             // Crear una instancia del controlador
-            ControladorProyecto controlador = new ControladorProyecto();
+            ControladorProyecto controlador = new ControladorProyecto(controladorConectar);
 
             // Intentar eliminar el Proyecto
             if (controlador.eliminarProyecto(codigo_proyecto)) {
@@ -181,7 +221,7 @@ public class datosProyectosVista extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // Verificar que se ha seleccionado un registro en la tabla
-        int filaSeleccionada = jTable1.getSelectedRow();
+        int filaSeleccionada = tProyecto.getSelectedRow();
 
         if (filaSeleccionada == -1) {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione un proyecto para actualizar.");
@@ -189,24 +229,24 @@ public class datosProyectosVista extends javax.swing.JFrame {
         }
 
         // Obtener los datos del Proyecto seleccionado
-        Integer codigo_proyecto = Integer.parseInt(jTable1.getValueAt(filaSeleccionada, 0).toString());
-        String nombre_proyecto = jTable1.getValueAt(filaSeleccionada, 1).toString();
+        String codigo_proyecto = tProyecto.getValueAt(filaSeleccionada, 0).toString();
+        String nombre_proyecto = tProyecto.getValueAt(filaSeleccionada, 1).toString();
 
         // Abrir el formulario ProyectoVista y pasar los datos
         ProyectoVista actualizarProyecto = new ProyectoVista(this);
         actualizarProyecto.setVisible(true);
-
+        actualizarProyecto.btnGuardar.setEnabled(false);
         // Pasar los datos al formulario
         actualizarProyecto.cargarDatos(codigo_proyecto, nombre_proyecto);
 
-        // Establecer un modo de "actualización"
-        actualizarProyecto.setModoActualizar(true);      // TODO add your handling code here:
+             // TODO add your handling code here:
 
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         ProyectoVista agregarProyecto = new ProyectoVista(this);
         agregarProyecto.setVisible(true);
+        agregarProyecto.btnActualizar.setEnabled(false);
         dispose();
 
         // TODO add your handling code here:
@@ -225,18 +265,17 @@ public class datosProyectosVista extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void actualizarTabla() {
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tProyecto.getModel();
         modelo.setRowCount(0); // Limpiar la tabla
 
         // Obtener todos los Proyectos y agregarlos a la tabla
-        ControladorProyecto controlador = new ControladorProyecto();
+        ControladorProyecto controlador = new ControladorProyecto(controladorConectar);
         List<Proyecto> listaProyectos = controlador.obtenerTodosLosProyectos();
 
         for (Proyecto proyecto : listaProyectos) {
             Object[] fila = {
                 proyecto.getCodigo_proyecto(),
-                proyecto.getNombre_proyecto(),
-            };
+                proyecto.getNombre_proyecto(),};
             modelo.addRow(fila);
         }
     }
@@ -302,7 +341,7 @@ public class datosProyectosVista extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton jbtCerrarSesion;
+    private javax.swing.JTable tProyecto;
     // End of variables declaration//GEN-END:variables
 }

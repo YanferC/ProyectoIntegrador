@@ -3,25 +3,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package ECOFORGE.VISTA;
+
 import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
-import ECOFORGE.CONTROLADOR.ControladorVistaTorreProyecto;
+import ECOFORGE.CONTROLADOR.ControladorConectar;
 /**
  *
  * @author YANFER
  */
 import ECOFORGE.CONTROLADOR.ControladorProyecto;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
+import ECOFORGE.CONTROLADOR.DatabaseConnection;
 import ECOFORGE.MODELO.Proyecto;
 import javax.swing.JOptionPane;
 
 public class ProyectoVista extends javax.swing.JFrame {
 
     private ControladorProyecto controlador;
+    private ControladorConectar controladorConectar;
     private boolean isModoActualizar = false;
     private datosProyectosVista formularioProyecto;
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
-    private ControladorVistaTorreProyecto controladorr;    
-    
 
     /**
      * Creates new form datosProyecto
@@ -29,16 +30,20 @@ public class ProyectoVista extends javax.swing.JFrame {
     public ProyectoVista(datosProyectosVista formularioProyecto) {
         initComponents();
         this.formularioProyecto = formularioProyecto;
-        controlador = new ControladorProyecto();
-        configurarFormulario();
-        controladorr = new  ControladorVistaTorreProyecto(this);
+
+        // Inicializar el controlador de conexión y lo conectamos conectarlo
+        controladorConectar = new ControladorConectar(new DatabaseConnection());
+        controladorConectar.conectar();
+
+        controlador = new ControladorProyecto(controladorConectar);
+
         ControladorUtilidades.centrarVentana(this);
+
     }
-    
-    public String getCodigoProyecto(){
-        return  jTextFieldCodProyecto.getText();
+
+    public String getCodigoProyecto() {
+        return jTextFieldCodProyecto.getText();
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -188,12 +193,11 @@ public class ProyectoVista extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // Obtener datos de los campos de texto
         String codigo_proyecto = jTextFieldCodProyecto.getText();
         String nombre_proyecto = jTextFieldNombreProyecto.getText();
-        
 
         // Crear un objeto Proyecto
         Proyecto nuevoProyecto = new Proyecto(codigo_proyecto, nombre_proyecto);
@@ -202,11 +206,10 @@ public class ProyectoVista extends javax.swing.JFrame {
         if (controlador.crearProyecto(nuevoProyecto)) {
             JOptionPane.showMessageDialog(this, "Proyecto agregado exitosamente.");
 
-            
             // Actualizar la tabla en el formulario Proyecto
             formularioProyecto.actualizarTabla();
             datosProyectosVista datosProyectos = new datosProyectosVista();
-            datosProyectos.setVisible(true); 
+            datosProyectos.setVisible(true);
 
             this.dispose(); // Cerrar el formulario
         } else {
@@ -215,33 +218,30 @@ public class ProyectoVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        if (isModoActualizar) {
-            // Código para actualizar el Proyecto
-            String codigo_proyecto = jTextFieldCodProyecto.getText();
-            String nombre_proyecto = jTextFieldNombreProyecto.getText();
-            Proyecto actualizarProyecto = new Proyecto(codigo_proyecto, nombre_proyecto);
-            // Llamar al controlador para actualizar
-            if (controlador.actualizarProyecto(actualizarProyecto)) {
-                JOptionPane.showMessageDialog(this, "Proyecto actualizado correctamente.");
-                // Cerrar el formulario después de actualizar
-                formularioProyecto.actualizarTabla();
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Error al actualizar el Proyecto.");
-            }
+
+        // Código para actualizar el Proyecto
+        String codigo_proyecto = jTextFieldCodProyecto.getText();
+        String nombre_proyecto = jTextFieldNombreProyecto.getText();
+        Proyecto actualizarProyecto = new Proyecto(codigo_proyecto, nombre_proyecto);
+        // Llamar al controlador para actualizar
+        if (controlador.actualizarProyecto(actualizarProyecto)) {
+            JOptionPane.showMessageDialog(this, "Proyecto actualizado correctamente.");
+            // Cerrar el formulario después de actualizar
+            formularioProyecto.actualizarTabla();
+            this.dispose();
         } else {
-            // Código para agregar un nuevo Proyecto
-            // (Ya lo tienes implementado)
-        }        // TODO add your handling code here:
+            JOptionPane.showMessageDialog(this, "Error al actualizar el Proyecto.");
+        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void jTextFieldNombreProyectoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreProyectoKeyTyped
         controladorCT.soloLetras(evt);
-        controladorCT.longitudCaracter(jTextFieldNombreProyecto,50, evt);
+        controladorCT.longitudCaracter(jTextFieldNombreProyecto, 50, evt);
     }//GEN-LAST:event_jTextFieldNombreProyectoKeyTyped
 
     private void jTextFieldCodProyectoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodProyectoKeyTyped
-        controladorCT.longitudCaracter(jTextFieldCodProyecto,10, evt);
+        controladorCT.longitudCaracter(jTextFieldCodProyecto, 10, evt);
     }//GEN-LAST:event_jTextFieldCodProyectoKeyTyped
 
     private void btnGuardarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnGuardarKeyTyped
@@ -253,35 +253,19 @@ public class ProyectoVista extends javax.swing.JFrame {
         newframe.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-    public void cargarDatos(Integer codigo_proyecto, String nombre_proyecto) {
+    public void cargarDatos(String codigo_proyecto, String nombre_proyecto) {
         jTextFieldCodProyecto.setText(String.valueOf(codigo_proyecto));
         jTextFieldNombreProyecto.setText(nombre_proyecto);
 
-        // Deshabilitar la caja de texto de cédula para que no sea modificable
+        // Deshabilitar la caja de texto del código del proyecto para que no sea modificable
         jTextFieldCodProyecto.setEnabled(false);
     }
 
-    public void setModoActualizar(boolean modoActualizar) {
-        this.isModoActualizar = modoActualizar;
-    }
-    
-    private void configurarFormulario() {
-        // jButton2.setEnabled(true); // Desactivar el botón de Actualizar
-        // jButton1.setEnabled(true);     // Activar el botón de Agregar
-        if (isModoActualizar) {
-            btnActualizar.setEnabled(true);  // Activar el botón de Actualizar
-            btnGuardar.setEnabled(false);    // Desactivar el botón de Agregar
-        } else {
-            btnActualizar.setEnabled(false); // Desactivar el botón de Actualizar
-            btnGuardar.setEnabled(true);     // Activar el botón de Agregar
-        }
-    }
-    
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -317,8 +301,8 @@ public class ProyectoVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnGuardar;
+    public javax.swing.JButton btnActualizar;
+    public javax.swing.JButton btnGuardar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

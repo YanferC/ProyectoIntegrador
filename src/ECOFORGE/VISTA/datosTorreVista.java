@@ -3,19 +3,88 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package ECOFORGE.VISTA;
+
+import ECOFORGE.CONTROLADOR.ControladorConectar;
+import ECOFORGE.CONTROLADOR.ControladorTorre;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
+import ECOFORGE.CONTROLADOR.DatabaseConnection;
+import ECOFORGE.MODELO.Torre;
+import java.awt.Color;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author juans
  */
 public class datosTorreVista extends javax.swing.JFrame {
 
+    private ControladorConectar controladorConectar;
+    private ControladorTorre controlador;
+
     /**
      * Creates new form datosTorreVista
      */
     public datosTorreVista() {
         initComponents();
+        // Inicializar el controlador de conexión y lo conectamos conectarlo
+        controladorConectar = new ControladorConectar(new DatabaseConnection());
+        controladorConectar.conectar();
+
+        controlador = new ControladorTorre(controladorConectar);
         ControladorUtilidades.centrarVentana(this);
+
+        // Llenamos la tabla
+        List<Torre> listaTorres = controlador.obtenerTodasLasTorres();
+        llenarTablaTorres(listaTorres);
+    }
+
+    public void llenarTablaTorres(List<Torre> listaTorres) {
+        //DefaultTableModel modelo = (DefaultTableModel) tProyecto.getModel();
+
+        // Crear el modelo de la tabla con las columnas definidas
+        DefaultTableModel modelo = new DefaultTableModel(
+                new String[]{
+                    "Número Torre", "Numero Pisos", "Código Proyecto"
+                }, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;  // Bloquear edición de las celdas
+            }
+        };
+
+        for (Torre torre : listaTorres) {
+            Object[] fila = {
+                torre.getNumero_torre(),
+                torre.getNumero_pisos(),
+                torre.getCodigo_proyecto(),};
+            modelo.addRow(fila);
+        }
+
+        tTorre.setModel(modelo);
+        tTorre.setBackground(Color.decode("#AFE5EF"));
+        tTorre.setForeground(Color.BLACK);             // Texto en negro
+        tTorre.setSelectionBackground(new Color(100, 150, 255)); // Fondo al seleccionar
+        tTorre.setSelectionForeground(Color.WHITE);    // Texto al seleccionar
+    }
+    
+    public void actualizarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) tTorre.getModel();
+        modelo.setRowCount(0); // Limpiar la tabla
+
+        // Obtener todos las Torre y agregarlos a la tabla
+        ControladorTorre controlador = new ControladorTorre(controladorConectar);
+        List<Torre> listaTorres = controlador.obtenerTodasLasTorres();
+
+        for (Torre torre : listaTorres) {
+            Object[] fila = {
+                torre.getNumero_torre(),
+                torre.getNumero_pisos(),
+                torre.getCodigo_proyecto(),};
+            modelo.addRow(fila);
+        }
     }
 
     /**
@@ -36,11 +105,14 @@ public class datosTorreVista extends javax.swing.JFrame {
         btnAgregar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tTorre = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EcoForge");
 
         jPanel1.setBackground(new java.awt.Color(175, 229, 239));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(108, 93, 71));
 
@@ -88,6 +160,8 @@ public class datosTorreVista extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 604, -1));
+
         jPanel3.setBackground(new java.awt.Color(193, 65, 62));
 
         btnAgregar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -106,12 +180,22 @@ public class datosTorreVista extends javax.swing.JFrame {
         btnActualizar.setText("ACTUALIZAR");
         btnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnActualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Eliminar_30.png"))); // NOI18N
         btnEliminar.setText("ELIMINAR");
         btnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -137,20 +221,23 @@ public class datosTorreVista extends javax.swing.JFrame {
                 .addGap(0, 14, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 325, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 377, -1, -1));
+
+        tTorre.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tTorre.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tTorre);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 600, 330));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -167,8 +254,9 @@ public class datosTorreVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        TorreVista newframe = new TorreVista();
-        newframe.setVisible(true);
+        TorreVista agregarTorre = new TorreVista(this);
+        agregarTorre.setVisible(true);
+        agregarTorre.btnActualizar.setEnabled(false);
         this.dispose();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -177,6 +265,62 @@ public class datosTorreVista extends javax.swing.JFrame {
         newframe.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // Verificar que se ha seleccionado un registro en la tabla
+        int filaSeleccionada = tTorre.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una torre para actualizar.");
+            return;
+        }
+
+        // Obtener los datos del Proyecto seleccionado
+        Integer numero_Torre = Integer.parseInt(tTorre.getValueAt(filaSeleccionada, 0).toString());
+        Integer numero_Pisos = Integer.parseInt(tTorre.getValueAt(filaSeleccionada, 1).toString());
+        String codigo_proyecto = tTorre.getValueAt(filaSeleccionada, 2).toString();
+
+        // Abrir el formulario TorreVista y pasar los datos
+        TorreVista actualizarTorre = new TorreVista(this);
+        actualizarTorre.setVisible(true);
+        actualizarTorre.btnAgregar.setEnabled(false);
+        // Pasar los datos al formulario
+        actualizarTorre.cargarDatos(numero_Torre, numero_Pisos, codigo_proyecto);
+
+             // TODO add your handling code here:
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+       // Verificar que se ha seleccionado un registro en la tabla
+        int filaSeleccionada = tTorre.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            // Si no se ha seleccionado ninguna fila
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una torre para eliminar.");
+            return;
+        }
+
+        // Obtener el numero de la torre seleccionado (asumiendo que está en la primera columna)
+        Integer numero_Torre = Integer.parseInt(tTorre.getValueAt(filaSeleccionada, 0).toString());
+        String codigo_Proyecto = tTorre.getValueAt(filaSeleccionada, 2).toString();
+        // Confirmar la eliminación
+        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta Torre?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            // Crear una instancia del controlador
+            ControladorTorre torre = new ControladorTorre(controladorConectar);
+
+            // Intentar eliminar la torre
+            if (controlador.eliminarTorre(numero_Torre, codigo_Proyecto)) {
+                JOptionPane.showMessageDialog(this, "Torre eliminada correctamente.");
+
+                // Actualizar la tabla después de eliminar la torre
+                actualizarTabla();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al eliminar la torre.");
+            }
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -222,6 +366,8 @@ public class datosTorreVista extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jtbCerrarSesion;
+    private javax.swing.JTable tTorre;
     // End of variables declaration//GEN-END:variables
 }
