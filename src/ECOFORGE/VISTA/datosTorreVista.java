@@ -160,7 +160,7 @@ public class datosTorreVista extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 604, -1));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, -1));
 
         jPanel3.setBackground(new java.awt.Color(193, 65, 62));
 
@@ -237,7 +237,7 @@ public class datosTorreVista extends javax.swing.JFrame {
         tTorre.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tTorre);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 600, 330));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 610, 330));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

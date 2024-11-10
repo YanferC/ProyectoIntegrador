@@ -16,10 +16,12 @@ import ECOFORGE.MODELO.DatabaseConnection;
 import ECOFORGE.MODELO.Proyecto;
 import javax.swing.JOptionPane;
 
+
 public class CreandoProyectoVista extends javax.swing.JFrame {
 
     private CrudProyecto controlador;
     private Conectar controladorConectar;
+
     private boolean isModoActualizar = false;
     private datosProyectosVista formularioProyecto;
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();

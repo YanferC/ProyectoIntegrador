@@ -17,6 +17,7 @@ public class DashBoardPrincipal extends javax.swing.JFrame {
      */
     public DashBoardPrincipal() {
         initComponents();
+        //Trae el controlador  de utilidades para poner retricciona ya sean solo numeros, solo letras o de longitud
         ControladorUtilidades.centrarVentana(this);
         
         
@@ -219,25 +220,31 @@ public class DashBoardPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        // Crea una nueva instancia de la ventana de login y la hace visible, cerrando la ventana actual
         Login newframe = new Login();
         newframe.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProyectoActionPerformed
+
         datosProyectosVista datosProyecto = new datosProyectosVista();
         datosProyecto.setVisible(true);
+
         this.dispose();
     }//GEN-LAST:event_btnProyectoActionPerformed
 
     private void btnTorreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTorreActionPerformed
+        // Crea una nueva instancia de la ventana para gestionar torres y la hace visible, cerrando la ventana actual
         datosTorreVista newframe = new datosTorreVista();
         newframe.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnTorreActionPerformed
 
     private void btnApartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApartamentoActionPerformed
+
         datosApartamentoVista newframe = new datosApartamentoVista();
+
         newframe.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnApartamentoActionPerformed

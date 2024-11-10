@@ -244,7 +244,9 @@ public class datosProyectosVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+
         CreandoProyectoVista agregarProyecto = new CreandoProyectoVista(this);
+
         agregarProyecto.setVisible(true);
         agregarProyecto.btnActualizar.setEnabled(false);
         dispose();

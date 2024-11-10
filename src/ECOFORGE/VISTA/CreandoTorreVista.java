@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
  *
  * @author juans
  */
+
 public class CreandoTorreVista extends javax.swing.JFrame {
 
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
@@ -44,8 +45,10 @@ public class CreandoTorreVista extends javax.swing.JFrame {
     }
 
     private void cargarProyectos() {
+
         jcbCodigoProyecto.removeAllItems();
         CrudProyecto controladorProyecto = new CrudProyecto(controladorConectar);
+
 
         List<Proyecto> proyectos = controladorProyecto.obtenerTodosLosProyectos();
 
