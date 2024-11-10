@@ -4,6 +4,7 @@
  */
 package ECOFORGE.CONTROLADOR;
 
+import ECOFORGE.MODELO.Conectar;
 import ECOFORGE.MODELO.LoginUsuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ import java.sql.SQLException;
 public class ControladorLogin {
     private final Connection conexion;
 
-    public ControladorLogin(ControladorConectar controladorConectar) {
+    public ControladorLogin(Conectar controladorConectar) {
         this.conexion = controladorConectar.getConexion();
     }
     

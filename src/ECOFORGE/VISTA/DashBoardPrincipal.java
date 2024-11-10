@@ -227,9 +227,10 @@ public class DashBoardPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProyectoActionPerformed
-        // Crea una nueva instancia de la ventana para gestionar proyectos y la hace visible, cerrando la ventana actual
-        datosProyectosVista newframe = new datosProyectosVista();
-        newframe.setVisible(true);
+
+        datosProyectosVista datosProyecto = new datosProyectosVista();
+        datosProyecto.setVisible(true);
+
         this.dispose();
     }//GEN-LAST:event_btnProyectoActionPerformed
 
@@ -241,9 +242,9 @@ public class DashBoardPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTorreActionPerformed
 
     private void btnApartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApartamentoActionPerformed
-        // Crea una nueva instancia de la ventana para gestionar apartamentos y la hace visible, cerrando la ventana actual
 
-        ApartamentoVista newframe = new ApartamentoVista();
+        datosApartamentoVista newframe = new datosApartamentoVista();
+
         newframe.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnApartamentoActionPerformed

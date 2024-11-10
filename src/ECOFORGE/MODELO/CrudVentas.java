@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ECOFORGE.CONTROLADOR;
+package ECOFORGE.MODELO;
 
 /**
  *
  * @author YANFER
  */
 import ECOFORGE.VISTA.PanelCliente.ClienteAddedListener;
-import ECOFORGE.VISTA.VentaVista;
+import ECOFORGE.VISTA.CreandoVentaVista;
 import ECOFORGE.MODELO.Venta;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,13 +23,13 @@ import java.sql.Date;
 import javax.swing.*;
 import java.awt.*;
 
-public class ControladorVentas implements ClienteAddedListener {
+public class CrudVentas implements ClienteAddedListener {
 
-    private VentaVista vista;
+    private CreandoVentaVista vista;
     private DatabaseConnection dbConnection;
     private Connection connection;
 
-    public ControladorVentas(VentaVista vista) {
+    public CrudVentas(CreandoVentaVista vista) {
         dbConnection = new DatabaseConnection();
         this.vista = vista;
     }

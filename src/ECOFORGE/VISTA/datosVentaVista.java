@@ -8,7 +8,7 @@ package ECOFORGE.VISTA;
  *
  * @author YANFER
  */
-import ECOFORGE.CONTROLADOR.ControladorCuota;
+import ECOFORGE.MODELO.CrudCuota;
 
 import ECOFORGE.MODELO.Cuota;
 import java.util.List;
@@ -18,18 +18,20 @@ import ECOFORGE.CONTROLADOR.ControladorUtilidades;
 
 public class datosVentaVista extends javax.swing.JFrame {
 
-    private ControladorCuota cuota;
+    private CrudCuota cuota;
 
     /**
      * Creates new form Asesor
      */
     public datosVentaVista() {
-         // Constructor de la clase datosVentaVista, que inicializa los componentes de la interfaz
-        initComponents();// Inicializa los componentes de la interfaz gráfica
-        cuota = new ControladorCuota();// Crea una instancia del controlador de cuotas
-        cuota.conectar();// Establece la conexión necesaria para gestionar las cuotas
-        cuota.llenarTablaCuotas(jTable1);// Llena la tabla de cuotas con datos en jTable1
+
+        initComponents();
+        cuota = new CrudCuota();
+        cuota.conectar();
+        cuota.llenarTablaCuotas(jTable1);
+
         ControladorUtilidades.centrarVentana(this);// Centra la ventana en la pantalla
+
         
     }
 

@@ -5,21 +5,26 @@
 package ECOFORGE.VISTA;
 
 import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
-import ECOFORGE.CONTROLADOR.ControladorConectar;
+import ECOFORGE.MODELO.Conectar;
 /**
  *
  * @author YANFER
  */
-import ECOFORGE.CONTROLADOR.ControladorProyecto;
+import ECOFORGE.MODELO.CrudProyecto;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
-import ECOFORGE.CONTROLADOR.DatabaseConnection;
+import ECOFORGE.MODELO.DatabaseConnection;
 import ECOFORGE.MODELO.Proyecto;
 import javax.swing.JOptionPane;
 
-public class ProyectoVista extends javax.swing.JFrame {
+
+public class CreandoProyectoVista extends javax.swing.JFrame {
+
+    private CrudProyecto controlador;
+    private Conectar controladorConectar;
+
     // Declaración de variables y controladores utilizados en la gestión de proyectos
-    private ControladorProyecto controlador;
-    private ControladorConectar controladorConectar;
+
+
     private boolean isModoActualizar = false;
     private datosProyectosVista formularioProyecto;
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
@@ -27,15 +32,15 @@ public class ProyectoVista extends javax.swing.JFrame {
     /**
      * Creates new form datosProyecto
      */
-    public ProyectoVista(datosProyectosVista formularioProyecto) {
+    public CreandoProyectoVista(datosProyectosVista formularioProyecto) {
         initComponents();
         this.formularioProyecto = formularioProyecto;
 
         // Inicializar el controlador de conexión y lo conectamos conectarlo
-        controladorConectar = new ControladorConectar(new DatabaseConnection());
+        controladorConectar = new Conectar(new DatabaseConnection());
         controladorConectar.conectar();
 
-        controlador = new ControladorProyecto(controladorConectar);
+        controlador = new CrudProyecto(controladorConectar);
 
         ControladorUtilidades.centrarVentana(this);
 
@@ -279,14 +284,26 @@ public class ProyectoVista extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProyectoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreandoProyectoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProyectoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreandoProyectoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProyectoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreandoProyectoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProyectoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreandoProyectoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -295,7 +312,7 @@ public class ProyectoVista extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProyectoVista(new datosProyectosVista()).setVisible(true);
+                new CreandoProyectoVista(new datosProyectosVista()).setVisible(true);
             }
         });
     }

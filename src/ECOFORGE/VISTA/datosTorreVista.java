@@ -4,10 +4,10 @@
  */
 package ECOFORGE.VISTA;
 
-import ECOFORGE.CONTROLADOR.ControladorConectar;
-import ECOFORGE.CONTROLADOR.ControladorTorre;
+import ECOFORGE.MODELO.Conectar;
+import ECOFORGE.MODELO.CrudTorre;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
-import ECOFORGE.CONTROLADOR.DatabaseConnection;
+import ECOFORGE.MODELO.DatabaseConnection;
 import ECOFORGE.MODELO.Torre;
 import java.awt.Color;
 import java.util.List;
@@ -20,8 +20,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class datosTorreVista extends javax.swing.JFrame {
 
-    private ControladorConectar controladorConectar;
-    private ControladorTorre controlador;
+    private Conectar controladorConectar;
+    private CrudTorre controlador;
 
     /**
      * Creates new form datosTorreVista
@@ -29,10 +29,10 @@ public class datosTorreVista extends javax.swing.JFrame {
     public datosTorreVista() {
         initComponents();
         // Inicializar el controlador de conexión y lo conectamos conectarlo
-        controladorConectar = new ControladorConectar(new DatabaseConnection());
+        controladorConectar = new Conectar(new DatabaseConnection());
         controladorConectar.conectar();
 
-        controlador = new ControladorTorre(controladorConectar);
+        controlador = new CrudTorre(controladorConectar);
         ControladorUtilidades.centrarVentana(this);
 
         // Llenamos la tabla
@@ -75,7 +75,7 @@ public class datosTorreVista extends javax.swing.JFrame {
         modelo.setRowCount(0); // Limpiar la tabla
 
         // Obtener todos las Torre y agregarlos a la tabla
-        ControladorTorre controlador = new ControladorTorre(controladorConectar);
+        CrudTorre controlador = new CrudTorre(controladorConectar);
         List<Torre> listaTorres = controlador.obtenerTodasLasTorres();
 
         for (Torre torre : listaTorres) {
@@ -254,7 +254,7 @@ public class datosTorreVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        TorreVista agregarTorre = new TorreVista(this);
+        CreandoTorreVista agregarTorre = new CreandoTorreVista(this);
         agregarTorre.setVisible(true);
         agregarTorre.btnActualizar.setEnabled(false);
         this.dispose();
@@ -280,8 +280,8 @@ public class datosTorreVista extends javax.swing.JFrame {
         Integer numero_Pisos = Integer.parseInt(tTorre.getValueAt(filaSeleccionada, 1).toString());
         String codigo_proyecto = tTorre.getValueAt(filaSeleccionada, 2).toString();
 
-        // Abrir el formulario TorreVista y pasar los datos
-        TorreVista actualizarTorre = new TorreVista(this);
+        // Abrir el formulario CreandoTorreVista y pasar los datos
+        CreandoTorreVista actualizarTorre = new CreandoTorreVista(this);
         actualizarTorre.setVisible(true);
         actualizarTorre.btnAgregar.setEnabled(false);
         // Pasar los datos al formulario
@@ -308,7 +308,7 @@ public class datosTorreVista extends javax.swing.JFrame {
 
         if (confirmacion == JOptionPane.YES_OPTION) {
             // Crear una instancia del controlador
-            ControladorTorre torre = new ControladorTorre(controladorConectar);
+            CrudTorre torre = new CrudTorre(controladorConectar);
 
             // Intentar eliminar la torre
             if (controlador.eliminarTorre(numero_Torre, codigo_Proyecto)) {

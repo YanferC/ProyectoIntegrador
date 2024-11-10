@@ -4,7 +4,7 @@
  */
 package ECOFORGE.VISTA;
 
-import ECOFORGE.CONTROLADOR.ControladorVentas;
+import ECOFORGE.MODELO.CrudVentas;
 import java.awt.CardLayout;
 import javax.swing.SwingUtilities;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
@@ -13,20 +13,22 @@ import ECOFORGE.CONTROLADOR.ControladorUtilidades;
  *
  * @author YANFER
  */
-public class VentaVista extends javax.swing.JFrame {
+public class CreandoVentaVista extends javax.swing.JFrame {
 
     /**
-     * Creates new form VentaVista
+     * Creates new form CreandoVentaVista
      */
     PanelCliente agregarCliente = new PanelCliente();
     CardLayout vistaAgregarCliente;
     PanelVenta agregarVenta = new PanelVenta();
     CardLayout vistaAgregarVenta;
 
-    private CuotaVista formularioVentas;  // Instancia del formulario de cuotas asociado a las ventas
 
-    public VentaVista(CuotaVista formularioVentas) {
-        initComponents(); // Inicializa los componentes de la interfaz
+    private datosCuotaVista formularioVentas;
+
+    public CreandoVentaVista(datosCuotaVista formularioVentas) {
+        initComponents();
+
         this.formularioVentas = formularioVentas;
         vistaAgregarCliente = (CardLayout) agregarCliente.getLayout();// Inicializa el layout del panel de cliente
         vistaAgregarVenta = (CardLayout) agregarVenta.getLayout();// Inicializa el layout del panel de venta
@@ -35,7 +37,7 @@ public class VentaVista extends javax.swing.JFrame {
         
 
         // Inicializar el controlador de ventas
-        ControladorVentas controladorVentas = new ControladorVentas(this);
+        CrudVentas controladorVentas = new CrudVentas(this);
 
         // Establecer el listener en el panel de clientes
         agregarCliente.setClienteAddedListener(controladorVentas);
@@ -147,7 +149,7 @@ public class VentaVista extends javax.swing.JFrame {
 
     public void clienteAgregado() {
         jbtAgregarCliente.setEnabled(false); // Deshabilitar Agregar Cliente
-        jbtRegistrarVenta.setEnabled(true);   // Habilitar Registrar VentaVista
+        jbtRegistrarVenta.setEnabled(true);   // Habilitar Registrar CreandoVentaVista
         jbtRegistrarVentaActionPerformed(null);
     }
 
@@ -162,7 +164,7 @@ public class VentaVista extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtRegistrarVentaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CuotaVista newframe = new CuotaVista();
+        datosCuotaVista newframe = new datosCuotaVista();
         newframe.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -184,21 +186,23 @@ public class VentaVista extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreandoVentaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreandoVentaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreandoVentaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreandoVentaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentaVista(new CuotaVista()).setVisible(true);
+                new CreandoVentaVista(new datosCuotaVista()).setVisible(true);
             }
         });
     }

@@ -4,17 +4,17 @@
  */
 package ECOFORGE.VISTA;
 
-import ECOFORGE.CONTROLADOR.ControladorApartamento;
-import ECOFORGE.CONTROLADOR.ControladorConectar;
+import ECOFORGE.MODELO.CrudApartamento;
+import ECOFORGE.MODELO.Conectar;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
-import ECOFORGE.CONTROLADOR.DatabaseConnection;
+import ECOFORGE.MODELO.DatabaseConnection;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import ECOFORGE.MODELO.Apartamento;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
-import ECOFORGE.VISTA.CreandoApartamento;
+import ECOFORGE.VISTA.CreandoApartamentoVista;
 import java.awt.Color;
 import java.util.List;
 
@@ -22,24 +22,24 @@ import java.util.List;
  *
  * @author SEBASTIAN
  */
-public class ApartamentoVista extends javax.swing.JFrame {
+public class datosApartamentoVista extends javax.swing.JFrame {
     
-    private ControladorConectar controladorConectar;
-    private ControladorApartamento apartamento; //Controlador para gestionar la lógica de Apartamento
-    private CreandoApartamento creandoApartamento; // Ventana para crear nuevos apartamentos
+    private Conectar controladorConectar;
+    private CrudApartamento apartamento; //Controlador para gestionar la lógica de Apartamento
+    private CreandoApartamentoVista creandoApartamento; // Ventana para crear nuevos apartamentos
     
 
     /**
      * Constructor que inicializa la vista de Apartamento.
      */
-    public ApartamentoVista() {
+    public datosApartamentoVista() {
 
         initComponents(); //Inicializa los componentes gráficos del JFrame
         // Inicializar el controlador de conexión y lo conectamos conectarlo
-        controladorConectar = new ControladorConectar(new DatabaseConnection());
+        controladorConectar = new Conectar(new DatabaseConnection());
         controladorConectar.conectar();
 
-        apartamento = new ControladorApartamento(controladorConectar); // Instancia el controlador de Apartamento
+        apartamento = new CrudApartamento(controladorConectar); // Instancia el controlador de Apartamento
 
         ControladorUtilidades.centrarVentana(this); // Centra la ventana en la pantalla
 
@@ -252,8 +252,8 @@ public class ApartamentoVista extends javax.swing.JFrame {
         Integer area = Integer.parseInt(tApartamento.getValueAt(filaSeleccionada, 3).toString());
         Integer numero_Torre = Integer.parseInt(tApartamento.getValueAt(filaSeleccionada, 4).toString());
 
-        // Abrir el formulario CreandoApartamento y pasar los datos
-        CreandoApartamento actualizarApartamento = new CreandoApartamento(this);
+        // Abrir el formulario CreandoApartamentoVista y pasar los datos
+        CreandoApartamentoVista actualizarApartamento = new CreandoApartamentoVista(this);
         actualizarApartamento.setVisible(true);
         actualizarApartamento.btnAgregar.setEnabled(false);
         // Pasar los datos al formulario
@@ -264,7 +264,7 @@ public class ApartamentoVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnActualizarActionPerformed
     // Este método se ejecuta cuando se hace clic en el botón de agregar
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        CreandoApartamento apartamentoVistaC = new CreandoApartamento(this); // Crea una nueva ventana para agregar un apartamento
+        CreandoApartamentoVista apartamentoVistaC = new CreandoApartamentoVista(this); // Crea una nueva ventana para agregar un apartamento
         apartamentoVistaC.setVisible(true); // Muestra la nueva ventana
         apartamentoVistaC.btnActualizar.setEnabled(false);
         this.dispose(); // Cierra la ventana actual
@@ -293,7 +293,7 @@ public class ApartamentoVista extends javax.swing.JFrame {
 
         if (confirmacion == JOptionPane.YES_OPTION) {
             // Crear una instancia del controlador
-            ControladorApartamento controlador = new ControladorApartamento(controladorConectar);
+            CrudApartamento controlador = new CrudApartamento(controladorConectar);
 
             // Intentar eliminar el Apartamento
             if (controlador.eliminarApartamento(numero_Apartamento)) {
@@ -318,7 +318,7 @@ public class ApartamentoVista extends javax.swing.JFrame {
         modelo.setRowCount(0); // Limpiar la tabla
 
         // Obtener todos los Apartamentos y agregarlos a la tabla
-        ControladorApartamento controlador = new ControladorApartamento(controladorConectar);
+        CrudApartamento controlador = new CrudApartamento(controladorConectar);
         List<Apartamento> listaApartamentos = controlador.obtenerTodosLosApartamentos();
 
         for (Apartamento apartamento : listaApartamentos) {
@@ -349,20 +349,21 @@ public class ApartamentoVista extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ApartamentoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(datosApartamentoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ApartamentoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(datosApartamentoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ApartamentoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(datosApartamentoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ApartamentoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(datosApartamentoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ApartamentoVista().setVisible(true);
+                new datosApartamentoVista().setVisible(true);
             }
         });
     }

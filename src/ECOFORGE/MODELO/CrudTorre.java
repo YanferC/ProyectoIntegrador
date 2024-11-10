@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ECOFORGE.CONTROLADOR;
+package ECOFORGE.MODELO;
 
 /**
  *
@@ -17,11 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ControladorTorre {
+public class CrudTorre {
 
     private final Connection conexion;
 
-    public ControladorTorre(ControladorConectar controladorConectar) {
+    public CrudTorre(Conectar controladorConectar) {
         this.conexion = controladorConectar.getConexion();
     }
 
