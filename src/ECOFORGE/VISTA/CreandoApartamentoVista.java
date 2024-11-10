@@ -25,6 +25,9 @@ import ECOFORGE.MODELO.Proyecto;
 
 public class CreandoApartamentoVista extends javax.swing.JFrame {
 
+
+public class CreandoApartamentoVista extends javax.swing.JFrame {
+    // contiene controladores para manejar la lógica de la interfaz y la conexión a la base de datos.
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
     private final Conectar controladorConectar;
     private final datosApartamentoVista formularioApartamento;
@@ -88,6 +91,7 @@ public class CreandoApartamentoVista extends javax.swing.JFrame {
     private void cargarTorres() {
         jcbNumeroTorre.removeAllItems();
         CrudTorre controladorTorre = new CrudTorre(controladorConectar);
+        // Método que carga las torres disponibles en un JComboBox según el proyecto seleccionado
         String codigo_proyecto = (String) jcbCodigoProyecto.getSelectedItem();
         // Verifica si se ha seleccionado un proyecto
         if (codigo_proyecto != null) {

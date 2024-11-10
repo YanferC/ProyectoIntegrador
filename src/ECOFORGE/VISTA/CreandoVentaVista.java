@@ -23,6 +23,7 @@ public class CreandoVentaVista extends javax.swing.JFrame {
     PanelVenta agregarVenta = new PanelVenta();
     CardLayout vistaAgregarVenta;
 
+
     private datosCuotaVista formularioVentas;
 
     public CreandoVentaVista(datosCuotaVista formularioVentas) {

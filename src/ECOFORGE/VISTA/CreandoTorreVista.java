@@ -22,6 +22,8 @@ import javax.swing.JOptionPane;
 
 public class CreandoTorreVista extends javax.swing.JFrame {
 
+    // Declaración de variables y controladores utilizados en la gestión de Torres
+
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
     private CrudTorre controlador;
     private Conectar controladorConectar;
@@ -48,7 +50,6 @@ public class CreandoTorreVista extends javax.swing.JFrame {
 
         jcbCodigoProyecto.removeAllItems();
         CrudProyecto controladorProyecto = new CrudProyecto(controladorConectar);
-
 
         List<Proyecto> proyectos = controladorProyecto.obtenerTodosLosProyectos();
 
