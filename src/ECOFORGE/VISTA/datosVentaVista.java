@@ -14,6 +14,7 @@ import ECOFORGE.MODELO.Cuota;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import ECOFORGE.CONTROLADOR.ControladorUtilidades;
 
 public class datosVentaVista extends javax.swing.JFrame {
 
@@ -23,10 +24,14 @@ public class datosVentaVista extends javax.swing.JFrame {
      * Creates new form Asesor
      */
     public datosVentaVista() {
+
         initComponents();
         cuota = new CrudCuota();
         cuota.conectar();
         cuota.llenarTablaCuotas(jTable1);
+
+        ControladorUtilidades.centrarVentana(this);// Centra la ventana en la pantalla
+
         
     }
 
@@ -99,7 +104,10 @@ public class datosVentaVista extends javax.swing.JFrame {
         jpInferior.setBackground(new java.awt.Color(193, 65, 62));
 
         btnVenta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btnVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Venta_30.png"))); // NOI18N
         btnVenta.setText("Venta");
+        btnVenta.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnVenta.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVentaActionPerformed(evt);
@@ -119,12 +127,13 @@ public class datosVentaVista extends javax.swing.JFrame {
             jpInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpInferiorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnVenta, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(btnVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jpFondo.add(jpInferior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 790, 50));
+        jpFondo.add(jpInferior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 790, 70));
 
+        jTable1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

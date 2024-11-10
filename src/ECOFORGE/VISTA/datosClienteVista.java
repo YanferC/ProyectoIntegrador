@@ -199,10 +199,12 @@ public class datosClienteVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+
         /**datosClientes agregarCliente = new datosClientes(this);
         agregarCliente.setVisible(true);*/
 
-        // TODO add your handling code here:
+
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -269,6 +271,7 @@ public class datosClienteVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Crea una nueva instancia de la ventana principal del dashboard y la hace visible, luego cierra la ventana actual
         DashBoardPrincipal newframe = new DashBoardPrincipal();
         newframe.setVisible(true);
         this.dispose();

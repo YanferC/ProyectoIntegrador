@@ -159,7 +159,10 @@ public class PanelCliente extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(193, 65, 62));
 
+        jbtAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Agregar_30.png"))); // NOI18N
+        jbtAgregar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jbtAgregar.setLabel("AGREGAR");
+        jbtAgregar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jbtAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtAgregarActionPerformed(evt);
@@ -173,19 +176,19 @@ public class PanelCliente extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(143, 143, 143)
                 .addComponent(jbtAgregar)
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jbtAgregar)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addComponent(jbtAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 390, 40));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 390, 70));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 410, 450));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 410, 480));
 
         add(jPanel1, "card2");
     }// </editor-fold>//GEN-END:initComponents

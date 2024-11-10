@@ -20,6 +20,8 @@ public class CreandoProyectoVista extends javax.swing.JFrame {
 
     private CrudProyecto controlador;
     private Conectar controladorConectar;
+    // Declaración de variables y controladores utilizados en la gestión de proyectos
+
     private boolean isModoActualizar = false;
     private datosProyectosVista formularioProyecto;
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();

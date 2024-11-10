@@ -22,8 +22,9 @@ import ECOFORGE.MODELO.Proyecto;
  *
  * @author juans
  */
-public class CreandoApartamentoVista extends javax.swing.JFrame {
 
+public class CreandoApartamentoVista extends javax.swing.JFrame {
+    // contiene controladores para manejar la lógica de la interfaz y la conexión a la base de datos.
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
     private final Conectar controladorConectar;
     private final datosApartamentoVista formularioApartamento;
@@ -87,11 +88,12 @@ public class CreandoApartamentoVista extends javax.swing.JFrame {
     private void cargarTorres() {
         jcbNumeroTorre.removeAllItems();
         CrudTorre controladorTorre = new CrudTorre(controladorConectar);
+        // Método que carga las torres disponibles en un JComboBox según el proyecto seleccionado
         String codigo_proyecto = (String) jcbCodigoProyecto.getSelectedItem();
-
+        // Verifica si se ha seleccionado un proyecto
         if (codigo_proyecto != null) {
             List<Torre> torres = controladorTorre.obtenerTorresPorProyecto(codigo_proyecto);
-
+            // Agrega cada torre al JComboBox
             for (Torre torre : torres) {
                 jcbNumeroTorre.addItem(String.valueOf(torre.getNumero_torre()));
             }
@@ -347,16 +349,18 @@ public class CreandoApartamentoVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtfNumeroApartamentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNumeroApartamentoKeyTyped
+        // Permite solo números y limita la longitud del texto a 3 caracteres
         controladorCT.soloNumeros(evt);
         controladorCT.longitudCaracter(jtfNumeroApartamento, 3, evt);
     }//GEN-LAST:event_jtfNumeroApartamentoKeyTyped
 
     private void jtfValorApartamentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfValorApartamentoKeyTyped
-        controladorCT.soloNumeros(evt);
+        // Limita la longitud del texto a 10 caracteres
         controladorCT.longitudCaracter(jtfValorApartamento, 10, evt);
     }//GEN-LAST:event_jtfValorApartamentoKeyTyped
 
     private void jtfAreaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfAreaKeyTyped
+        // Permite solo números y limita la longitud del texto a 3 caracteres
         controladorCT.soloNumeros(evt);
         controladorCT.longitudCaracter(jtfArea, 3, evt);
     }//GEN-LAST:event_jtfAreaKeyTyped
