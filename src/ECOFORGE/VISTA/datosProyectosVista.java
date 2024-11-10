@@ -8,10 +8,10 @@ package ECOFORGE.VISTA;
  *
  * @author SEBASTIAN
  */
-import ECOFORGE.CONTROLADOR.ControladorConectar;
-import ECOFORGE.CONTROLADOR.ControladorProyecto;
+import ECOFORGE.MODELO.Conectar;
+import ECOFORGE.MODELO.CrudProyecto;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
-import ECOFORGE.CONTROLADOR.DatabaseConnection;
+import ECOFORGE.MODELO.DatabaseConnection;
 import ECOFORGE.MODELO.Proyecto;
 import java.awt.Color;
 import java.util.List;
@@ -20,18 +20,18 @@ import javax.swing.table.DefaultTableModel;
 
 public class datosProyectosVista extends javax.swing.JFrame {
 
-    private ControladorConectar controladorConectar;
-    private ControladorProyecto controlador;
+    private Conectar controladorConectar;
+    private CrudProyecto controlador;
     
 
     public datosProyectosVista() {
         initComponents();
 
         // Inicializar el controlador de conexión y lo conectamos conectarlo
-        controladorConectar = new ControladorConectar(new DatabaseConnection());
+        controladorConectar = new Conectar(new DatabaseConnection());
         controladorConectar.conectar();
 
-        controlador = new ControladorProyecto(controladorConectar);
+        controlador = new CrudProyecto(controladorConectar);
 
         ControladorUtilidades.centrarVentana(this);
 
@@ -205,7 +205,7 @@ public class datosProyectosVista extends javax.swing.JFrame {
 
         if (confirmacion == JOptionPane.YES_OPTION) {
             // Crear una instancia del controlador
-            ControladorProyecto controlador = new ControladorProyecto(controladorConectar);
+            CrudProyecto controlador = new CrudProyecto(controladorConectar);
 
             // Intentar eliminar el Proyecto
             if (controlador.eliminarProyecto(codigo_proyecto)) {
@@ -232,8 +232,8 @@ public class datosProyectosVista extends javax.swing.JFrame {
         String codigo_proyecto = tProyecto.getValueAt(filaSeleccionada, 0).toString();
         String nombre_proyecto = tProyecto.getValueAt(filaSeleccionada, 1).toString();
 
-        // Abrir el formulario ProyectoVista y pasar los datos
-        ProyectoVista actualizarProyecto = new ProyectoVista(this);
+        // Abrir el formulario CreandoProyectoVista y pasar los datos
+        CreandoProyectoVista actualizarProyecto = new CreandoProyectoVista(this);
         actualizarProyecto.setVisible(true);
         actualizarProyecto.btnGuardar.setEnabled(false);
         // Pasar los datos al formulario
@@ -244,7 +244,7 @@ public class datosProyectosVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        ProyectoVista agregarProyecto = new ProyectoVista(this);
+        CreandoProyectoVista agregarProyecto = new CreandoProyectoVista(this);
         agregarProyecto.setVisible(true);
         agregarProyecto.btnActualizar.setEnabled(false);
         dispose();
@@ -269,7 +269,7 @@ public class datosProyectosVista extends javax.swing.JFrame {
         modelo.setRowCount(0); // Limpiar la tabla
 
         // Obtener todos los Proyectos y agregarlos a la tabla
-        ControladorProyecto controlador = new ControladorProyecto(controladorConectar);
+        CrudProyecto controlador = new CrudProyecto(controladorConectar);
         List<Proyecto> listaProyectos = controlador.obtenerTodosLosProyectos();
 
         for (Proyecto proyecto : listaProyectos) {

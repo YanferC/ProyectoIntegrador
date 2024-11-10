@@ -225,8 +225,8 @@ public class DashBoardPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProyectoActionPerformed
-        datosProyectosVista newframe = new datosProyectosVista();
-        newframe.setVisible(true);
+        datosProyectosVista datosProyecto = new datosProyectosVista();
+        datosProyecto.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnProyectoActionPerformed
 
@@ -237,7 +237,7 @@ public class DashBoardPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTorreActionPerformed
 
     private void btnApartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApartamentoActionPerformed
-        ApartamentoVista newframe = new ApartamentoVista();
+        datosApartamentoVista newframe = new datosApartamentoVista();
         newframe.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnApartamentoActionPerformed

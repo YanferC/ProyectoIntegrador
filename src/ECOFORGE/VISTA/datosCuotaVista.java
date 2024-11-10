@@ -8,23 +8,23 @@ package ECOFORGE.VISTA;
  *
  * @author YANFER
  */
-import ECOFORGE.CONTROLADOR.ControladorCuota;
+import ECOFORGE.MODELO.CrudCuota;
 
 import ECOFORGE.MODELO.Cuota;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class CuotaVista extends javax.swing.JFrame {
+public class datosCuotaVista extends javax.swing.JFrame {
 
-    private ControladorCuota cuota;
+    private CrudCuota cuota;
 
     /**
      * Creates new form Asesor
      */
-    public CuotaVista() {
+    public datosCuotaVista() {
         initComponents();
-        cuota = new ControladorCuota();
+        cuota = new CrudCuota();
         cuota.conectar();
         cuota.llenarTablaCuotas(jTable1);
         
@@ -151,7 +151,7 @@ public class CuotaVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
-        VentaVista venta = new VentaVista(this);
+        CreandoVentaVista venta = new CreandoVentaVista(this);
         venta.setVisible(true); 
     }//GEN-LAST:event_btnVentaActionPerformed
 
@@ -172,14 +172,18 @@ public class CuotaVista extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CuotaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(datosCuotaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CuotaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(datosCuotaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CuotaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(datosCuotaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CuotaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(datosCuotaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -188,7 +192,7 @@ public class CuotaVista extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CuotaVista().setVisible(true);
+                new datosCuotaVista().setVisible(true);
             }
         });
     }

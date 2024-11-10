@@ -8,34 +8,34 @@ package ECOFORGE.VISTA;
  *
  * @author YANFER
  */
-import ECOFORGE.CONTROLADOR.ControladorCliente;
-import ECOFORGE.CONTROLADOR.ControladorConectar;
-import ECOFORGE.CONTROLADOR.DatabaseConnection;
+import ECOFORGE.MODELO.CrudCliente;
+import ECOFORGE.MODELO.Conectar;
+import ECOFORGE.MODELO.DatabaseConnection;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
 import ECOFORGE.MODELO.Cliente;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class ClienteVista extends javax.swing.JFrame {
+public class datosClienteVista extends javax.swing.JFrame {
 
-    private ControladorCliente controlador;
-    private ControladorConectar controladorConectar;
+    private CrudCliente controlador;
+    private Conectar controladorConectar;
     private boolean isUpdating = false;
     private String cedulaClienteActual;
 
     /**
      * Creates new form Clientes
      */
-    public ClienteVista() {
+    public datosClienteVista() {
         initComponents();
 
         // Inicializar el controlador de conexión y lo conectamos conectarlo
-        controladorConectar = new ControladorConectar(new DatabaseConnection());
+        controladorConectar = new Conectar(new DatabaseConnection());
         controladorConectar.conectar();
         
         // Pasar la instancia de controladorConectar al controlador del cliente
-        controlador = new ControladorCliente(controladorConectar);
+        controlador = new CrudCliente(controladorConectar);
         
         // Llenamos la tabla
         List<Cliente> listaClientes = controlador.obtenerTodosLosClientes();
@@ -199,8 +199,8 @@ public class ClienteVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        datosClientes agregarCliente = new datosClientes(this);
-        agregarCliente.setVisible(true);
+        /**datosClientes agregarCliente = new datosClientes(this);
+        agregarCliente.setVisible(true);*/
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -224,7 +224,7 @@ public class ClienteVista extends javax.swing.JFrame {
         if (confirmacion == JOptionPane.YES_OPTION) {
 
             // Crear una instancia del controlador
-            ControladorCliente controlador = new ControladorCliente(controladorConectar);
+            CrudCliente controlador = new CrudCliente(controladorConectar);
 
             // Intentar eliminar el cliente
             if (controlador.eliminarCliente(numero_Identificacion)) {
@@ -239,7 +239,7 @@ public class ClienteVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // Verificar que se ha seleccionado un registro en la tabla
+        /** Verificar que se ha seleccionado un registro en la tabla
         int filaSeleccionada = tCliente.getSelectedRow();
 
         if (filaSeleccionada == -1) {
@@ -265,7 +265,7 @@ public class ClienteVista extends javax.swing.JFrame {
 
         // Establecer un modo de "actualización"
         actualizarCliente.setModoActualizar(true);      // TODO add your handling code here:
-
+        **/
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -279,7 +279,7 @@ public class ClienteVista extends javax.swing.JFrame {
         modelo.setRowCount(0); // Limpiar la tabla
 
         // Obtener todos los clientes y agregarlos a la tabla
-        ControladorCliente controlador = new ControladorCliente(controladorConectar);
+        CrudCliente controlador = new CrudCliente(controladorConectar);
         List<Cliente> listaClientes = controlador.obtenerTodosLosClientes();
 
         for (Cliente cliente : listaClientes) {
@@ -313,21 +313,23 @@ public class ClienteVista extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClienteVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(datosClienteVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClienteVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(datosClienteVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClienteVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(datosClienteVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ClienteVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(datosClienteVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ClienteVista().setVisible(true);
+                new datosClienteVista().setVisible(true);
             }
         });
     }

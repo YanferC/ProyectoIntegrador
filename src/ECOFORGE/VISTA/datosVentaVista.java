@@ -8,7 +8,7 @@ package ECOFORGE.VISTA;
  *
  * @author YANFER
  */
-import ECOFORGE.CONTROLADOR.ControladorCuota;
+import ECOFORGE.MODELO.CrudCuota;
 
 import ECOFORGE.MODELO.Cuota;
 import java.util.List;
@@ -17,14 +17,14 @@ import javax.swing.table.DefaultTableModel;
 
 public class datosVentaVista extends javax.swing.JFrame {
 
-    private ControladorCuota cuota;
+    private CrudCuota cuota;
 
     /**
      * Creates new form Asesor
      */
     public datosVentaVista() {
         initComponents();
-        cuota = new ControladorCuota();
+        cuota = new CrudCuota();
         cuota.conectar();
         cuota.llenarTablaCuotas(jTable1);
         

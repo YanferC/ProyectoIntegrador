@@ -10,16 +10,16 @@ package ECOFORGE.VISTA;
  */
 
 import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
-import ECOFORGE.CONTROLADOR.ControladorConectar;
+import ECOFORGE.MODELO.Conectar;
 import ECOFORGE.CONTROLADOR.ControladorLogin;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
-import ECOFORGE.CONTROLADOR.DatabaseConnection;
+import ECOFORGE.MODELO.DatabaseConnection;
 import ECOFORGE.MODELO.LoginUsuario;
 
 public class Login extends javax.swing.JFrame {
 
     private ControladorLogin login;
-    private ControladorConectar controladorConectar;
+    private Conectar controladorConectar;
     private boolean primeraVezUsuario = true, primeraVezContra = true; // Controlar si es la primera vez que se hace clic
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
 
@@ -29,7 +29,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         // Inicializar el controlador de conexión y lo conectamos conectarlo
-        controladorConectar = new ControladorConectar(new DatabaseConnection());
+        controladorConectar = new Conectar(new DatabaseConnection());
         controladorConectar.conectar();
         
         login = new ControladorLogin(controladorConectar);

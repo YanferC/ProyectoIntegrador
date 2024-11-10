@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ECOFORGE.CONTROLADOR;
+package ECOFORGE.MODELO;
 
 /**
  *
@@ -20,12 +20,12 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.Date;
 import java.awt.*;
 
-public class ControladorCuota {
+public class CrudCuota {
 
     private DatabaseConnection dbConnection;
     private Connection connection;
 
-    public ControladorCuota() {
+    public CrudCuota() {
         dbConnection = new DatabaseConnection();
     }
 

@@ -2,12 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ECOFORGE.CONTROLADOR;
+package ECOFORGE.MODELO;
 
 /**
  *
  * @author YANFER
  */
+import ECOFORGE.MODELO.Conectar;
 import ECOFORGE.MODELO.Proyecto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,11 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ControladorProyecto {
+public class CrudProyecto {
 
     private final Connection conexion;
 
-    public ControladorProyecto(ControladorConectar controladorConectar) {
+    public CrudProyecto(Conectar controladorConectar) {
         this.conexion = controladorConectar.getConexion();
     }
 

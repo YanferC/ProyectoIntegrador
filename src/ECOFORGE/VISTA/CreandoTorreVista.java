@@ -5,11 +5,11 @@
 package ECOFORGE.VISTA;
 
 import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
-import ECOFORGE.CONTROLADOR.ControladorConectar;
-import ECOFORGE.CONTROLADOR.ControladorTorre;
+import ECOFORGE.MODELO.Conectar;
+import ECOFORGE.MODELO.CrudTorre;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
-import ECOFORGE.CONTROLADOR.ControladorProyecto;
-import ECOFORGE.CONTROLADOR.DatabaseConnection;
+import ECOFORGE.MODELO.CrudProyecto;
+import ECOFORGE.MODELO.DatabaseConnection;
 import ECOFORGE.MODELO.Proyecto;
 import ECOFORGE.MODELO.Torre;
 import java.util.List;
@@ -19,25 +19,25 @@ import javax.swing.JOptionPane;
  *
  * @author juans
  */
-public class TorreVista extends javax.swing.JFrame {
+public class CreandoTorreVista extends javax.swing.JFrame {
 
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
-    private ControladorTorre controlador;
-    private ControladorConectar controladorConectar;
+    private CrudTorre controlador;
+    private Conectar controladorConectar;
     private datosTorreVista formularioTorre;
 
     /**
      * Creates new form TorreVista
      */
-    public TorreVista(datosTorreVista formularioTorre) {
+    public CreandoTorreVista(datosTorreVista formularioTorre) {
         initComponents();
         this.formularioTorre = formularioTorre;
 
         // Inicializar el controlador de conexión y lo conectamos conectarlo
-        controladorConectar = new ControladorConectar(new DatabaseConnection());
+        controladorConectar = new Conectar(new DatabaseConnection());
         controladorConectar.conectar();
 
-        controlador = new ControladorTorre(controladorConectar);
+        controlador = new CrudTorre(controladorConectar);
         ControladorUtilidades.centrarVentana(this);
 
         cargarProyectos();
@@ -45,7 +45,7 @@ public class TorreVista extends javax.swing.JFrame {
 
     private void cargarProyectos() {
         jcbCodigoProyecto.removeAllItems();
-        ControladorProyecto controladorProyecto = new ControladorProyecto(controladorConectar);
+        CrudProyecto controladorProyecto = new CrudProyecto(controladorConectar);
 
         List<Proyecto> proyectos = controladorProyecto.obtenerTodosLosProyectos();
 
@@ -361,20 +361,23 @@ public class TorreVista extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TorreVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreandoTorreVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TorreVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreandoTorreVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TorreVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreandoTorreVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TorreVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreandoTorreVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TorreVista(new datosTorreVista()).setVisible(true);
+                new CreandoTorreVista(new datosTorreVista()).setVisible(true);
             }
         });
     }

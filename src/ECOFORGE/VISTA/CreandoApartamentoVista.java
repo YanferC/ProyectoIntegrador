@@ -8,13 +8,13 @@ import javax.swing.JOptionPane;
 
 import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
 import java.util.List;
-import ECOFORGE.CONTROLADOR.ControladorTorre;
+import ECOFORGE.MODELO.CrudTorre;
 import ECOFORGE.MODELO.Torre;
-import ECOFORGE.CONTROLADOR.ControladorApartamento;
-import ECOFORGE.CONTROLADOR.ControladorConectar;
-import ECOFORGE.CONTROLADOR.ControladorProyecto;
+import ECOFORGE.MODELO.CrudApartamento;
+import ECOFORGE.MODELO.Conectar;
+import ECOFORGE.MODELO.CrudProyecto;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
-import ECOFORGE.CONTROLADOR.DatabaseConnection;
+import ECOFORGE.MODELO.DatabaseConnection;
 import ECOFORGE.MODELO.Apartamento;
 import ECOFORGE.MODELO.Proyecto;
 
@@ -22,25 +22,25 @@ import ECOFORGE.MODELO.Proyecto;
  *
  * @author juans
  */
-public class CreandoApartamento extends javax.swing.JFrame {
+public class CreandoApartamentoVista extends javax.swing.JFrame {
 
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
-    private final ControladorConectar controladorConectar;
-    private final ApartamentoVista formularioApartamento;
-    private ControladorApartamento controlador;
+    private final Conectar controladorConectar;
+    private final datosApartamentoVista formularioApartamento;
+    private CrudApartamento controlador;
 
     /**
      * Creates new form CreandoApartamento
      */
-    public CreandoApartamento(ApartamentoVista formularioApartamento) {
+    public CreandoApartamentoVista(datosApartamentoVista formularioApartamento) {
         initComponents();
         this.formularioApartamento = formularioApartamento;
 
         // Inicializar el controlador de conexión y lo conectamos conectarlo
-        controladorConectar = new ControladorConectar(new DatabaseConnection());
+        controladorConectar = new Conectar(new DatabaseConnection());
         controladorConectar.conectar();
 
-        ControladorApartamento controladorApartamento = new ControladorApartamento(controladorConectar);
+        CrudApartamento controladorApartamento = new CrudApartamento(controladorConectar);
 
         ControladorUtilidades.centrarVentana(this);
 
@@ -64,14 +64,14 @@ public class CreandoApartamento extends javax.swing.JFrame {
             //Creamos un objeto apartamento
             Apartamento apartamento = new Apartamento(numeroApartamento, valorApartamento, tipoInmueble, area, numeroTorre);
 
-            ControladorApartamento controladorApartamento = new ControladorApartamento(controladorConectar);
+            CrudApartamento controladorApartamento = new CrudApartamento(controladorConectar);
             //Llamamos al metodo para guardar el apartamento
             boolean guardado = controladorApartamento.crearApartamento(apartamento);
 
             //Verificar si si se guardo correctamente
             if (guardado) {
                 JOptionPane.showMessageDialog(this, "Apartamento guardado exitosamente.", "Exito", JOptionPane.INFORMATION_MESSAGE);
-                ApartamentoVista apartamentoVista = new ApartamentoVista();
+                datosApartamentoVista apartamentoVista = new datosApartamentoVista();
                 apartamentoVista.setVisible(true);
                 this.dispose();
 
@@ -86,7 +86,7 @@ public class CreandoApartamento extends javax.swing.JFrame {
 
     private void cargarTorres() {
         jcbNumeroTorre.removeAllItems();
-        ControladorTorre controladorTorre = new ControladorTorre(controladorConectar);
+        CrudTorre controladorTorre = new CrudTorre(controladorConectar);
         String codigo_proyecto = (String) jcbCodigoProyecto.getSelectedItem();
 
         if (codigo_proyecto != null) {
@@ -100,7 +100,7 @@ public class CreandoApartamento extends javax.swing.JFrame {
 
     private void cargarProyectos() {
         jcbCodigoProyecto.removeAllItems();
-        ControladorProyecto controladorProyecto = new ControladorProyecto(controladorConectar);
+        CrudProyecto controladorProyecto = new CrudProyecto(controladorConectar);
 
         List<Proyecto> proyectos = controladorProyecto.obtenerTodosLosProyectos();
 
@@ -140,7 +140,7 @@ public class CreandoApartamento extends javax.swing.JFrame {
             //Creamos un objeto apartamento
             Apartamento apartamento = new Apartamento(numeroApartamento, valorApartamento, tipoInmueble, area, numeroTorre);
 
-            ControladorApartamento controladorApartamento = new ControladorApartamento(controladorConectar);
+            CrudApartamento controladorApartamento = new CrudApartamento(controladorConectar);
             //Llamamos al metodo para guardar el apartamento
             boolean actualizado = controladorApartamento.actualizarApartamento(apartamento);
 
@@ -395,14 +395,16 @@ public class CreandoApartamento extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreandoApartamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreandoApartamentoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreandoApartamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreandoApartamentoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreandoApartamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreandoApartamentoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreandoApartamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreandoApartamentoVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -410,7 +412,7 @@ public class CreandoApartamento extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 
-                new CreandoApartamento(new ApartamentoVista()).setVisible(true);
+                new CreandoApartamentoVista(new datosApartamentoVista()).setVisible(true);
             }
         });
     }
