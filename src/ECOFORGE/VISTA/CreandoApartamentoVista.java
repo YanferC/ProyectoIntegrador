@@ -24,9 +24,6 @@ import ECOFORGE.MODELO.Proyecto;
  */
 
 public class CreandoApartamentoVista extends javax.swing.JFrame {
-
-
-public class CreandoApartamentoVista extends javax.swing.JFrame {
     // contiene controladores para manejar la lógica de la interfaz y la conexión a la base de datos.
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
     private final Conectar controladorConectar;

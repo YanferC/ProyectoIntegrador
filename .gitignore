@@ -4,3 +4,4 @@ src/ECOFORGE/CONTROLADOR/DatabaseConnection.java
 
 # Ignorar configuración sensible o específica del entorno
 src/ECOFORGE/CONTROLADOR/DatabaseConnection.java
+/dist/
