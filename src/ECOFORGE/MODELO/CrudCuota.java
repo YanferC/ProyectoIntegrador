@@ -26,10 +26,10 @@ public class CrudCuota {
     private Connection connection;
 
     public CrudCuota() {
-        dbConnection = new DatabaseConnection();
+        //dbConnection = new DatabaseConnection();
     }
 
-    public void conectar() {
+   /** public void conectar() {
         connection = dbConnection.connect(); // Conectar a la base de datos
     }
 
@@ -154,7 +154,7 @@ public class CrudCuota {
          * modelo.addColumn("Estado Cuota"); modelo.addColumn("Asesor");
          * modelo.addColumn("Intereses");
         modelo.addColumn("Venta");
-         */
+         
 
         // Crear el modelo de la tabla con las columnas definidas
         DefaultTableModel modelo = new DefaultTableModel(
@@ -196,5 +196,5 @@ public class CrudCuota {
         tablaCuotas.setForeground(Color.BLACK);             // Texto en negro
         tablaCuotas.setSelectionBackground(new Color(100, 150, 255)); // Fondo al seleccionar
         tablaCuotas.setSelectionForeground(Color.WHITE);    // Texto al seleccionar
-    }
+    }*/
 }

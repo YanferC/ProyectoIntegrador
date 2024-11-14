@@ -27,8 +27,8 @@ public class datosVentaVista extends javax.swing.JFrame {
 
         initComponents();
         cuota = new CrudCuota();
-        cuota.conectar();
-        cuota.llenarTablaCuotas(jTable1);
+        //cuota.conectar();
+        //cuota.llenarTablaCuotas(jTable1);
 
         ControladorUtilidades.centrarVentana(this);// Centra la ventana en la pantalla
 

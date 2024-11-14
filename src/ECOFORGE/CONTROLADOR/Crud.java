@@ -4,13 +4,18 @@
  */
 package ECOFORGE.CONTROLADOR;
 
+import java.util.List;
+
 /**
  *
  * @author YANFER
+ * @param <T>
  */
-public interface Crud {
-    public void Crear();
-    public void Leer();
-    public void Actrualizar();
-    public void Eliminar();
+public interface Crud<T> {
+    public boolean Crear(T objeto);
+    public boolean Actualizar(T objeto);
+    public boolean Eliminar(String Codigo);
+    public List<T> ObtenerTodo();
+    public T ObtenerPorCodigo(String Codigo);
+    public String ObtenerID();
 }

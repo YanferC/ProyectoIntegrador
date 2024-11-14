@@ -28,8 +28,8 @@ public class PanelCliente extends javax.swing.JPanel {
     public PanelCliente() {
         initComponents();
         // Inicializar el controlador de conexión y lo conectamos conectarlo
-        controladorConectar = new Conectar(new DatabaseConnection());
-        controladorConectar.conectar();
+        //controladorConectar = new Conectar(new DatabaseConnection());
+       // controladorConectar.conectar();
         
         // Pasar la instancia de controladorConectar al controlador del cliente
         controlador = new CrudCliente(controladorConectar);

@@ -29,8 +29,8 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         // Inicializar el controlador de conexión y lo conectamos conectarlo
-        controladorConectar = new Conectar(new DatabaseConnection());
-        controladorConectar.conectar();
+        //controladorConectar = new Conectar(new DatabaseConnection());
+        //controladorConectar.conectar();
         
         login = new ControladorLogin(controladorConectar);
         ControladorUtilidades.centrarVentana(this);

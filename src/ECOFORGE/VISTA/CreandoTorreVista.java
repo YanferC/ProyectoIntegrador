@@ -37,8 +37,8 @@ public class CreandoTorreVista extends javax.swing.JFrame {
         this.formularioTorre = formularioTorre;
 
         // Inicializar el controlador de conexión y lo conectamos conectarlo
-        controladorConectar = new Conectar(new DatabaseConnection());
-        controladorConectar.conectar();
+        //controladorConectar = new Conectar(new DatabaseConnection());
+        //controladorConectar.conectar();
 
         controlador = new CrudTorre(controladorConectar);
         ControladorUtilidades.centrarVentana(this);
@@ -49,13 +49,13 @@ public class CreandoTorreVista extends javax.swing.JFrame {
     private void cargarProyectos() {
 
         jcbCodigoProyecto.removeAllItems();
-        CrudProyecto controladorProyecto = new CrudProyecto(controladorConectar);
+        //CrudProyecto controladorProyecto = new CrudProyecto(controladorConectar);
 
-        List<Proyecto> proyectos = controladorProyecto.obtenerTodosLosProyectos();
+        //List<Proyecto> proyectos = controladorProyecto.ObtenerTodo();
 
-        for (Proyecto proyecto : proyectos) {
-            jcbCodigoProyecto.addItem(proyecto.getCodigo_proyecto());
-        }
+        //for (Proyecto proyecto : proyectos) {
+        //    jcbCodigoProyecto.addItem(proyecto.getCodigo_proyecto());
+        //}
     }
 
     /**

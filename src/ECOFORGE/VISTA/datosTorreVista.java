@@ -29,7 +29,7 @@ public class datosTorreVista extends javax.swing.JFrame {
     public datosTorreVista() {
         initComponents();
         // Inicializar el controlador de conexión y lo conectamos conectarlo
-        controladorConectar = new Conectar(new DatabaseConnection());
+        //controladorConectar = new Conectar(new DatabaseConnection());
         controladorConectar.conectar();
 
         controlador = new CrudTorre(controladorConectar);

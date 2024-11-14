@@ -5,51 +5,47 @@
 package ECOFORGE.VISTA;
 
 import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
-import ECOFORGE.MODELO.Conectar;
 /**
  *
  * @author YANFER
  */
-import ECOFORGE.MODELO.CrudProyecto;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
-import ECOFORGE.MODELO.DatabaseConnection;
+import ECOFORGE.CONTROLADOR.CrearProyectoEntidad;
 import ECOFORGE.MODELO.Proyecto;
 import javax.swing.JOptionPane;
 
 
 public class CreandoProyectoVista extends javax.swing.JFrame {
 
-    private CrudProyecto controlador;
-    private Conectar controladorConectar;
-
+    //Crear instancia de la clase CrearProyectoEntidad
+    CrearProyectoEntidad crearProyecto = null;
     // Declaración de variables y controladores utilizados en la gestión de proyectos
-
-
-    private boolean isModoActualizar = false;
-    private datosProyectosVista formularioProyecto;
+    
+    private final datosProyectosVista formularioProyecto;
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
 
     /**
      * Creates new form datosProyecto
+     * @param formularioProyecto
      */
     public CreandoProyectoVista(datosProyectosVista formularioProyecto) {
         initComponents();
         this.formularioProyecto = formularioProyecto;
 
-        // Inicializar el controlador de conexión y lo conectamos conectarlo
-        controladorConectar = new Conectar(new DatabaseConnection());
-        controladorConectar.conectar();
-
-        controlador = new CrudProyecto(controladorConectar);
+        crearProyecto = new CrearProyectoEntidad();
 
         ControladorUtilidades.centrarVentana(this);
 
     }
-
+    
+    /*
     public String getCodigoProyecto() {
         return jTextFieldCodProyecto.getText();
+    }*/
+    
+    public void setCodigoProyecto(String codigo) {
+        jTextFieldCodProyecto.setText(codigo);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -122,6 +118,7 @@ public class CreandoProyectoVista extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(175, 229, 239));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jTextFieldCodProyecto.setEnabled(false);
         jTextFieldCodProyecto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldCodProyectoKeyTyped(evt);
@@ -208,13 +205,13 @@ public class CreandoProyectoVista extends javax.swing.JFrame {
         Proyecto nuevoProyecto = new Proyecto(codigo_proyecto, nombre_proyecto);
 
         // Agregar Proyecto utilizando el controlador
-        if (controlador.crearProyecto(nuevoProyecto)) {
+        if (crearProyecto.armarCrud().Crear(nuevoProyecto)) {
             JOptionPane.showMessageDialog(this, "Proyecto agregado exitosamente.");
 
             // Actualizar la tabla en el formulario Proyecto
             formularioProyecto.actualizarTabla();
-            datosProyectosVista datosProyectos = new datosProyectosVista();
-            datosProyectos.setVisible(true);
+           /** datosProyectosVista datosProyectos = new datosProyectosVista();
+            datosProyectos.setVisible(true);*/
 
             this.dispose(); // Cerrar el formulario
         } else {
@@ -229,7 +226,7 @@ public class CreandoProyectoVista extends javax.swing.JFrame {
         String nombre_proyecto = jTextFieldNombreProyecto.getText();
         Proyecto actualizarProyecto = new Proyecto(codigo_proyecto, nombre_proyecto);
         // Llamar al controlador para actualizar
-        if (controlador.actualizarProyecto(actualizarProyecto)) {
+        if (crearProyecto.armarCrud().Actualizar(actualizarProyecto)) {
             JOptionPane.showMessageDialog(this, "Proyecto actualizado correctamente.");
             // Cerrar el formulario después de actualizar
             formularioProyecto.actualizarTabla();
@@ -261,7 +258,6 @@ public class CreandoProyectoVista extends javax.swing.JFrame {
     public void cargarDatos(String codigo_proyecto, String nombre_proyecto) {
         jTextFieldCodProyecto.setText(String.valueOf(codigo_proyecto));
         jTextFieldNombreProyecto.setText(nombre_proyecto);
-
         // Deshabilitar la caja de texto del código del proyecto para que no sea modificable
         jTextFieldCodProyecto.setEnabled(false);
     }
@@ -310,10 +306,8 @@ public class CreandoProyectoVista extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CreandoProyectoVista(new datosProyectosVista()).setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new CreandoProyectoVista(new datosProyectosVista()).setVisible(true);
         });
     }
 

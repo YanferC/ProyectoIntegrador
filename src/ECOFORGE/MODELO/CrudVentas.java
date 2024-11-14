@@ -30,10 +30,10 @@ public class CrudVentas implements ClienteAddedListener {
     private Connection connection;
 
     public CrudVentas(CreandoVentaVista vista) {
-        dbConnection = new DatabaseConnection();
+        //dbConnection = new DatabaseConnection();
         this.vista = vista;
     }
-
+/**
     public void conectar() {
         connection = dbConnection.connect(); // Conectar a la base de datos
     }
@@ -83,7 +83,7 @@ public class CrudVentas implements ClienteAddedListener {
 
         return idVenta;
     }
-
+*/
     @Override
     public void onClienteAdded() {
         vista.clienteAgregado(); // Llamar al método que habilita el botón

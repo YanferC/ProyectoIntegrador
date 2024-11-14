@@ -4,16 +4,18 @@
  */
 package ECOFORGE.CONTROLADOR;
 
+import ECOFORGE.MODELO.CrudProyecto;
+
+
 /**
  *
  * @author YANFER
- * @param <T>
  */
-public abstract class crearEntidad<T> {
+public class CrearProyectoEntidad extends crearEntidad {
     
-    public void ejecutarOperacion(){
-        Crud<T> crud = armarCrud();
+    @Override
+    public Crud armarCrud() {
+        return new CrudProyecto();
     }
     
-    public abstract Crud<T> armarCrud();
 }
