@@ -29,8 +29,8 @@ public class datosCuotaVista extends javax.swing.JFrame {
     public datosCuotaVista() {
         initComponents();
         cuota = new CrudCuota();
-        cuota.conectar();
-        cuota.llenarTablaCuotas(jTable1);
+        //cuota.conectar();
+        //cuota.llenarTablaCuotas(jTable1);
         ControladorUtilidades.centrarVentana(this);
         
     }

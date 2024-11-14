@@ -36,8 +36,8 @@ public class datosApartamentoVista extends javax.swing.JFrame {
 
         initComponents(); //Inicializa los componentes gráficos del JFrame
         // Inicializar el controlador de conexión y lo conectamos conectarlo
-        controladorConectar = new Conectar(new DatabaseConnection());
-        controladorConectar.conectar();
+        //controladorConectar = new Conectar(new DatabaseConnection());
+        //controladorConectar.conectar();
 
         apartamento = new CrudApartamento(controladorConectar); // Instancia el controlador de Apartamento
 

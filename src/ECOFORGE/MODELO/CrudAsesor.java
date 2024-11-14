@@ -19,14 +19,14 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class CrudAsesor {
-
+   
     private DatabaseConnection dbConnection;
     private Connection connection;
 
     public CrudAsesor() {
-        dbConnection = new DatabaseConnection();
+       // dbConnection = new DatabaseConnection();
     }
-
+/**
     public void conectar() {
         connection = dbConnection.connect(); // Conectar a la base de datos
     }
@@ -108,5 +108,5 @@ public class CrudAsesor {
             System.out.println("Error al obtener el tipo de rol: " + e.getMessage());
         }
         return idTipoRol;
-    }
+    }*/
 }

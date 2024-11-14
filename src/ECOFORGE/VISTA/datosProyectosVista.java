@@ -8,10 +8,8 @@ package ECOFORGE.VISTA;
  *
  * @author SEBASTIAN
  */
-import ECOFORGE.MODELO.Conectar;
-import ECOFORGE.MODELO.CrudProyecto;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
-import ECOFORGE.MODELO.DatabaseConnection;
+import ECOFORGE.CONTROLADOR.CrearProyectoEntidad;
 import ECOFORGE.MODELO.Proyecto;
 import java.awt.Color;
 import java.util.List;
@@ -20,29 +18,23 @@ import javax.swing.table.DefaultTableModel;
 
 public class datosProyectosVista extends javax.swing.JFrame {
 
-    private Conectar controladorConectar;
-    private CrudProyecto controlador;
-    
+    //Crear instancia de la clase CrearProyectoEntidad
+    CrearProyectoEntidad crearProyecto = null;
 
     public datosProyectosVista() {
         initComponents();
 
-        // Inicializar el controlador de conexión y lo conectamos conectarlo
-        controladorConectar = new Conectar(new DatabaseConnection());
-        controladorConectar.conectar();
-
-        controlador = new CrudProyecto(controladorConectar);
-
         ControladorUtilidades.centrarVentana(this);
 
+        crearProyecto = new CrearProyectoEntidad();
         // Llenamos la tabla
-        List<Proyecto> listaProyectos = controlador.obtenerTodosLosProyectos();
+        List<Proyecto> listaProyectos = crearProyecto.armarCrud().ObtenerTodo();
         llenarTablaProyectos(listaProyectos);
     }
 
     public void llenarTablaProyectos(List<Proyecto> listaProyectos) {
         //DefaultTableModel modelo = (DefaultTableModel) tProyecto.getModel();
-        
+
         // Crear el modelo de la tabla con las columnas definidas
         DefaultTableModel modelo = new DefaultTableModel(
                 new String[]{
@@ -62,7 +54,7 @@ public class datosProyectosVista extends javax.swing.JFrame {
                 proyecto.getNombre_proyecto(),};
             modelo.addRow(fila);
         }
-        
+
         tProyecto.setModel(modelo);
         tProyecto.setBackground(Color.decode("#AFE5EF"));
         tProyecto.setForeground(Color.BLACK);             // Texto en negro
@@ -188,35 +180,37 @@ public class datosProyectosVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // Verificar que se ha seleccionado un registro en la tabla
+        /**
+         * // Verificar que se ha seleccionado un registro en la tabla
+         */
         int filaSeleccionada = tProyecto.getSelectedRow();
 
-        if (filaSeleccionada == -1) {
-            // Si no se ha seleccionado ninguna fila
+        if (filaSeleccionada == -1) { // Si no se ha seleccionado ninguna fila 
             JOptionPane.showMessageDialog(this, "Por favor, seleccione un proyecto para eliminar.");
             return;
         }
 
-        // Obtener el código del Proyecto seleccionado (asumiendo que el código está en la primera columna)
+        // Obtener el código del Proyecto seleccionado (asumiendo que el código está en la primera columna) 
         String codigo_proyecto = tProyecto.getValueAt(filaSeleccionada, 0).toString();
 
-        // Confirmar la eliminación
-        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar este proyecto?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+        // Confirmar la eliminación 
+        int confirmacion
+                = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar este proyecto?", "Confirmar eliminación",
+                        JOptionPane.YES_NO_OPTION);
 
-        if (confirmacion == JOptionPane.YES_OPTION) {
-            // Crear una instancia del controlador
-            CrudProyecto controlador = new CrudProyecto(controladorConectar);
-
-            // Intentar eliminar el Proyecto
-            if (controlador.eliminarProyecto(codigo_proyecto)) {
+        if (confirmacion == JOptionPane.YES_OPTION) { // Crear una instancia del controlador //
+            // Intentar eliminar el Proyecto 
+            if (crearProyecto.armarCrud().Eliminar(codigo_proyecto)) {
                 JOptionPane.showMessageDialog(this, "Proyecto eliminado correctamente.");
 
                 // Actualizar la tabla después de eliminar el Proyecto
                 actualizarTabla();
             } else {
-                JOptionPane.showMessageDialog(this, "Error al eliminar el Proyecto.");
+                JOptionPane.showMessageDialog(this,
+                        "Error al eliminar el Proyecto.");
             }
-        }        // TODO add your handling code here:
+        } // TODO add your handling code here:
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -239,30 +233,30 @@ public class datosProyectosVista extends javax.swing.JFrame {
         // Pasar los datos al formulario
         actualizarProyecto.cargarDatos(codigo_proyecto, nombre_proyecto);
 
-             // TODO add your handling code here:
+        // TODO add your handling code here:
 
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 
         CreandoProyectoVista agregarProyecto = new CreandoProyectoVista(this);
-
         agregarProyecto.setVisible(true);
         agregarProyecto.btnActualizar.setEnabled(false);
+        agregarProyecto.setCodigoProyecto(crearProyecto.armarCrud().ObtenerID());
         dispose();
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void jbtCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCerrarSesionActionPerformed
-        Login newframe = new Login();
-        newframe.setVisible(true);
+        Login inicioSesion = new Login();
+        inicioSesion.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jbtCerrarSesionActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        DashBoardPrincipal newframe = new DashBoardPrincipal();
-        newframe.setVisible(true);
+        DashBoardPrincipal vistaPrincipal = new DashBoardPrincipal();
+        vistaPrincipal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -271,8 +265,7 @@ public class datosProyectosVista extends javax.swing.JFrame {
         modelo.setRowCount(0); // Limpiar la tabla
 
         // Obtener todos los Proyectos y agregarlos a la tabla
-        CrudProyecto controlador = new CrudProyecto(controladorConectar);
-        List<Proyecto> listaProyectos = controlador.obtenerTodosLosProyectos();
+        List<Proyecto> listaProyectos = crearProyecto.armarCrud().ObtenerTodo();
 
         for (Proyecto proyecto : listaProyectos) {
             Object[] fila = {
@@ -325,10 +318,8 @@ public class datosProyectosVista extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new datosProyectosVista().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new datosProyectosVista().setVisible(true);
         });
     }
 

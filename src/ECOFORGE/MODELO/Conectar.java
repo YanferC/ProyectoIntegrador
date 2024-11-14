@@ -23,7 +23,7 @@ public class Conectar {
     // Método para conectar
     public void conectar() {
         if (dbConnection != null) {
-            connection = dbConnection.connect(); // Conectar a la base de datos
+           // connection = dbConnection.connect(); // Conectar a la base de datos
         } else {
             System.out.println("Error: dbConnection no ha sido inicializado.");
         }

@@ -14,31 +14,37 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
     // Parámetros de conexión
-    private final String url = "jdbc:oracle:thin:@sebastian:1521:xe"; // Cambia los parámetros según tu BD
-    private final String user = "EcoForge";
-    private final String password = "EcoForge";
-    private Connection connection = null;
+    private static final String URL = "jdbc:oracle:thin:@LAPTOP-T7R63ESD:1521:xe";
+    private static final String USER = "EcoForge";
+    private static final String PASSWORD = "EcoForge";
+    private static Connection connection = null;
 
-    // Método para conectar
-    public Connection connect() {
-        try {
-            // Cargar el controlador JDBC de Oracle
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            
-            // Conectar a la base de datos
-            connection = DriverManager.getConnection(url, user, password);
-            System.out.println("Conexión exitosa a la base de datos.");
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("Error al conectar a la base de datos: " + e.getMessage());
+    // Constructor privado para evitar la creación de instancias
+    private DatabaseConnection() {}
+
+    // Método para obtener la conexión (Singleton)
+    public static Connection getConexion() {
+        if (connection == null) {
+            try {
+                // Cargar el controlador JDBC de Oracle
+                Class.forName("oracle.jdbc.driver.OracleDriver");
+
+                // Conectar a la base de datos
+                connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                System.out.println("Conexión exitosa a la base de datos.");
+            } catch (ClassNotFoundException | SQLException e) {
+                System.out.println("Error al conectar a la base de datos: " + e.getMessage());
+            }
         }
         return connection;
     }
 
     // Método para cerrar la conexión
-    public void disconnect() {
+    public static void disconnect() {
         try {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
+                connection = null;
                 System.out.println("Conexión cerrada.");
             }
         } catch (SQLException e) {
