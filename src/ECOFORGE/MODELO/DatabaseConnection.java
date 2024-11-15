@@ -13,6 +13,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
+
     // Parámetros de conexión
     private static final String URL = "jdbc:oracle:thin:@LAPTOP-T7R63ESD:1521:xe";
     private static final String USER = "EcoForge";
@@ -20,21 +21,19 @@ public class DatabaseConnection {
     private static Connection connection = null;
 
     // Constructor privado para evitar la creación de instancias
-    private DatabaseConnection() {}
+    private DatabaseConnection() {
+    }
 
     // Método para obtener la conexión (Singleton)
     public static Connection getConexion() {
-        if (connection == null) {
-            try {
-                // Cargar el controlador JDBC de Oracle
+        try {
+            if (connection == null || connection.isClosed()) {
                 Class.forName("oracle.jdbc.driver.OracleDriver");
-
-                // Conectar a la base de datos
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 System.out.println("Conexión exitosa a la base de datos.");
-            } catch (ClassNotFoundException | SQLException e) {
-                System.out.println("Error al conectar a la base de datos: " + e.getMessage());
             }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Error al conectar a la base de datos: " + e.getMessage());
         }
         return connection;
     }
