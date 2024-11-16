@@ -5,11 +5,9 @@
 package ECOFORGE.VISTA;
 
 import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
-import ECOFORGE.MODELO.Conectar;
-import ECOFORGE.MODELO.CrudTorre;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
+import ECOFORGE.CONTROLADOR.CrearTorreEntidad;
 import ECOFORGE.MODELO.CrudProyecto;
-import ECOFORGE.MODELO.DatabaseConnection;
 import ECOFORGE.MODELO.Proyecto;
 import ECOFORGE.MODELO.Torre;
 import java.util.List;
@@ -23,24 +21,20 @@ import javax.swing.JOptionPane;
 public class CreandoTorreVista extends javax.swing.JFrame {
 
     // Declaración de variables y controladores utilizados en la gestión de Torres
-
+    CrearTorreEntidad crearTorre = null;
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
-    private CrudTorre controlador;
-    private Conectar controladorConectar;
-    private datosTorreVista formularioTorre;
+    
+    private final datosTorreVista formularioTorre;
 
     /**
      * Creates new form TorreVista
+     * @param formularioTorre
      */
     public CreandoTorreVista(datosTorreVista formularioTorre) {
         initComponents();
         this.formularioTorre = formularioTorre;
 
-        // Inicializar el controlador de conexión y lo conectamos conectarlo
-        //controladorConectar = new Conectar(new DatabaseConnection());
-        //controladorConectar.conectar();
-
-        controlador = new CrudTorre(controladorConectar);
+        crearTorre = new CrearTorreEntidad();
         ControladorUtilidades.centrarVentana(this);
 
         cargarProyectos();
@@ -49,13 +43,13 @@ public class CreandoTorreVista extends javax.swing.JFrame {
     private void cargarProyectos() {
 
         jcbCodigoProyecto.removeAllItems();
-        //CrudProyecto controladorProyecto = new CrudProyecto(controladorConectar);
+        CrudProyecto controladorProyecto = new CrudProyecto();
 
-        //List<Proyecto> proyectos = controladorProyecto.ObtenerTodo();
+        List<Proyecto> proyectos = controladorProyecto.ObtenerTodo();
 
-        //for (Proyecto proyecto : proyectos) {
-        //    jcbCodigoProyecto.addItem(proyecto.getCodigo_proyecto());
-        //}
+        for (Proyecto proyecto : proyectos) {
+            jcbCodigoProyecto.addItem(proyecto.getCodigo_proyecto());
+        }
     }
 
     /**
@@ -290,13 +284,13 @@ public class CreandoTorreVista extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // Código para actualizar el Proyecto
-        Integer numero_Torre = Integer.parseInt(jtNumTorre.getText());
-        Integer numero_Pisos = Integer.parseInt(jtNumPisos.getText());
+        Integer numero_Torre = Integer.valueOf(jtNumTorre.getText());
+        Integer numero_Pisos = Integer.valueOf(jtNumPisos.getText());
         String codigo_proyecto = (String) jcbCodigoProyecto.getSelectedItem();
 
         Torre actualizarTorre = new Torre(numero_Torre, numero_Pisos, codigo_proyecto);
         // Llamar al controlador para actualizar
-        if (controlador.actualizarTorre(actualizarTorre)) {
+        if (crearTorre.armarCrud().Actualizar(actualizarTorre)) {
             JOptionPane.showMessageDialog(this, "Torre actualizada correctamente.");
             // Cerrar el formulario después de actualizar
             formularioTorre.actualizarTabla();
@@ -324,13 +318,13 @@ public class CreandoTorreVista extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // Obtener datos de los campos de texto
-        Integer numero_Torre = Integer.parseInt(jtNumTorre.getText());
-        Integer numero_Pisos = Integer.parseInt(jtNumPisos.getText());
+        Integer numero_Torre = Integer.valueOf(jtNumTorre.getText());
+        Integer numero_Pisos = Integer.valueOf(jtNumPisos.getText());
         String codigo_proyecto = (String) jcbCodigoProyecto.getSelectedItem();
 
         Torre torre = new Torre(numero_Torre, numero_Pisos, codigo_proyecto);
 
-        if (controlador.crearTorre(torre)) {
+        if (crearTorre.armarCrud().Crear(torre)) {
             JOptionPane.showMessageDialog(this, "Torre agregada exitosamente.");
 
             // Actualizar la tabla en el formulario Proyecto
@@ -380,6 +374,7 @@ public class CreandoTorreVista extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new CreandoTorreVista(new datosTorreVista()).setVisible(true);
             }

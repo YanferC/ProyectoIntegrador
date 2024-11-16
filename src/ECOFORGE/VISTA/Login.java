@@ -8,18 +8,14 @@ package ECOFORGE.VISTA;
  *
  * @author YANFER
  */
-
 import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
-import ECOFORGE.MODELO.Conectar;
 import ECOFORGE.CONTROLADOR.ControladorLogin;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
-import ECOFORGE.MODELO.DatabaseConnection;
 import ECOFORGE.MODELO.LoginUsuario;
 
 public class Login extends javax.swing.JFrame {
 
     private ControladorLogin login;
-    private Conectar controladorConectar;
     private boolean primeraVezUsuario = true, primeraVezContra = true; // Controlar si es la primera vez que se hace clic
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
 
@@ -31,8 +27,9 @@ public class Login extends javax.swing.JFrame {
         // Inicializar el controlador de conexión y lo conectamos conectarlo
         //controladorConectar = new Conectar(new DatabaseConnection());
         //controladorConectar.conectar();
-        
-        login = new ControladorLogin(controladorConectar);
+
+        //login = new ControladorLogin(controladorConectar);
+        login = new ControladorLogin();
         ControladorUtilidades.centrarVentana(this);
     }
 
@@ -144,27 +141,28 @@ public class Login extends javax.swing.JFrame {
         String Passwoard = jPFContraseña.getText();
         String ID_USUARIO = jTFNombreUsuario.getText();
 
-        LoginUsuario usuario = login.validarCredenciales(ID_USUARIO, Passwoard);
-
-        if (usuario != null) {
-            if ("1".equals(usuario.getTIPO_ROL())) {
-                DashBoardPrincipal ventanaprincipal = new DashBoardPrincipal();
-                ventanaprincipal.setVisible(true);
-                /// Aquí desactivar botones de administrador en el DashBoard
-                ventanaprincipal.btnProyecto.setEnabled(false);
-                ventanaprincipal.btnTorre.setEnabled(false);
-                ventanaprincipal.btnApartamento.setEnabled(false);
-                
-            } else if ("2".equals(usuario.getTIPO_ROL())) {
-                DashBoardPrincipal ventanaprincipal = new DashBoardPrincipal();
-                ventanaprincipal.setVisible(true);
-                /// Aquí desactivar botones de Aasesor en el DashBoard
-                ventanaprincipal.btnVentas.setEnabled(false);
-                ventanaprincipal.btnCuota.setEnabled(false);
-                ventanaprincipal.btnCliente.setEnabled(false);
-            }
+        if (ID_USUARIO.trim().isEmpty() || Passwoard.trim().isEmpty()) {
+            // Puedes mostrar un mensaje de alerta si alguno de los campos está vacío
+            System.out.println("Por favor, ingrese su usuario y contraseña.");
         } else {
-            System.out.println("Credenciales incorrectas.");
+            LoginUsuario usuario = login.validarCredenciales(ID_USUARIO, Passwoard);
+
+            if (usuario != null) {
+                if ("1".equals(usuario.getTIPO_ROL())) {
+                    DashBoardPrincipal ventanaprincipal = new DashBoardPrincipal();
+                    ventanaprincipal.setVisible(true);
+                    ventanaprincipal.btnProyecto.setEnabled(false); // Desactivar botones de administrador en el DashBoard
+                    ventanaprincipal.btnTorre.setEnabled(false);
+                    ventanaprincipal.btnApartamento.setEnabled(false);
+                } else {
+                    DashBoardPrincipal ventanaprincipal = new DashBoardPrincipal();
+                    ventanaprincipal.setVisible(true); // Mostrar dashboard
+                }
+                this.setVisible(false);
+            } else {
+                // Si el usuario no existe o las credenciales no son válidas
+                System.out.println("Usuario o contraseña incorrectos.");
+            }
         }
     }//GEN-LAST:event_btnInicioSesionActionPerformed
 
@@ -214,10 +212,8 @@ public class Login extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Login().setVisible(true);
         });
     }
 

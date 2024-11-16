@@ -40,7 +40,7 @@ public class CrudProyecto implements Crud<Proyecto> {
             return true;  // Devuelve true si se ejecuta correctamente
 
         } catch (SQLException e) {
-            System.out.println("Error al crear proyecto: " + e.getMessage());
+            System.out.println("Error al crear el proyecto: " + e.getMessage());
             return false;
         }
     }
@@ -62,7 +62,7 @@ public class CrudProyecto implements Crud<Proyecto> {
             int rowsUpdated = statement.executeUpdate();
             return rowsUpdated > 0;
         } catch (SQLException e) {
-            System.out.println("Error al actualizar Proyecto: " + e.getMessage());
+            System.out.println("Error al actualizar el Proyecto: " + e.getMessage());
             return false;
         }
     }
@@ -70,23 +70,24 @@ public class CrudProyecto implements Crud<Proyecto> {
     /**
      * Método para eliminar un Proyecto
      *
-     * @param Codigo
+     * @param Codigo1
+     * @param Codigo2
      * @return
      */
     @Override
-    public boolean Eliminar(String Codigo) {
+    public boolean Eliminar(String Codigo1, String Codigo2) {
         String sql = "{ call eliminar_proyecto(?) }";
         try (Connection conexion = DatabaseConnection.getConexion(); CallableStatement statement = conexion.prepareCall(sql)) {
 
-            statement.setString(1, Codigo);
+            statement.setString(1, Codigo1);
             statement.execute();
             return true;  // Elimina exitosamente si no hay dependencias.
 
         } catch (SQLException e) {
             if (e.getErrorCode() == 2292) {  // Error ORA-02292: restricción de integridad referencial violada - registro secundario encontrado
-                System.out.println("Error al eliminar Proyecto: Existen registros relacionados en otras tablas.");
+                System.out.println("Error al eliminar el Proyecto: Existen registros relacionados en otras tablas.");
             } else {
-                System.out.println("Error al eliminar Proyecto: " + e.getMessage());
+                System.out.println("Error al eliminar el Proyecto: " + e.getMessage());
             }
             return false;
         }
@@ -120,7 +121,7 @@ public class CrudProyecto implements Crud<Proyecto> {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error al obtener proyectos: " + e.getMessage());
+            System.out.println("Error al obtener los proyectos: " + e.getMessage());
         }
 
         return listaProyecto;
@@ -134,21 +135,35 @@ public class CrudProyecto implements Crud<Proyecto> {
      */
     @Override
     public Proyecto ObtenerPorCodigo(String Codigo) {
-        String sql = "SELECT * FROM proyecto WHERE codigo_proyecto = ?";
+        String sql = "{ ? = call obtener_Proyecto_por_codigo(?) }";
         Proyecto proyecto = null;
-        try (Connection conexion = DatabaseConnection.getConexion(); PreparedStatement statement = conexion.prepareStatement(sql)) {
 
-            statement.setString(1, Codigo);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    proyecto = new Proyecto(
-                            resultSet.getString("codigo_proyecto"),
-                            resultSet.getString("nombre_proyecto"));
-                }
+        try (Connection conexion = DatabaseConnection.getConexion(); CallableStatement statement = conexion.prepareCall(sql)) {
+
+            // Registrar el primer parámetro como el valor de retorno de la función
+            statement.registerOutParameter(1, java.sql.Types.VARCHAR);
+            // Establecer el parámetro de entrada para el código del proyecto
+            statement.setString(2, Codigo);
+
+            // Ejecutar la función
+            statement.execute();
+
+            // Obtener el valor de retorno de la función
+            String resultado = statement.getString(1);
+
+            // Comprobar el resultado
+            if (resultado != null && !resultado.equals("ERROR")) {
+                proyecto = new Proyecto(resultado, ""); // Solo establece el código; el nombre se deja vacío.
+            } else if (resultado == null) {
+                System.out.println("No se encontró ningún proyecto con el código proporcionado.");
+            } else {
+                System.out.println("Ocurrió un error al ejecutar la función obtener_Proyecto_por_codigo.");
             }
+
         } catch (SQLException e) {
             System.out.println("Error al obtener Proyecto: " + e.getMessage());
         }
+
         return proyecto;
     }
 

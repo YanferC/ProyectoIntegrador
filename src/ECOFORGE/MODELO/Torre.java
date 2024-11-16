@@ -4,6 +4,9 @@
  */
 package ECOFORGE.MODELO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author YANFER
@@ -11,11 +14,21 @@ package ECOFORGE.MODELO;
 public class Torre {
     private Integer numero_torre, numero_pisos;
     private String codigo_proyecto;
+    private List<Torre> torresRelacionadas;
 
     public Torre(Integer numero_torre, Integer numero_pisos, String codigo_proyecto){
         this.numero_torre = numero_torre;
         this.numero_pisos = numero_pisos;
         this.codigo_proyecto = codigo_proyecto;
+        this.torresRelacionadas = new ArrayList<>();
+    }
+
+    public List<Torre> getTorresRelacionadas() {
+        return torresRelacionadas;
+    }
+
+    public void setTorresRelacionadas(List<Torre> torresRelacionadas) {
+        this.torresRelacionadas = torresRelacionadas;
     }
 
     public Integer getNumero_torre() {

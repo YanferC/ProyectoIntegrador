@@ -14,7 +14,7 @@ import java.util.List;
 public interface Crud<T> {
     public boolean Crear(T objeto);
     public boolean Actualizar(T objeto);
-    public boolean Eliminar(String Codigo);
+    public boolean Eliminar(String Codigo1, String Codigo2);
     public List<T> ObtenerTodo();
     public T ObtenerPorCodigo(String Codigo);
     public String ObtenerID();

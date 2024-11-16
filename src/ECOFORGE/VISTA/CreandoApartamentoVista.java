@@ -14,6 +14,7 @@ import ECOFORGE.MODELO.CrudApartamento;
 import ECOFORGE.MODELO.Conectar;
 import ECOFORGE.MODELO.CrudProyecto;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
+import ECOFORGE.CONTROLADOR.CrearApartamentoEntidad;
 import ECOFORGE.MODELO.DatabaseConnection;
 import ECOFORGE.MODELO.Apartamento;
 import ECOFORGE.MODELO.Proyecto;
@@ -28,20 +29,17 @@ public class CreandoApartamentoVista extends javax.swing.JFrame {
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
     //private final Conectar controladorConectar;
     private final datosApartamentoVista formularioApartamento;
-    private CrudApartamento controlador;
+    CrearApartamentoEntidad crearApartamento = null;
 
     /**
      * Creates new form CreandoApartamento
+     * @param formularioApartamento
      */
     public CreandoApartamentoVista(datosApartamentoVista formularioApartamento) {
         initComponents();
         this.formularioApartamento = formularioApartamento;
 
-        // Inicializar el controlador de conexión y lo conectamos conectarlo
-        //controladorConectar = new Conectar(new DatabaseConnection());
-        //controladorConectar.conectar();
-
-        //CrudApartamento controladorApartamento = new CrudApartamento(controladorConectar);
+        crearApartamento = new CrearApartamentoEntidad();
 
         ControladorUtilidades.centrarVentana(this);
 
@@ -60,55 +58,53 @@ public class CreandoApartamentoVista extends javax.swing.JFrame {
             int area = Integer.parseInt(jtfArea.getText());
             //Obtener el numero de la torre como String y convertirlo a integer
             String numeroTorreString = (String) jcbNumeroTorre.getSelectedItem();
-            Integer numeroTorre = Integer.parseInt(numeroTorreString);
+            Integer numeroTorre = Integer.valueOf(numeroTorreString);
 
             //Creamos un objeto apartamento
             Apartamento apartamento = new Apartamento(numeroApartamento, valorApartamento, tipoInmueble, area, numeroTorre);
 
-            //CrudApartamento controladorApartamento = new CrudApartamento(controladorConectar);
+            
             //Llamamos al metodo para guardar el apartamento
-            //boolean guardado = controladorApartamento.crearApartamento(apartamento);
+            boolean guardado = crearApartamento.armarCrud().Crear(apartamento);
 
             //Verificar si si se guardo correctamente
-            /**if (guardado) {
-                JOptionPane.showMessageDialog(this, "Apartamento guardado exitosamente.", "Exito", JOptionPane.INFORMATION_MESSAGE);
+            if (guardado) {
+                JOptionPane.showMessageDialog(this, "Apartamento guardado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 datosApartamentoVista apartamentoVista = new datosApartamentoVista();
                 apartamentoVista.setVisible(true);
                 this.dispose();
 
             } else {
                 JOptionPane.showMessageDialog(this, "Error al guardar el apartamento.", "Error", JOptionPane.ERROR_MESSAGE);
-            }*/
+            }
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores validos.", "Error de formto", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores validos.", "Error de formato", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void cargarTorres() {
         jcbNumeroTorre.removeAllItems();
-       /** CrudTorre controladorTorre = new CrudTorre(controladorConectar);
         // Método que carga las torres disponibles en un JComboBox según el proyecto seleccionado
         String codigo_proyecto = (String) jcbCodigoProyecto.getSelectedItem();
         // Verifica si se ha seleccionado un proyecto
         if (codigo_proyecto != null) {
-            List<Torre> torres = controladorTorre.obtenerTorresPorProyecto(codigo_proyecto);
+            List<Torre> torres = (List<Torre>) crearApartamento.armarCrud().ObtenerPorCodigo(codigo_proyecto);
             // Agrega cada torre al JComboBox
             for (Torre torre : torres) {
                 jcbNumeroTorre.addItem(String.valueOf(torre.getNumero_torre()));
             }
-        }*/
+        }
     }
 
     private void cargarProyectos() {
         jcbCodigoProyecto.removeAllItems();
-        //CrudProyecto controladorProyecto = new CrudProyecto(controladorConectar);
 
-        //List<Proyecto> proyectos = controladorProyecto.ObtenerTodo();
+        List<Proyecto> proyectos = crearApartamento.armarCrud().ObtenerTodo();
 
-        //for (Proyecto proyecto : proyectos) {
-        //    jcbCodigoProyecto.addItem(proyecto.getCodigo_proyecto());
-        //}
+        for (Proyecto proyecto : proyectos) {
+            jcbCodigoProyecto.addItem(proyecto.getCodigo_proyecto());
+        }
 
         // Agregamos un ActionListener para cargar torres cuando se seleccione un proyecto
         jcbCodigoProyecto.addActionListener(e -> cargarTorres());
@@ -129,7 +125,7 @@ public class CreandoApartamentoVista extends javax.swing.JFrame {
     }
     
     public void actualizarApartamento() {
-     /**   try {
+        try {
 
             int numeroApartamento = Integer.parseInt(jtfNumeroApartamento.getText());
             int valorApartamento = Integer.parseInt(jtfValorApartamento.getText());
@@ -137,18 +133,18 @@ public class CreandoApartamentoVista extends javax.swing.JFrame {
             int area = Integer.parseInt(jtfArea.getText());
             //Obtener el numero de la torre como String y convertirlo a integer
             String numeroTorreString = (String) jcbNumeroTorre.getSelectedItem();
-            Integer numeroTorre = Integer.parseInt(numeroTorreString);
+            Integer numeroTorre = Integer.valueOf(numeroTorreString);
 
             //Creamos un objeto apartamento
             Apartamento apartamento = new Apartamento(numeroApartamento, valorApartamento, tipoInmueble, area, numeroTorre);
 
-            CrudApartamento controladorApartamento = new CrudApartamento(controladorConectar);
+            
             //Llamamos al metodo para guardar el apartamento
-            boolean actualizado = controladorApartamento.actualizarApartamento(apartamento);
+            boolean actualizado = crearApartamento.armarCrud().Actualizar(apartamento);
 
             //Verificar si si se guardo correctamente
             if (actualizado) {
-                JOptionPane.showMessageDialog(this, "Apartamento actualizado exitosamente.", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Apartamento actualizado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 // Cerrar el formulario después de actualizar
                 formularioApartamento.actualizarTabla();
                 this.dispose();
@@ -158,8 +154,8 @@ public class CreandoApartamentoVista extends javax.swing.JFrame {
             }
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores validos.", "Error de formto", JOptionPane.ERROR_MESSAGE);
-        }*/
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores validos.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -414,8 +410,8 @@ public class CreandoApartamentoVista extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-
                 new CreandoApartamentoVista(new datosApartamentoVista()).setVisible(true);
             }
         });

@@ -15,25 +15,51 @@ import java.sql.SQLException;
 public class DatabaseConnection {
 
     // Parámetros de conexión
-    private static final String URL = "jdbc:oracle:thin:@LAPTOP-T7R63ESD:1521:xe";
-    private static final String USER = "EcoForge";
-    private static final String PASSWORD = "EcoForge";
+    private static String URL;
+    private static String USER;
+    private static String PASSWORD;
     private static Connection connection = null;
 
     // Constructor privado para evitar la creación de instancias
-    private DatabaseConnection() {
+    public DatabaseConnection() {
     }
-
+    
+    // Método para configurar la conexión de acuerdo con el tipo de usuario
+    public static void configurarConexion(String tipoUsuario) {
+        // Configura la base de datos según el tipo de usuario (por ejemplo, Asesor o Admin)
+        switch (tipoUsuario) {
+            case "1" -> {
+                URL = "jdbc:oracle:thin:@LAPTOP-T7R63ESD:1521:xe";
+                USER = "ECOFORGE";
+                PASSWORD = "ECOFORGE";
+            }
+            case "2" -> {
+                URL = "jdbc:oracle:thin:@LAPTOP-T7R63ESD:1521:xe";
+                USER = "ECOFORGE";
+                PASSWORD = "ECOFORGE";
+            }
+            default -> {
+                // Base de datos por defecto
+                URL = "jdbc:oracle:thin:@LAPTOP-T7R63ESD:1521:xe";
+                USER = "ECOFORGE";
+                PASSWORD = "ECOFORGE";
+            }
+        }
+    }
+    
+    
     // Método para obtener la conexión (Singleton)
     public static Connection getConexion() {
         try {
             if (connection == null || connection.isClosed()) {
-                Class.forName("oracle.jdbc.driver.OracleDriver");
+                if (URL == null || USER == null || PASSWORD == null) {
+                    throw new SQLException("La configuración de la conexión no ha sido definida.");
+                }
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                System.out.println("Conexión exitosa a la base de datos.");
+                System.out.println("Conexión al usuario: " + USER);
             }
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("Error al conectar a la base de datos: " + e.getMessage());
+        } catch (SQLException e) {
+            System.out.println("Error al obtener la conexión: " + e.getMessage());
         }
         return connection;
     }
