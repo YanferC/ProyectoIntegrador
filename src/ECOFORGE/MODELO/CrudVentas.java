@@ -11,83 +11,22 @@ package ECOFORGE.MODELO;
 import ECOFORGE.CONTROLADOR.Crud;
 import ECOFORGE.VISTA.PanelCliente.ClienteAddedListener;
 import ECOFORGE.VISTA.CreandoVentaVista;
-import ECOFORGE.MODELO.Venta;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import java.sql.Date;
-import javax.swing.*;
-import java.awt.*;
+import java.sql.CallableStatement;
 
 public class CrudVentas implements ClienteAddedListener, Crud<Venta> {
-
+    
     private CreandoVentaVista vista;
-    private DatabaseConnection dbConnection;
-    private Connection connection;
-
-   
-/**
-    public void conectar() {
-        connection = dbConnection.connect(); // Conectar a la base de datos
-    }
-
-    // Método para crear un venta
-    public boolean crearVenta(Venta venta) {
-        String sql = "INSERT INTO venta (ID, PRECIO_TOTAL_VENTA, TIPO_PAGO, FECHA_VENTA, NUMERO_CUOTAS, MATRICULA, FECHA_ESCRITURA, NUMERO_APARTAMENTO, NUMERO_IDENT_CLI) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            Date sqlDate = new Date(venta.getFecha_Venta().getTime());
-            Date sqlDate2 = new Date(venta.getFecha_Escritura().getTime());
-
-            statement.setInt(1, venta.getId());
-            statement.setInt(2, venta.getPrecio_Total_Venta());
-            statement.setInt(3, venta.getTipo_Pago());
-            statement.setDate(4, sqlDate);
-            statement.setInt(5, venta.getNumero_Cuotas());
-            statement.setString(6, venta.getMatricula());
-            statement.setDate(7, sqlDate2);
-            statement.setInt(8, venta.getNumero_Apartamento());
-            statement.setInt(9, venta.getNumero_Ident_Cli());
-
-            int rowsInserted = statement.executeUpdate();
-            return rowsInserted > 0;
-        } catch (SQLException e) {
-            System.out.println("Error al crear venta: " + e.getMessage());
-            return false;
-        }
-    }
-    
-    
-    //se crea el siguiente método para consultar la secuencia del id para la venta
-    public int consultarIdVenta() {
-        String sql = "SELECT seq_Venta.NEXTVAL AS ID FROM dual";
-        int idVenta = -1;  // Inicializamos con un valor por defecto.
-
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql); ResultSet resultSet = statement.executeQuery()) {
-
-            if (resultSet.next()) {
-                idVenta = resultSet.getInt("ID");  // Tomamos el valor de la secuencia.
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Error al obtener ID de Venta: " + e.getMessage());
-        }
-
-        return idVenta;
-    }
-*/
-    
-    @Override
-    public void onClienteAdded() {
-        vista.clienteAgregado(); // Llamar al método que habilita el botón
-    }
-    
+   /** 
+    public CrudVentas(CreandoVentaVista vista) {
+        this.vista = vista;
+    }*/
     /**
      * Método para crear una Venta
      *
@@ -96,7 +35,32 @@ public class CrudVentas implements ClienteAddedListener, Crud<Venta> {
      */
     @Override
     public boolean Crear(Venta venta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "{ call inc_Venta(?, ?, ?, ?, ?, ?, ?, ?, ?) }";
+        try (Connection conexion = DatabaseConnection.getConexion(); CallableStatement statement = conexion.prepareCall(sql)) {
+
+            // Establece los parámetros para el procedimiento
+            Date sqlDate = new Date(venta.getFecha_Venta().getTime());
+            Date sqlDate2 = new Date(venta.getFecha_Escritura().getTime());
+
+            statement.setInt(1, venta.getId());
+            statement.setInt(2, venta.getPrecio_Total_Venta());
+            statement.setString(3, venta.getTipo_Pago());
+            statement.setDate(4, sqlDate);
+            statement.setDate(5, sqlDate2);
+            statement.setString(6, venta.getMatricula());
+            statement.setString(7, venta.getNumero_IdCliente());
+            statement.setString(8, venta.getNumero_idAsesor());
+            statement.setInt(9, venta.getNumero_Apartamento());
+            
+
+            // Ejecuta el procedimiento
+            statement.execute();
+            return true;  // Devuelve true si se ejecuta correctamente
+
+        } catch (SQLException e) {
+            System.out.println("Error al crear la Venta: " + e.getMessage());
+            return false;
+        }
     }
 
     /**
@@ -107,7 +71,7 @@ public class CrudVentas implements ClienteAddedListener, Crud<Venta> {
      */
     @Override
     public boolean Actualizar(Venta venta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
      /**
@@ -119,7 +83,21 @@ public class CrudVentas implements ClienteAddedListener, Crud<Venta> {
      */
     @Override
     public boolean Eliminar(String Codigo1, String Codigo2) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "{ call eliminar_Venta(?) }";
+        try (Connection conexion = DatabaseConnection.getConexion(); CallableStatement statement = conexion.prepareCall(sql)) {
+
+            statement.setString(1, Codigo1);
+            statement.execute();
+            return true;  // Elimina exitosamente si no hay dependencias.
+
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 2292) {  // Error ORA-02292: restricción de integridad referencial violada - registro secundario encontrado
+                System.out.println("Error al eliminar la Venta: Existen registros relacionados en otras tablas.");
+            } else {
+                System.out.println("Error al eliminar la Venta: " + e.getMessage());
+            }
+            return false;
+        }
     }
 
     /**
@@ -129,7 +107,40 @@ public class CrudVentas implements ClienteAddedListener, Crud<Venta> {
      */
     @Override
     public List<Venta> ObtenerTodo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         String sql = "{ ? = call obtener_Todas_Ventas }";
+        List<Venta> listaVenta = new ArrayList<>();
+
+        try (Connection conexion = DatabaseConnection.getConexion(); CallableStatement statement = conexion.prepareCall(sql)) {
+
+            // Registrar el primer parámetro como el cursor de salida
+            statement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+
+            // Ejecutar la función
+            statement.execute();
+
+            // Obtener el cursor como ResultSet
+            try (ResultSet resultSet = (ResultSet) statement.getObject(1)) {
+                while (resultSet.next()) {
+                    Venta venta;
+                    venta = new Venta(
+                            resultSet.getInt("id"),
+                            resultSet.getInt("precio_Total_Venta"),
+                            resultSet.getString("tipo_Pago"),
+                            resultSet.getDate("fecha_Venta"),
+                            resultSet.getDate("fecha_Escritura"),
+                            resultSet.getString("matricula"),
+                            resultSet.getString("numero_idcliente"),
+                            resultSet.getString("numero_idAsesor"),
+                            resultSet.getInt("numero_Apartamento")
+                    );
+                    listaVenta.add(venta);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener las torres: " + e.getMessage());
+        }
+
+        return listaVenta;
     }
 
     @Override
@@ -139,6 +150,23 @@ public class CrudVentas implements ClienteAddedListener, Crud<Venta> {
 
     @Override
     public String ObtenerID() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String nuevoIdVenta = "";
+        String sql = "SELECT obtener_Id_Venta FROM dual";
+
+        try (Connection conexion = DatabaseConnection.getConexion(); PreparedStatement statement = conexion.prepareStatement(sql); ResultSet resultSet = statement.executeQuery()) {
+
+            if (resultSet.next()) {
+                nuevoIdVenta = resultSet.getString(1);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener el id de la venta: " + e.getMessage());
+        }
+        return nuevoIdVenta;
+    }
+    
+   @Override
+    public void onClienteAdded() {
+        vista.clienteAgregado(); // Llamar al método que habilita el botón
     }
 }

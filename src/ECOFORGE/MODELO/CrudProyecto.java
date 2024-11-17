@@ -185,7 +185,7 @@ public class CrudProyecto implements Crud<Proyecto> {
             }
 
         } catch (SQLException e) {
-            System.out.println("Error al obtener nuevo código de proyecto: " + e.getMessage());
+            System.out.println("Error al obtener el nuevo código de proyecto: " + e.getMessage());
         }
         return nuevoCodigoProyecto;
     }

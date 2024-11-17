@@ -24,12 +24,12 @@ public class CreandoVentaVista extends javax.swing.JFrame {
     CardLayout vistaAgregarVenta;
 
 
-    private datosCuotaVista formularioVentas;
+    private final datosVentaVista formularioVentas;
 
-    public CreandoVentaVista(datosCuotaVista formularioVentas) {
-        initComponents();
+    public CreandoVentaVista(datosVentaVista formularioVentas) {
+       /** initComponents();
 
-        this.formularioVentas = formularioVentas;
+        
         vistaAgregarCliente = (CardLayout) agregarCliente.getLayout();// Inicializa el layout del panel de cliente
         vistaAgregarVenta = (CardLayout) agregarVenta.getLayout();// Inicializa el layout del panel de venta
         ControladorUtilidades.centrarVentana(this);
@@ -37,10 +37,26 @@ public class CreandoVentaVista extends javax.swing.JFrame {
         
 
         // Inicializar el controlador de ventas
-        CrudVentas controladorVentas = new CrudVentas(this);
+        //CrudVentas controladorVentas = new CrudVentas(this);
 
         // Establecer el listener en el panel de clientes
-        agregarCliente.setClienteAddedListener(controladorVentas);
+        //agregarCliente.setClienteAddedListener(controladorVentas);*/
+       
+       initComponents();
+    
+        this.formularioVentas = formularioVentas;
+
+        // Configuración inicial de los paneles
+        jpPaneles.setLayout(new CardLayout());
+        jpPaneles.add(agregarCliente, "AgregarCliente");
+        jpPaneles.add(agregarVenta, "AgregarVenta");
+        jpPaneles.add(agregarVenta, "AgregarCuota");
+
+        // Centrar ventana
+        ControladorUtilidades.centrarVentana(this);
+
+        // Configuración de botones inicial
+        jbtRegistrarVenta.setEnabled(false);
     }
 
     /**
@@ -127,6 +143,11 @@ public class CreandoVentaVista extends javax.swing.JFrame {
         jbtRegistrarCuota.setEnabled(false);
         jbtRegistrarCuota.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jbtRegistrarCuota.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        jbtRegistrarCuota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtRegistrarCuotaActionPerformed(evt);
+            }
+        });
         jpPanelBotones.add(jbtRegistrarCuota, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 140, 100));
 
         jpFondo.add(jpPanelBotones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 210, 450));
@@ -141,10 +162,13 @@ public class CreandoVentaVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAgregarClienteActionPerformed
-        jpPaneles.add(agregarCliente, "Agregar Cliente");
+        /**jpPaneles.add(agregarCliente, "Agregar Cliente");
         vistaAgregarCliente.show(agregarCliente, "Agregar Cliente");
         SwingUtilities.updateComponentTreeUI(this);
-        this.repaint();
+        this.repaint();*/
+        CardLayout cl = (CardLayout) jpPaneles.getLayout();
+        cl.show(jpPaneles, "AgregarCliente");
+        
     }//GEN-LAST:event_jbtAgregarClienteActionPerformed
 
     public void clienteAgregado() {
@@ -155,12 +179,15 @@ public class CreandoVentaVista extends javax.swing.JFrame {
 
     private void jbtRegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtRegistrarVentaActionPerformed
         // Limpiar el panel de ventas antes de agregarlo
-        jpPaneles.removeAll(); // Elimina todos los componentes existentes
+       /** jpPaneles.removeAll(); // Elimina todos los componentes existentes
         
         jpPaneles.add(agregarVenta, "Agregar Venta");
         vistaAgregarVenta.show(agregarVenta, "Agregar Venta");
         SwingUtilities.updateComponentTreeUI(this);
-        this.repaint();
+        this.repaint();*/
+       
+       CardLayout cl = (CardLayout) jpPaneles.getLayout();
+       cl.show(jpPaneles, "AgregarVenta");
     }//GEN-LAST:event_jbtRegistrarVentaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -168,6 +195,11 @@ public class CreandoVentaVista extends javax.swing.JFrame {
         newframe.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jbtRegistrarCuotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtRegistrarCuotaActionPerformed
+        CardLayout cl = (CardLayout) jpPaneles.getLayout();
+        cl.show(jpPaneles, "AgregarCuota");
+    }//GEN-LAST:event_jbtRegistrarCuotaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,8 +233,9 @@ public class CreandoVentaVista extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new CreandoVentaVista(new datosCuotaVista()).setVisible(true);
+                new CreandoVentaVista(new datosVentaVista()).setVisible(true);
             }
         });
     }

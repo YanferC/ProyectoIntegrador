@@ -159,8 +159,8 @@ public class datosCuotaVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
-        CreandoVentaVista venta = new CreandoVentaVista(this);
-        venta.setVisible(true); 
+       /** CreandoVentaVista venta = new CreandoVentaVista(this);
+        venta.setVisible(true); */
     }//GEN-LAST:event_btnVentaActionPerformed
 
     /**
