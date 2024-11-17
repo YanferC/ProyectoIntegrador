@@ -41,7 +41,7 @@ public class datosApartamentoVista extends javax.swing.JFrame {
         DefaultTableModel modelo = new DefaultTableModel(
                 new String[]{
                     "Número Apartamento", "Valor Apartamento", "Tipo Inmueble",
-                    "Área", "Número Torre"
+                    "Área m²", "Número Torre"
                 }, 0
         ) {
             @Override

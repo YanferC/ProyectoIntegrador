@@ -4,6 +4,8 @@
  */
 package ECOFORGE.CONTROLADOR;
 
+import ECOFORGE.MODELO.CrudCliente;
+
 /**
  *
  * @author YANFER
@@ -12,7 +14,7 @@ public class CrearClienteEntidad extends crearEntidad {
 
     @Override
     public Crud armarCrud() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return new CrudCliente();
     }
     
 }

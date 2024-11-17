@@ -4,59 +4,65 @@
  */
 package ECOFORGE.VISTA;
 
-import ECOFORGE.MODELO.CrudVentas;
-import java.awt.CardLayout;
-import javax.swing.SwingUtilities;
+
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
+import java.awt.CardLayout;
+import javax.swing.JFrame;
+
 
 /**
  *
  * @author YANFER
  */
-public class CreandoVentaVista extends javax.swing.JFrame {
+public class CreandoVentaVista extends javax.swing.JFrame implements PanelCliente.ClienteAddedListener, PanelVenta.VentaAddedListener {
 
-    /**
-     * Creates new form CreandoVentaVista
-     */
-    PanelCliente agregarCliente = new PanelCliente();
-    CardLayout vistaAgregarCliente;
-    PanelVenta agregarVenta = new PanelVenta();
-    CardLayout vistaAgregarVenta;
+    // Paneles específicos
+    private final PanelCliente panelCliente;
+    private final PanelVenta panelVenta;
+    private final PanelCuota panelCuota; // Tercer panel
+    private final CardLayout cardLayout;
 
+    // Controlador de paneles
+    //private final ControladorPaneles controladorPaneles;
 
-    private final datosVentaVista formularioVentas;
+    // Referencia al formulario principal
+    private final JFrame formularioVentas;
 
-    public CreandoVentaVista(datosVentaVista formularioVentas) {
-       /** initComponents();
-
-        
-        vistaAgregarCliente = (CardLayout) agregarCliente.getLayout();// Inicializa el layout del panel de cliente
-        vistaAgregarVenta = (CardLayout) agregarVenta.getLayout();// Inicializa el layout del panel de venta
-        ControladorUtilidades.centrarVentana(this);
-        
-        
-
-        // Inicializar el controlador de ventas
-        //CrudVentas controladorVentas = new CrudVentas(this);
-
-        // Establecer el listener en el panel de clientes
-        //agregarCliente.setClienteAddedListener(controladorVentas);*/
-       
-       initComponents();
-    
+    public CreandoVentaVista(JFrame formularioVentas) {
         this.formularioVentas = formularioVentas;
 
-        // Configuración inicial de los paneles
-        jpPaneles.setLayout(new CardLayout());
-        jpPaneles.add(agregarCliente, "AgregarCliente");
-        jpPaneles.add(agregarVenta, "AgregarVenta");
-        jpPaneles.add(agregarVenta, "AgregarCuota");
+        // Inicialización de componentes
+        initComponents();
 
+        // Inicializar paneles
+        panelCliente = new PanelCliente();
+        panelVenta = new PanelVenta();
+        panelCuota = new PanelCuota();
+        
+        // Configurar Listeners
+        panelCliente.setClienteAddedListener(this);
+        panelVenta.setVentaAddedListener(this);
+        
+        // Agregar paneles al CardLayout
+        cardLayout = new CardLayout();
+        jpPaneles.setLayout(cardLayout);
+        jpPaneles.add(panelCliente, "Cliente");
+        jpPaneles.add(panelVenta, "Venta");
+        jpPaneles.add(panelCuota, "Cuota");
+        
+        showPanel("Cliente");
+        setButtonStates(true, false, false);
+        /** Configuración inicial del controlador
+        JPanel[] paneles = {panelCliente, panelVenta, panelCuota};
+        JButton[] botones = {jbtAgregarCliente, jbtRegistrarVenta, jbtRegistrarCuota};
+        controladorPaneles = new ControladorPaneles(paneles, botones);*/
+        
         // Centrar ventana
         ControladorUtilidades.centrarVentana(this);
 
-        // Configuración de botones inicial
+        /** Configuración inicial de botones
         jbtRegistrarVenta.setEnabled(false);
+        jbtRegistrarCuota.setEnabled(false);*/
     }
 
     /**
@@ -160,34 +166,53 @@ public class CreandoVentaVista extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+     // Cambiar entre paneles
+    private void showPanel(String panelName) {
+        cardLayout.show(jpPaneles, panelName);
+    }
+    
+    // Manejar estados de los botones
+    private void setButtonStates(boolean clienteEnabled, boolean ventaEnabled, boolean cuotaEnabled) {
+        jbtAgregarCliente.setEnabled(clienteEnabled);
+        jbtRegistrarVenta.setEnabled(ventaEnabled);
+        jbtRegistrarCuota.setEnabled(cuotaEnabled);
+    }
+
+    // Cuando se agrega un cliente
+    @Override
+    public void onClienteAdded() {
+        showPanel("Venta");         // Cambiar al PanelVenta
+        setButtonStates(false, true, false); // Activar botón Venta, desactivar Cliente
+        panelVenta.cargarIdVenta();
+    }
+
+    // Cuando se agrega una venta
+    @Override
+    public void onVentaAdded() {
+        showPanel("Cuota");         // Cambiar al PanelCuota
+        setButtonStates(false, false, true); // Activar botón Cuota, desactivar Venta
+    }
+
+    /**public void habilitarBotonVenta() {
+        jbtRegistrarVenta.setEnabled(true);
+        jbtAgregarCliente.setEnabled(false);
+    }
+
+    public void habilitarBotonCuota() {
+        jbtRegistrarCuota.setEnabled(true);
+        jbtRegistrarVenta.setEnabled(false);
+    }*/
 
     private void jbtAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAgregarClienteActionPerformed
-        /**jpPaneles.add(agregarCliente, "Agregar Cliente");
-        vistaAgregarCliente.show(agregarCliente, "Agregar Cliente");
-        SwingUtilities.updateComponentTreeUI(this);
-        this.repaint();*/
-        CardLayout cl = (CardLayout) jpPaneles.getLayout();
-        cl.show(jpPaneles, "AgregarCliente");
-        
+
     }//GEN-LAST:event_jbtAgregarClienteActionPerformed
 
     public void clienteAgregado() {
-        jbtAgregarCliente.setEnabled(false); // Deshabilitar Agregar Cliente
-        jbtRegistrarVenta.setEnabled(true);   // Habilitar Registrar CreandoVentaVista
-        jbtRegistrarVentaActionPerformed(null);
     }
 
     private void jbtRegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtRegistrarVentaActionPerformed
-        // Limpiar el panel de ventas antes de agregarlo
-       /** jpPaneles.removeAll(); // Elimina todos los componentes existentes
-        
-        jpPaneles.add(agregarVenta, "Agregar Venta");
-        vistaAgregarVenta.show(agregarVenta, "Agregar Venta");
-        SwingUtilities.updateComponentTreeUI(this);
-        this.repaint();*/
-       
-       CardLayout cl = (CardLayout) jpPaneles.getLayout();
-       cl.show(jpPaneles, "AgregarVenta");
+
     }//GEN-LAST:event_jbtRegistrarVentaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -197,8 +222,7 @@ public class CreandoVentaVista extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jbtRegistrarCuotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtRegistrarCuotaActionPerformed
-        CardLayout cl = (CardLayout) jpPaneles.getLayout();
-        cl.show(jpPaneles, "AgregarCuota");
+
     }//GEN-LAST:event_jbtRegistrarCuotaActionPerformed
 
     /**

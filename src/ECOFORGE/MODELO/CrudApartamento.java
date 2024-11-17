@@ -68,7 +68,7 @@ public class CrudApartamento implements Crud<Apartamento> {
             int rowsUpdated = statement.executeUpdate();
             return rowsUpdated > 0;
         } catch (SQLException e) {
-            System.out.println("Error al actualizar la torre: " + e.getMessage());
+            System.out.println("Error al actualizar el apartamento: " + e.getMessage());
             return false;
         }
     }
@@ -140,7 +140,38 @@ public class CrudApartamento implements Crud<Apartamento> {
 
     @Override
     public Apartamento ObtenerPorCodigo(String Codigo) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        String sql = "{ ? = call obtener_apt_por_torre(?) }";
+        Apartamento resultado = new Apartamento(0,0,"", 0, Integer.valueOf(Codigo)); // Apartamento principal como contenedor
+
+        try (Connection conexion = DatabaseConnection.getConexion(); CallableStatement statement = conexion.prepareCall(sql)) {
+
+            // Registrar el primer parámetro como cursor de salida
+            statement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+
+            // Registrar el segundo parámetro como el numero de torre
+            statement.setString(2, Codigo);
+
+            // Ejecutar la función
+            statement.execute();
+
+            // Obtener el cursor como ResultSet
+            try (ResultSet resultSet = (ResultSet) statement.getObject(1)) {
+                while (resultSet.next()) {
+                    Apartamento apt = new Apartamento(
+                            resultSet.getInt("numero_Apartamento"),
+                            0, // Si hay más datos, puedes agregarlos aquí
+                            "",
+                            0,
+                            Integer.valueOf(Codigo)
+                    );
+                    resultado.getAptRelacionadas().add(apt); // Añadir a la lista
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener los apartamentos de la torre: " + e.getMessage());
+        }
+
+        return resultado;
     }
 
     @Override

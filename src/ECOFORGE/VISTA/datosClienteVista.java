@@ -8,19 +8,17 @@ package ECOFORGE.VISTA;
  *
  * @author YANFER
  */
-import ECOFORGE.MODELO.CrudCliente;
-import ECOFORGE.MODELO.Conectar;
-import ECOFORGE.MODELO.DatabaseConnection;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
+import ECOFORGE.CONTROLADOR.CrearClienteEntidad;
 import ECOFORGE.MODELO.Cliente;
+import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class datosClienteVista extends javax.swing.JFrame {
 
-    private CrudCliente controlador;
-    private Conectar controladorConectar;
+    CrearClienteEntidad crearCliente = null;
     private boolean isUpdating = false;
     private String cedulaClienteActual;
 
@@ -30,23 +28,28 @@ public class datosClienteVista extends javax.swing.JFrame {
     public datosClienteVista() {
         initComponents();
 
-        // Inicializar el controlador de conexión y lo conectamos conectarlo
-        //controladorConectar = new Conectar(new DatabaseConnection());
-        //controladorConectar.conectar();
-        
-        // Pasar la instancia de controladorConectar al controlador del cliente
-        controlador = new CrudCliente(controladorConectar);
+        crearCliente = new CrearClienteEntidad();
+        ControladorUtilidades.centrarVentana(this);
         
         // Llenamos la tabla
-        List<Cliente> listaClientes = controlador.obtenerTodosLosClientes();
+        List<Cliente> listaClientes = crearCliente.armarCrud().ObtenerTodo();
         llenarTablaClientes(listaClientes); 
 
     }
 
     public void llenarTablaClientes(List<Cliente> listaClientes) {
-        
-        DefaultTableModel modelo = (DefaultTableModel) tCliente.getModel();
-        modelo.setRowCount(0); // Limpiar las filas anteriores
+        // Crear el modelo de la tabla con las columnas definidas
+        DefaultTableModel modelo = new DefaultTableModel(
+                new String[]{
+                    "Número Identificación", "Nombre Completo", "Sisben",
+                    "Subsidio Ministerio", "Dirección", "Telefono", "Correo Electronico"
+                }, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;  // Bloquear edición de las celdas
+            }
+        };
 
         // Agregar los datos al modelo
         for (Cliente cliente : listaClientes) {
@@ -61,6 +64,12 @@ public class datosClienteVista extends javax.swing.JFrame {
             };
             modelo.addRow(fila);
         }
+        
+        tCliente.setModel(modelo);
+        tCliente.setBackground(Color.decode("#AFE5EF"));
+        tCliente.setForeground(Color.BLACK);             // Texto en negro
+        tCliente.setSelectionBackground(new Color(100, 150, 255)); // Fondo al seleccionar
+        tCliente.setSelectionForeground(Color.WHITE);    // Texto al seleccionar
     }
 
     /**
@@ -199,12 +208,12 @@ public class datosClienteVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-
-        /**datosClientes agregarCliente = new datosClientes(this);
-        agregarCliente.setVisible(true);*/
-
-
-        
+        // Crear una instancia del formulario CreandoVentaVista
+        CreandoVentaVista venta = new CreandoVentaVista(this);
+        // Configurar el formulario como visible
+        venta.setVisible(true);
+        // Opcional: Cerrar o ocultar el formulario actual si es necesario
+        this.dispose();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -218,18 +227,15 @@ public class datosClienteVista extends javax.swing.JFrame {
         }
 
         // Obtener la cédula del cliente seleccionado (asumiendo que la cédula está en la primera columna)
-        int numero_Identificacion = (Integer) tCliente.getValueAt(filaSeleccionada, 0);
+        String numero_Identificacion = (String) tCliente.getValueAt(filaSeleccionada, 0);
 
         // Confirmar la eliminación
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar este cliente?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
 
         if (confirmacion == JOptionPane.YES_OPTION) {
 
-            // Crear una instancia del controlador
-            CrudCliente controlador = new CrudCliente(controladorConectar);
-
             // Intentar eliminar el cliente
-            if (controlador.eliminarCliente(numero_Identificacion)) {
+            if (crearCliente.armarCrud().Eliminar(numero_Identificacion, null)) {
                 JOptionPane.showMessageDialog(this, "Cliente eliminado correctamente.");
 
                 // Actualizar la tabla después de eliminar el cliente
@@ -241,7 +247,7 @@ public class datosClienteVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        /** Verificar que se ha seleccionado un registro en la tabla
+        // Verificar que se ha seleccionado un registro en la tabla
         int filaSeleccionada = tCliente.getSelectedRow();
 
         if (filaSeleccionada == -1) {
@@ -250,24 +256,21 @@ public class datosClienteVista extends javax.swing.JFrame {
         }
 
         // Obtener los datos del cliente seleccionado
-        Integer numero_Identificacion = Integer.parseInt(tCliente.getValueAt(filaSeleccionada, 0).toString());
+        String numero_Identificacion = tCliente.getValueAt(filaSeleccionada, 0).toString();
         String nombre = tCliente.getValueAt(filaSeleccionada, 1).toString();
         String sisben = tCliente.getValueAt(filaSeleccionada, 2).toString();
-        Integer subsidio_Ministerio = Integer.parseInt(tCliente.getValueAt(filaSeleccionada, 3).toString());
+        Integer subsidio_Ministerio = Integer.valueOf(tCliente.getValueAt(filaSeleccionada, 3).toString());
         String direccion = tCliente.getValueAt(filaSeleccionada, 4).toString();
         String telefono = tCliente.getValueAt(filaSeleccionada, 5).toString();
         String correo = tCliente.getValueAt(filaSeleccionada, 6).toString();
 
-        // Abrir el formulario datosClientes y pasar los datos
-        datosClientes actualizarCliente = new datosClientes(this);
-        actualizarCliente.setVisible(true);
-
+        
         // Pasar los datos al formulario
-        actualizarCliente.cargarDatos(numero_Identificacion, nombre, sisben, subsidio_Ministerio, direccion, telefono, correo);
+        //actualizarCliente.cargarDatos(numero_Identificacion, nombre, sisben, subsidio_Ministerio, direccion, telefono, correo);
 
         // Establecer un modo de "actualización"
-        actualizarCliente.setModoActualizar(true);      // TODO add your handling code here:
-        **/
+        //actualizarCliente.setModoActualizar(true);      // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -281,9 +284,7 @@ public class datosClienteVista extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) tCliente.getModel();
         modelo.setRowCount(0); // Limpiar la tabla
 
-        // Obtener todos los clientes y agregarlos a la tabla
-        CrudCliente controlador = new CrudCliente(controladorConectar);
-        List<Cliente> listaClientes = controlador.obtenerTodosLosClientes();
+        List<Cliente> listaClientes = crearCliente.armarCrud().ObtenerTodo();
 
         for (Cliente cliente : listaClientes) {
             Object[] fila = {
@@ -331,6 +332,7 @@ public class datosClienteVista extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new datosClienteVista().setVisible(true);
             }

@@ -8,11 +8,7 @@ package ECOFORGE.VISTA;
  *
  * @author YANFER
  */
-import ECOFORGE.MODELO.CrudCuota;
-
-import ECOFORGE.MODELO.Cuota;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
 import ECOFORGE.CONTROLADOR.CrearVentaEntidad;
@@ -226,10 +222,8 @@ public class datosVentaVista extends javax.swing.JFrame {
     private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
         // Crear una instancia del formulario CreandoVentaVista
         CreandoVentaVista venta = new CreandoVentaVista(this);
-
         // Configurar el formulario como visible
         venta.setVisible(true);
-
         // Opcional: Cerrar o ocultar el formulario actual si es necesario
         this.dispose();
     }//GEN-LAST:event_btnVentaActionPerformed
@@ -270,6 +264,7 @@ public class datosVentaVista extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new datosVentaVista().setVisible(true);
             }
