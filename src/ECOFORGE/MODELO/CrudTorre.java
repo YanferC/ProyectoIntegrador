@@ -16,8 +16,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class CrudTorre implements Crud<Torre> {
+
     /// Torres
     /**
      * Método para crear una Torre
@@ -42,7 +42,7 @@ public class CrudTorre implements Crud<Torre> {
         } catch (SQLException e) {
             System.out.println("Error al crear la torre: " + e.getMessage());
             return false;
-        }    
+        }
     }
 
     /**
@@ -67,7 +67,7 @@ public class CrudTorre implements Crud<Torre> {
             return false;
         }
     }
-    
+
     /**
      * Método para eliminar una torre
      *
@@ -94,7 +94,7 @@ public class CrudTorre implements Crud<Torre> {
             return false;
         }
     }
-    
+
     /**
      * Método para obtener todas las torres
      *
@@ -133,7 +133,36 @@ public class CrudTorre implements Crud<Torre> {
 
     @Override
     public Torre ObtenerPorCodigo(String Codigo) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        String sql = "{ ? = call obtener_torres_por_proyecto(?) }";
+        Torre resultado = new Torre(0, 0, Codigo); // Torre principal como contenedor
+
+        try (Connection conexion = DatabaseConnection.getConexion(); CallableStatement statement = conexion.prepareCall(sql)) {
+
+            // Registrar el primer parámetro como cursor de salida
+            statement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+
+            // Registrar el segundo parámetro como el código del proyecto
+            statement.setString(2, Codigo);
+
+            // Ejecutar la función
+            statement.execute();
+
+            // Obtener el cursor como ResultSet
+            try (ResultSet resultSet = (ResultSet) statement.getObject(1)) {
+                while (resultSet.next()) {
+                    Torre torre = new Torre(
+                            resultSet.getInt("numero_Torre"),
+                            0, // Si hay más datos, puedes agregarlos aquí
+                            Codigo
+                    );
+                    resultado.getTorresRelacionadas().add(torre); // Añadir a la lista
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener las torres para el proyecto: " + e.getMessage());
+        }
+
+        return resultado;
     }
 
     @Override

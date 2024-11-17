@@ -15,7 +15,7 @@ import ECOFORGE.MODELO.LoginUsuario;
 
 public class Login extends javax.swing.JFrame {
 
-    private ControladorLogin login;
+    private final ControladorLogin login;
     private boolean primeraVezUsuario = true, primeraVezContra = true; // Controlar si es la primera vez que se hace clic
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
 
@@ -157,6 +157,9 @@ public class Login extends javax.swing.JFrame {
                 } else {
                     DashBoardPrincipal ventanaprincipal = new DashBoardPrincipal();
                     ventanaprincipal.setVisible(true); // Mostrar dashboard
+                    ventanaprincipal.btnVentas.setEnabled(false); // Desactivar botones de Asesor en el DashBoard
+                    ventanaprincipal.btnCuota.setEnabled(false);
+                    ventanaprincipal.btnCliente.setEnabled(false);
                 }
                 this.setVisible(false);
             } else {
@@ -200,15 +203,11 @@ public class Login extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */

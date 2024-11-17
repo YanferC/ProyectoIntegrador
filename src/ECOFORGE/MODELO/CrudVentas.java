@@ -8,6 +8,7 @@ package ECOFORGE.MODELO;
  *
  * @author YANFER
  */
+import ECOFORGE.CONTROLADOR.Crud;
 import ECOFORGE.VISTA.PanelCliente.ClienteAddedListener;
 import ECOFORGE.VISTA.CreandoVentaVista;
 import ECOFORGE.MODELO.Venta;
@@ -23,16 +24,13 @@ import java.sql.Date;
 import javax.swing.*;
 import java.awt.*;
 
-public class CrudVentas implements ClienteAddedListener {
+public class CrudVentas implements ClienteAddedListener, Crud<Venta> {
 
     private CreandoVentaVista vista;
     private DatabaseConnection dbConnection;
     private Connection connection;
 
-    public CrudVentas(CreandoVentaVista vista) {
-        //dbConnection = new DatabaseConnection();
-        this.vista = vista;
-    }
+   
 /**
     public void conectar() {
         connection = dbConnection.connect(); // Conectar a la base de datos
@@ -84,8 +82,63 @@ public class CrudVentas implements ClienteAddedListener {
         return idVenta;
     }
 */
+    
     @Override
     public void onClienteAdded() {
         vista.clienteAgregado(); // Llamar al método que habilita el botón
+    }
+    
+    /**
+     * Método para crear una Venta
+     *
+     * @param venta
+     * @return
+     */
+    @Override
+    public boolean Crear(Venta venta) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    /**
+     * Método para actualizar una venta
+     *
+     * @param venta
+     * @return
+     */
+    @Override
+    public boolean Actualizar(Venta venta) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+     /**
+     * Método para eliminar una venta
+     *
+     * @param Codigo1
+     * @param Codigo2
+     * @return
+     */
+    @Override
+    public boolean Eliminar(String Codigo1, String Codigo2) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    /**
+     * Método para obtener todas las ventas
+     *
+     * @return
+     */
+    @Override
+    public List<Venta> ObtenerTodo() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Venta ObtenerPorCodigo(String Codigo) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String ObtenerID() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

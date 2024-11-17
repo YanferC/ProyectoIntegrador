@@ -6,13 +6,9 @@ package ECOFORGE.VISTA;
 
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
 import ECOFORGE.CONTROLADOR.CrearApartamentoEntidad;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import ECOFORGE.MODELO.Apartamento;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JTable;
-import ECOFORGE.VISTA.CreandoApartamentoVista;
 import java.awt.Color;
 import java.util.List;
 
@@ -235,7 +231,7 @@ public class datosApartamentoVista extends javax.swing.JFrame {
             return;
         }
 
-        // Obtener los datos del Proyecto seleccionado
+        // Obtener los datos del apartamento seleccionado
         Integer numero_Apartamento = Integer.valueOf(tApartamento.getValueAt(filaSeleccionada, 0).toString());
         Integer valor_Apartamento = Integer.valueOf(tApartamento.getValueAt(filaSeleccionada, 1).toString());
         String tipo_Inmueble  = tApartamento.getValueAt(filaSeleccionada, 2).toString();
@@ -248,8 +244,6 @@ public class datosApartamentoVista extends javax.swing.JFrame {
         actualizarApartamento.btnAgregar.setEnabled(false);
         // Pasar los datos al formulario
         actualizarApartamento.cargarDatos(numero_Apartamento, valor_Apartamento, tipo_Inmueble, area, numero_Torre);
-
-             // TODO add your handling code here:
 
     }//GEN-LAST:event_btnActualizarActionPerformed
     // Este método se ejecuta cuando se hace clic en el botón de agregar
