@@ -4,7 +4,6 @@
  */
 package ECOFORGE.CONTROLADOR;
 
-import ECOFORGE.MODELO.Conectar;
 import ECOFORGE.MODELO.DatabaseConnection;
 import ECOFORGE.MODELO.LoginUsuario;
 import java.sql.Connection;
@@ -18,39 +17,76 @@ import java.sql.SQLException;
  */
 public class ControladorLogin {
 
-    public LoginUsuario validarCredenciales(String ID_USUARIO, String contrasenaIngresada) {
+    private LoginUsuario usuarioActivo; // Usuario autenticado actualmente
+
+    /**
+     * Método para validar credenciales del usuario.
+     *
+     * @param idUsuario ID del usuario
+     * @param contrasena Contraseña ingresada por el usuario
+     * @return Objeto LoginUsuario si las credenciales son válidas, null si no lo son.
+     */
+    public LoginUsuario validarCredenciales(String idUsuario, String contrasena) {
         String sql = "SELECT * FROM Usuario WHERE ID_USUARIO = ?";
-        LoginUsuario login = null;
-        DatabaseConnection.configurarConexion("");
-        try (PreparedStatement statement = DatabaseConnection.getConexion().prepareStatement(sql)) {
-            statement.setString(1, ID_USUARIO);
-            ResultSet resultSet = statement.executeQuery();
+        try (Connection conexion = DatabaseConnection.getConexion();
+             PreparedStatement statement = conexion.prepareStatement(sql)) {
 
-            if (resultSet.next()) {
-                String contrasenaBD = resultSet.getString("contrasena");
-                String tipoRol = resultSet.getString("tipo_Rol");
-
-                if (contrasenaBD.equals(contrasenaIngresada)) {
-                    // Configurar la conexión de la base de datos según el rol del usuario
-                    DatabaseConnection.configurarConexion(tipoRol);
-
-                    login = new LoginUsuario(
-                            resultSet.getString("id_Usuario"),
-                            tipoRol,
-                            resultSet.getString("Descripcion_Rol"),
-                            contrasenaBD
-                    );
-                    System.out.println("Usuario válido con rol: " + tipoRol);
+            statement.setString(1, idUsuario);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return procesarValidacion(resultSet, contrasena);
                 } else {
-                    System.out.println("Contraseña incorrecta.");
+                    System.out.println("Usuario no existe.");
                 }
-            } else {
-                System.out.println("Usuario no existe.");
             }
         } catch (SQLException e) {
             System.out.println("Error al validar usuario: " + e.getMessage());
         }
-        return login;
+        return null;
+    }
+
+    /**
+     * Procesa la validación de las credenciales.
+     *
+     * @param resultSet Resultado de la consulta SQL
+     * @param contrasenaIngresada Contraseña ingresada por el usuario
+     * @return Objeto LoginUsuario si la validación es exitosa, null si no.
+     * @throws SQLException
+     */
+    private LoginUsuario procesarValidacion(ResultSet resultSet, String contrasenaIngresada) throws SQLException {
+        String contrasenaBD = resultSet.getString("contrasena");
+        String tipoRol = resultSet.getString("tipo_Rol");
+
+        if (contrasenaBD.equals(contrasenaIngresada)) {
+            usuarioActivo = new LoginUsuario(
+                    resultSet.getString("id_Usuario"),
+                    tipoRol,
+                    resultSet.getString("Descripcion_Rol"),
+                    contrasenaBD
+            );
+            System.out.println("Inicio de sesión exitoso para el rol: " + tipoRol);
+            return usuarioActivo;
+        } else {
+            System.out.println("Contraseña incorrecta.");
+        }
+        return null;
+    }
+
+    /**
+     * Obtiene el usuario actualmente autenticado.
+     *
+     * @return Usuario activo (LoginUsuario) o null si no hay sesión activa.
+     */
+    public LoginUsuario getUsuarioActivo() {
+        return usuarioActivo;
+    }
+
+    /**
+     * Cierra la sesión del usuario actual.
+     */
+    public void cerrarSesion() {
+        usuarioActivo = null;
+        System.out.println("Sesión cerrada.");
     }
 
 }

@@ -9,17 +9,15 @@ package ECOFORGE.VISTA;
  * @author YANFER
  */
 import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
+import ECOFORGE.CONTROLADOR.ControladorLogin;
 import ECOFORGE.CONTROLADOR.ControladorVenta;
-import ECOFORGE.CONTROLADOR.CrearApartamentoEntidad;
-import ECOFORGE.CONTROLADOR.CrearProyectoEntidad;
-import ECOFORGE.CONTROLADOR.CrearTorreEntidad;
 import ECOFORGE.CONTROLADOR.CrearVentaEntidad;
+import ECOFORGE.MODELO.LoginUsuario;
 import javax.swing.JOptionPane;
 import ECOFORGE.MODELO.Venta;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 
 public class PanelVenta extends javax.swing.JPanel {
 
@@ -27,7 +25,7 @@ public class PanelVenta extends javax.swing.JPanel {
     CrearVentaEntidad crearVenta = null;
     private VentaAddedListener ventaAddedListener;
     private ControladorVenta controladorVenta;
-    
+    private ControladorLogin controladorLogin;
     /**
      * Creates new form PanelVenta
      */
@@ -38,6 +36,8 @@ public class PanelVenta extends javax.swing.JPanel {
 
         // Crear instancia del controlador pasando los comboboxes del formulario
         controladorVenta = new ControladorVenta(jcbProyecto, jcbTorre, jcbApartamento);
+        
+        controladorLogin = new ControladorLogin();
     }
 
     /**
@@ -322,6 +322,19 @@ public class PanelVenta extends javax.swing.JPanel {
     void cargarIdVenta() {
         String Id = crearVenta.armarCrud().ObtenerID();
         jtfIdVenta.setText(Id);
+    }
+
+    void cargarIdCliente(String numero_Cliente) {
+        jtfIdCliente.setText(numero_Cliente);
+    }
+
+    void cargarIdAsesor() {
+       LoginUsuario usuarioActivo = controladorLogin.getUsuarioActivo();
+        if (usuarioActivo != null) {
+            jtfIdAsesor.setText(usuarioActivo.getID_USUARIO()); // Suponiendo que LoginUsuario tiene el método getIdUsuario
+        } else {
+            jtfIdAsesor.setText("No hay usuario activo.");
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

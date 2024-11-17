@@ -299,7 +299,7 @@ public class PanelCliente extends javax.swing.JPanel {
     private javax.swing.JTextField jtfCorreoElectronico;
     private javax.swing.JTextField jtfDireccion;
     private javax.swing.JTextField jtfNombreCompleto;
-    private javax.swing.JTextField jtfNumeroIdentificacion;
+    public javax.swing.JTextField jtfNumeroIdentificacion;
     private javax.swing.JTextField jtfSisben;
     private javax.swing.JTextField jtfSubsidio_Ministerio;
     private javax.swing.JTextField jtfTelefono;

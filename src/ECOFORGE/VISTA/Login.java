@@ -15,20 +15,15 @@ import ECOFORGE.MODELO.LoginUsuario;
 
 public class Login extends javax.swing.JFrame {
 
-    private final ControladorLogin login;
+    private final ControladorLogin login;// Controlador de login
     private boolean primeraVezUsuario = true, primeraVezContra = true; // Controlar si es la primera vez que se hace clic
-    ControladorCajaTexto controladorCT = new ControladorCajaTexto();
+    private final ControladorCajaTexto controladorCT = new ControladorCajaTexto();
 
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
-        // Inicializar el controlador de conexión y lo conectamos conectarlo
-        //controladorConectar = new Conectar(new DatabaseConnection());
-        //controladorConectar.conectar();
-
-        //login = new ControladorLogin(controladorConectar);
         login = new ControladorLogin();
         ControladorUtilidades.centrarVentana(this);
     }
@@ -146,7 +141,8 @@ public class Login extends javax.swing.JFrame {
             System.out.println("Por favor, ingrese su usuario y contraseña.");
         } else {
             LoginUsuario usuario = login.validarCredenciales(ID_USUARIO, Passwoard);
-
+            
+            /// 1 = Asesor
             if (usuario != null) {
                 if ("1".equals(usuario.getTIPO_ROL())) {
                     DashBoardPrincipal ventanaprincipal = new DashBoardPrincipal();
@@ -154,7 +150,7 @@ public class Login extends javax.swing.JFrame {
                     ventanaprincipal.btnProyecto.setEnabled(false); // Desactivar botones de administrador en el DashBoard
                     ventanaprincipal.btnTorre.setEnabled(false);
                     ventanaprincipal.btnApartamento.setEnabled(false);
-                } else {
+                } else { /// 2 = Administrador
                     DashBoardPrincipal ventanaprincipal = new DashBoardPrincipal();
                     ventanaprincipal.setVisible(true); // Mostrar dashboard
                     ventanaprincipal.btnVentas.setEnabled(false); // Desactivar botones de Asesor en el DashBoard
