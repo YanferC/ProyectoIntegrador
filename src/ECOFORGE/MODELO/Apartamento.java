@@ -4,6 +4,9 @@
  */
 package ECOFORGE.MODELO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author sebastian
@@ -14,6 +17,7 @@ public class Apartamento { //Declaramos las variables//
     private String tipo_Inmueble;
     private Integer area;
     private Integer numero_Torre;
+    private List<Apartamento> aptRelacionadas;
 
     public Apartamento(Integer numero_Apartamento, Integer valor_Apartamento, String tipo_Inmueble, Integer area, Integer numero_Torre) {
         this.numero_Apartamento = numero_Apartamento;
@@ -21,6 +25,7 @@ public class Apartamento { //Declaramos las variables//
         this.tipo_Inmueble = tipo_Inmueble;
         this.area = area;
         this.numero_Torre = numero_Torre;
+        this.aptRelacionadas = new ArrayList<>();
     }
 
     public Integer getNumero_Apartamento() {
@@ -61,6 +66,14 @@ public class Apartamento { //Declaramos las variables//
 
     public void setNumero_Torre(Integer numero_Torre) {
         this.numero_Torre = numero_Torre;
+    }
+
+    public List<Apartamento> getAptRelacionadas() {
+        return aptRelacionadas;
+    }
+
+    public void setAptRelacionadas(List<Apartamento> aptRelacionadas) {
+        this.aptRelacionadas = aptRelacionadas;
     }
     
     

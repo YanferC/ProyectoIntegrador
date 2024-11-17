@@ -8,138 +8,166 @@ package ECOFORGE.MODELO;
  *
  * @author YANFER
  */
-import ECOFORGE.MODELO.*;
+import ECOFORGE.CONTROLADOR.Crud;
+import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+public class CrudTorre implements Crud<Torre> {
 
-public class CrudTorre {
+    /// Torres
+    /**
+     * Método para crear una Torre
+     *
+     * @param torre
+     * @return
+     */
+    @Override
+    public boolean Crear(Torre torre) {
+        String sql = "{ call inc_Torre(?, ?, ?) }";
+        try (Connection conexion = DatabaseConnection.getConexion(); CallableStatement statement = conexion.prepareCall(sql)) {
 
-    private final Connection conexion;
-
-    public CrudTorre(Conectar controladorConectar) {
-        this.conexion = controladorConectar.getConexion();
-    }
-
-    // Método para crear un Torre
-    public boolean crearTorre(Torre torre) {
-        String sql = "INSERT INTO torre (numero_torre, numero_pisos, codigo_proyecto) VALUES (?, ?, ?)";
-        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
-
+            // Establece los parámetros para el procedimiento
             statement.setInt(1, torre.getNumero_torre());
             statement.setInt(2, torre.getNumero_pisos());
             statement.setString(3, torre.getCodigo_proyecto());
 
-            int rowsInserted = statement.executeUpdate();
-            return rowsInserted > 0;
+            // Ejecuta el procedimiento
+            statement.execute();
+            return true;  // Devuelve true si se ejecuta correctamente
+
         } catch (SQLException e) {
-            System.out.println("Error al crear Torre: " + e.getMessage());
+            System.out.println("Error al crear la torre: " + e.getMessage());
             return false;
         }
     }
 
-    // Método para leer Torres por proyecto
-    public Torre obtenerTorre(Integer codigo_proyecto) {
-        String sql = "SELECT * FROM torre WHERE codigo_proyecto = ?";
-        Torre torre = null;
-        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
+    /**
+     * Método para actualizar una torre
+     *
+     * @param torre
+     * @return
+     */
+    @Override
+    public boolean Actualizar(Torre torre) {
+        String sql = "{ call mod_num_pisos_Torre(?, ?) }";
+        try (Connection conexion = DatabaseConnection.getConexion(); CallableStatement statement = conexion.prepareCall(sql)) {
 
-            statement.setInt(1, codigo_proyecto);
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                torre = new Torre(
-                        resultSet.getInt("numero_torre"),
-                        resultSet.getInt("numero_pisos"),
-                        resultSet.getString("codigo_proyecto")
-                );
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al obtener Torre: " + e.getMessage());
-        }
-        return torre;
-    }
-
-    // Método para actualizar un Torre
-    public boolean actualizarTorre(Torre Torre) {
-        String sql = "UPDATE Torre SET numero_pisos = ? WHERE numero_torre = ? and codigo_proyecto = ?";
-        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
-
-            statement.setInt(2, Torre.getNumero_torre());
-            statement.setInt(1, Torre.getNumero_pisos());
-            statement.setString(3, Torre.getCodigo_proyecto());
+            // Establece los parámetros para el procedimiento
+            statement.setInt(1, torre.getNumero_torre());
+            statement.setInt(2, torre.getNumero_pisos());
 
             int rowsUpdated = statement.executeUpdate();
             return rowsUpdated > 0;
         } catch (SQLException e) {
-            System.out.println("Error al actualizar Torre: " + e.getMessage());
+            System.out.println("Error al actualizar la torre: " + e.getMessage());
             return false;
         }
     }
 
-    // Método para eliminar un Torre
-    public boolean eliminarTorre(Integer numero_torre, String codigo_proyecto) {
-        String sql = "DELETE FROM Torre WHERE numero_torre = ? and codigo_proyecto = ?";
-        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
+    /**
+     * Método para eliminar una torre
+     *
+     * @param Codigo1
+     * @param Codigo2
+     * @return
+     */
+    @Override
+    public boolean Eliminar(String Codigo1, String Codigo2) {
+        String sql = "{ call eliminar_torre(?, ?) }";
+        try (Connection conexion = DatabaseConnection.getConexion(); CallableStatement statement = conexion.prepareCall(sql)) {
 
-            statement.setInt(1, numero_torre);
-            statement.setString(2, codigo_proyecto);
+            statement.setString(1, Codigo1);
+            statement.setString(2, Codigo2);
+            statement.execute();
+            return true;  // Elimina exitosamente si no hay dependencias.
 
-            int rowsDeleted = statement.executeUpdate();
-            return rowsDeleted > 0;
         } catch (SQLException e) {
-            System.out.println("Error al eliminar Torre: " + e.getMessage());
+            if (e.getErrorCode() == 2292) {  // Error ORA-02292: restricción de integridad referencial violada - registro secundario encontrado
+                System.out.println("Error al eliminar la torre: Existen registros relacionados en otras tablas.");
+            } else {
+                System.out.println("Error al eliminar la torre: " + e.getMessage());
+            }
             return false;
         }
     }
 
-    // Método para obtener todos los Torres
-    public List<Torre> obtenerTodasLasTorres() {
-        String sql = "SELECT * FROM torre";
-        List<Torre> listaTorres = new ArrayList<>();
-        try (PreparedStatement statement = conexion.prepareStatement(sql); ResultSet resultSet = statement.executeQuery()) {
+    /**
+     * Método para obtener todas las torres
+     *
+     * @return
+     */
+    @Override
+    public List<Torre> ObtenerTodo() {
+        String sql = "{ ? = call obtener_Todas_Torres }";
+        List<Torre> listaTorre = new ArrayList<>();
 
-            while (resultSet.next()) {
-                Torre Torre = new Torre(
-                        resultSet.getInt("numero_torre"),
-                        resultSet.getInt("numero_pisos"),
-                        resultSet.getString("codigo_proyecto")
-                );
-                listaTorres.add(Torre);
+        try (Connection conexion = DatabaseConnection.getConexion(); CallableStatement statement = conexion.prepareCall(sql)) {
+
+            // Registrar el primer parámetro como el cursor de salida
+            statement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+
+            // Ejecutar la función
+            statement.execute();
+
+            // Obtener el cursor como ResultSet
+            try (ResultSet resultSet = (ResultSet) statement.getObject(1)) {
+                while (resultSet.next()) {
+                    Torre torre;
+                    torre = new Torre(
+                            resultSet.getInt("numero_Torre"),
+                            resultSet.getInt("numero_Pisos"),
+                            resultSet.getString("codigo_Proyecto"));
+                    listaTorre.add(torre);
+                }
             }
         } catch (SQLException e) {
-            System.out.println("Error al obtener Torres: " + e.getMessage());
+            System.out.println("Error al obtener las torres: " + e.getMessage());
         }
-        return listaTorres;
+
+        return listaTorre;
     }
 
-   
-    // Método para obtener todos las Torres
-    
-    public List<Torre> obtenerTorresPorProyecto(String codigo_proyecto) {
-        String sql = "SELECT * FROM torre where codigo_proyecto = ?";
-        List<Torre> listaTorres = new ArrayList<>();
-        try (PreparedStatement statement = conexion.prepareStatement(sql);) {
-            
-            statement.setString(1, codigo_proyecto);
-            ResultSet resultSet = statement.executeQuery();
-            
-            while (resultSet.next()) {
-                Torre Torre = new Torre(
-                        resultSet.getInt("numero_torre"),
-                        resultSet.getInt("numero_pisos"),
-                        resultSet.getString("codigo_proyecto")
-                );
-                listaTorres.add(Torre);
+    @Override
+    public Torre ObtenerPorCodigo(String Codigo) {
+        String sql = "{ ? = call obtener_torres_por_proyecto(?) }";
+        Torre resultado = new Torre(0, 0, Codigo); // Torre principal como contenedor
+
+        try (Connection conexion = DatabaseConnection.getConexion(); CallableStatement statement = conexion.prepareCall(sql)) {
+
+            // Registrar el primer parámetro como cursor de salida
+            statement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+
+            // Registrar el segundo parámetro como el código del proyecto
+            statement.setString(2, Codigo);
+
+            // Ejecutar la función
+            statement.execute();
+
+            // Obtener el cursor como ResultSet
+            try (ResultSet resultSet = (ResultSet) statement.getObject(1)) {
+                while (resultSet.next()) {
+                    Torre torre = new Torre(
+                            resultSet.getInt("numero_Torre"),
+                            0, // Si hay más datos, puedes agregarlos aquí
+                            Codigo
+                    );
+                    resultado.getTorresRelacionadas().add(torre); // Añadir a la lista
+                }
             }
         } catch (SQLException e) {
-            System.out.println("Error al obtener Torres: " + e.getMessage());
+            System.out.println("Error al obtener las torres para el proyecto: " + e.getMessage());
         }
-        return listaTorres;
+
+        return resultado;
+    }
+
+    @Override
+    public String ObtenerID() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

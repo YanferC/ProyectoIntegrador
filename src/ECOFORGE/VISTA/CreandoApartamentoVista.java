@@ -8,13 +8,11 @@ import javax.swing.JOptionPane;
 
 import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
 import java.util.List;
-import ECOFORGE.MODELO.CrudTorre;
 import ECOFORGE.MODELO.Torre;
-import ECOFORGE.MODELO.CrudApartamento;
-import ECOFORGE.MODELO.Conectar;
-import ECOFORGE.MODELO.CrudProyecto;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
-import ECOFORGE.MODELO.DatabaseConnection;
+import ECOFORGE.CONTROLADOR.CrearApartamentoEntidad;
+import ECOFORGE.CONTROLADOR.CrearProyectoEntidad;
+import ECOFORGE.CONTROLADOR.CrearTorreEntidad;
 import ECOFORGE.MODELO.Apartamento;
 import ECOFORGE.MODELO.Proyecto;
 
@@ -22,27 +20,29 @@ import ECOFORGE.MODELO.Proyecto;
  *
  * @author juans
  */
-
 public class CreandoApartamentoVista extends javax.swing.JFrame {
-    // contiene controladores para manejar la lógica de la interfaz y la conexión a la base de datos.
-    ControladorCajaTexto controladorCT = new ControladorCajaTexto();
-    //private final Conectar controladorConectar;
-    private final datosApartamentoVista formularioApartamento;
-    private CrudApartamento controlador;
 
+    // contiene controladores para manejar la lógica de la interfaz y la conexión a la base de datos.
+
+    private final datosApartamentoVista formularioApartamento;
+    private Integer torreSeleccionada; 
+    
+    ControladorCajaTexto controladorCT = new ControladorCajaTexto();
+    CrearApartamentoEntidad crearApartamento = null;
+    CrearTorreEntidad crearTorre = null;
+    CrearProyectoEntidad crearProyecto = null;
     /**
      * Creates new form CreandoApartamento
+     *
+     * @param formularioApartamento
      */
     public CreandoApartamentoVista(datosApartamentoVista formularioApartamento) {
         initComponents();
         this.formularioApartamento = formularioApartamento;
 
-        // Inicializar el controlador de conexión y lo conectamos conectarlo
-        //controladorConectar = new Conectar(new DatabaseConnection());
-        //controladorConectar.conectar();
-
-        //CrudApartamento controladorApartamento = new CrudApartamento(controladorConectar);
-
+        crearApartamento = new CrearApartamentoEntidad();
+        crearTorre = new CrearTorreEntidad();
+        crearProyecto = new CrearProyectoEntidad();
         ControladorUtilidades.centrarVentana(this);
 
         btnAgregar.addActionListener(e -> guardarApartamento());
@@ -60,95 +60,98 @@ public class CreandoApartamentoVista extends javax.swing.JFrame {
             int area = Integer.parseInt(jtfArea.getText());
             //Obtener el numero de la torre como String y convertirlo a integer
             String numeroTorreString = (String) jcbNumeroTorre.getSelectedItem();
-            Integer numeroTorre = Integer.parseInt(numeroTorreString);
+            Integer numeroTorre = Integer.valueOf(numeroTorreString);
 
             //Creamos un objeto apartamento
             Apartamento apartamento = new Apartamento(numeroApartamento, valorApartamento, tipoInmueble, area, numeroTorre);
 
-            //CrudApartamento controladorApartamento = new CrudApartamento(controladorConectar);
             //Llamamos al metodo para guardar el apartamento
-            //boolean guardado = controladorApartamento.crearApartamento(apartamento);
+            boolean guardado = crearApartamento.armarCrud().Crear(apartamento);
 
             //Verificar si si se guardo correctamente
-            /**if (guardado) {
-                JOptionPane.showMessageDialog(this, "Apartamento guardado exitosamente.", "Exito", JOptionPane.INFORMATION_MESSAGE);
+            if (guardado) {
+                JOptionPane.showMessageDialog(this, "Apartamento guardado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 datosApartamentoVista apartamentoVista = new datosApartamentoVista();
                 apartamentoVista.setVisible(true);
                 this.dispose();
 
             } else {
                 JOptionPane.showMessageDialog(this, "Error al guardar el apartamento.", "Error", JOptionPane.ERROR_MESSAGE);
-            }*/
+            }
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores validos.", "Error de formto", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores validos.", "Error de formato", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void cargarTorres() {
         jcbNumeroTorre.removeAllItems();
-       /** CrudTorre controladorTorre = new CrudTorre(controladorConectar);
         // Método que carga las torres disponibles en un JComboBox según el proyecto seleccionado
         String codigo_proyecto = (String) jcbCodigoProyecto.getSelectedItem();
         // Verifica si se ha seleccionado un proyecto
         if (codigo_proyecto != null) {
-            List<Torre> torres = controladorTorre.obtenerTorresPorProyecto(codigo_proyecto);
-            // Agrega cada torre al JComboBox
-            for (Torre torre : torres) {
-                jcbNumeroTorre.addItem(String.valueOf(torre.getNumero_torre()));
+            Torre torreContenedora = (Torre) crearTorre.armarCrud().ObtenerPorCodigo(codigo_proyecto);
+            if (torreContenedora != null && torreContenedora.getTorresRelacionadas() != null) {
+                // Agrega cada torre al JComboBox
+                for (Torre torre : torreContenedora.getTorresRelacionadas()) {
+                    jcbNumeroTorre.addItem(String.valueOf(torre.getNumero_torre()));
+                }
             }
-        }*/
+        }
     }
 
     private void cargarProyectos() {
         jcbCodigoProyecto.removeAllItems();
-        //CrudProyecto controladorProyecto = new CrudProyecto(controladorConectar);
 
-        //List<Proyecto> proyectos = controladorProyecto.ObtenerTodo();
+        List<Proyecto> proyectos = crearProyecto.armarCrud().ObtenerTodo();
 
-        //for (Proyecto proyecto : proyectos) {
-        //    jcbCodigoProyecto.addItem(proyecto.getCodigo_proyecto());
-        //}
+        for (Proyecto proyecto : proyectos) {
+            jcbCodigoProyecto.addItem(proyecto.getCodigo_proyecto());
+        }
 
         // Agregamos un ActionListener para cargar torres cuando se seleccione un proyecto
         jcbCodigoProyecto.addActionListener(e -> cargarTorres());
     }
-    
-    public void cargarDatos(Integer numero_Apartamento, Integer valor_Apartamento, String tipo_Inmueble, 
+
+    public void cargarDatos(Integer numero_Apartamento, Integer valor_Apartamento, String tipo_Inmueble,
             Integer area, Integer numero_Torre) {
-        
+
         jtfNumeroApartamento.setText(String.valueOf(numero_Apartamento));
         jtfValorApartamento.setText(String.valueOf(valor_Apartamento));
         cbTipoInmueble.setSelectedItem(tipo_Inmueble);
         jtfArea.setText(String.valueOf(area));
-        jcbNumeroTorre.setSelectedItem(numero_Torre);     
-  
+        
+        jcbNumeroTorre1.removeAllItems();
+        jcbNumeroTorre1.addItem(String.valueOf(numero_Torre));  
+        
         // Deshabilitar las cajas de texto que no serán modificable
         jtfNumeroApartamento.setEnabled(false);
-        
+        jcbNumeroTorre1.setEnabled(false);
+        jcbNumeroTorre.setVisible(false);
+        jcbCodigoProyecto.setVisible(false);
+        jLabel8.setVisible(false);
     }
-    
+
     public void actualizarApartamento() {
-     /**   try {
+        try {
 
             int numeroApartamento = Integer.parseInt(jtfNumeroApartamento.getText());
             int valorApartamento = Integer.parseInt(jtfValorApartamento.getText());
             String tipoInmueble = (String) cbTipoInmueble.getSelectedItem();
             int area = Integer.parseInt(jtfArea.getText());
-            //Obtener el numero de la torre como String y convertirlo a integer
-            String numeroTorreString = (String) jcbNumeroTorre.getSelectedItem();
-            Integer numeroTorre = Integer.parseInt(numeroTorreString);
+            //Obtener el numero de la torre0
+            String numeroTorreString = (String) jcbNumeroTorre1.getSelectedItem();
+            Integer numeroTorre = Integer.valueOf(numeroTorreString);
 
             //Creamos un objeto apartamento
             Apartamento apartamento = new Apartamento(numeroApartamento, valorApartamento, tipoInmueble, area, numeroTorre);
 
-            CrudApartamento controladorApartamento = new CrudApartamento(controladorConectar);
             //Llamamos al metodo para guardar el apartamento
-            boolean actualizado = controladorApartamento.actualizarApartamento(apartamento);
+            boolean actualizado = crearApartamento.armarCrud().Actualizar(apartamento);
 
             //Verificar si si se guardo correctamente
             if (actualizado) {
-                JOptionPane.showMessageDialog(this, "Apartamento actualizado exitosamente.", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Apartamento actualizado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 // Cerrar el formulario después de actualizar
                 formularioApartamento.actualizarTabla();
                 this.dispose();
@@ -158,8 +161,8 @@ public class CreandoApartamentoVista extends javax.swing.JFrame {
             }
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores validos.", "Error de formto", JOptionPane.ERROR_MESSAGE);
-        }*/
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores validos.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -188,6 +191,7 @@ public class CreandoApartamentoVista extends javax.swing.JFrame {
         jcbCodigoProyecto = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         cbTipoInmueble = new javax.swing.JComboBox<>();
+        jcbNumeroTorre1 = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -260,11 +264,11 @@ public class CreandoApartamentoVista extends javax.swing.JFrame {
                 jtfAreaKeyTyped(evt);
             }
         });
-        jPanel4.add(jtfArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 144, 31));
+        jPanel4.add(jtfArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 210, 150, 31));
 
         jLabel5.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel5.setText("Area m²");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 54, -1));
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 54, -1));
 
         jLabel4.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel4.setText("Tipo Inmueble");
@@ -316,6 +320,15 @@ public class CreandoApartamentoVista extends javax.swing.JFrame {
         cbTipoInmueble.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cbTipoInmueble.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Apartamento", "Local", "Bodega" }));
         jPanel4.add(cbTipoInmueble, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 150, 30));
+
+        jcbNumeroTorre1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jcbNumeroTorre1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbNumeroTorre1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbNumeroTorre1ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jcbNumeroTorre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 320, 90, 30));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 434, 390));
 
@@ -374,13 +387,17 @@ public class CreandoApartamentoVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         actualizarApartamento();
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void jcbNumeroTorre1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbNumeroTorre1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbNumeroTorre1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -414,8 +431,8 @@ public class CreandoApartamentoVista extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-
                 new CreandoApartamentoVista(new datosApartamentoVista()).setVisible(true);
             }
         });
@@ -439,6 +456,7 @@ public class CreandoApartamentoVista extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JComboBox<String> jcbCodigoProyecto;
     private javax.swing.JComboBox<String> jcbNumeroTorre;
+    private javax.swing.JComboBox<String> jcbNumeroTorre1;
     private javax.swing.JTextField jtfArea;
     private javax.swing.JTextField jtfNumeroApartamento;
     private javax.swing.JTextField jtfValorApartamento;

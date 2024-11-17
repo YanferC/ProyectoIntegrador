@@ -5,6 +5,7 @@
 package ECOFORGE.CONTROLADOR;
 
 import ECOFORGE.MODELO.Conectar;
+import ECOFORGE.MODELO.DatabaseConnection;
 import ECOFORGE.MODELO.LoginUsuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,34 +17,28 @@ import java.sql.SQLException;
  * @author YANFER
  */
 public class ControladorLogin {
-    private final Connection conexion;
 
-    public ControladorLogin(Conectar controladorConectar) {
-        this.conexion = controladorConectar.getConexion();
-    }
-    
-    // Método para validar usuario y rol
     public LoginUsuario validarCredenciales(String ID_USUARIO, String contrasenaIngresada) {
         String sql = "SELECT * FROM Usuario WHERE ID_USUARIO = ?";
         LoginUsuario login = null;
-        
-        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
+        DatabaseConnection.configurarConexion("");
+        try (PreparedStatement statement = DatabaseConnection.getConexion().prepareStatement(sql)) {
             statement.setString(1, ID_USUARIO);
             ResultSet resultSet = statement.executeQuery();
 
-            // Verificar si el usuario existe
             if (resultSet.next()) {
                 String contrasenaBD = resultSet.getString("contrasena");
                 String tipoRol = resultSet.getString("tipo_Rol");
 
-                // Verificar si la contraseña coincide
                 if (contrasenaBD.equals(contrasenaIngresada)) {
-                    // Crear el objeto LoginUsuario si las credenciales son válidas
+                    // Configurar la conexión de la base de datos según el rol del usuario
+                    DatabaseConnection.configurarConexion(tipoRol);
+
                     login = new LoginUsuario(
-                        resultSet.getString("id_Usuario"),
-                        tipoRol,
-                        resultSet.getString("Descripcion_Rol"),
-                        contrasenaBD
+                            resultSet.getString("id_Usuario"),
+                            tipoRol,
+                            resultSet.getString("Descripcion_Rol"),
+                            contrasenaBD
                     );
                     System.out.println("Usuario válido con rol: " + tipoRol);
                 } else {
@@ -55,26 +50,7 @@ public class ControladorLogin {
         } catch (SQLException e) {
             System.out.println("Error al validar usuario: " + e.getMessage());
         }
-        
         return login;
     }
-    
-    // Método para obtener el ID del tipo de rol por cédula
-    public Integer obtenerTipoRol(String ID_USUARIO) {
-        String sql = "SELECT TIPO_ROL FROM Usuario WHERE ID_USUARIO = ?";
-        Integer idTipoRol = null;
 
-        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
-
-            statement.setString(1, ID_USUARIO);
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                idTipoRol = resultSet.getInt("TIPO_ROL");
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al obtener el tipo de rol: " + e.getMessage());
-        }
-        return idTipoRol;
-    }
 }

@@ -19,8 +19,6 @@ public class DashBoardPrincipal extends javax.swing.JFrame {
         initComponents();
         //Trae el controlador  de utilidades para poner retricciona ya sean solo numeros, solo letras o de longitud
         ControladorUtilidades.centrarVentana(this);
-        
-        
     }
 
     /**
@@ -172,11 +170,21 @@ public class DashBoardPrincipal extends javax.swing.JFrame {
         btnVentas.setText("Ver Ventas");
         btnVentas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnVentas.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        btnVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVentasActionPerformed(evt);
+            }
+        });
 
         btnCuota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/DashCuota_64.png"))); // NOI18N
         btnCuota.setText("Ver Cuota");
         btnCuota.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCuota.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        btnCuota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCuotaActionPerformed(evt);
+            }
+        });
 
         btnCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/DashCliente_64.png"))); // NOI18N
         btnCliente.setText("Ver Cliente");
@@ -221,37 +229,47 @@ public class DashBoardPrincipal extends javax.swing.JFrame {
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         // Crea una nueva instancia de la ventana de login y la hace visible, cerrando la ventana actual
-        Login newframe = new Login();
-        newframe.setVisible(true);
+        Login cerrarSesion = new Login();
+        cerrarSesion.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProyectoActionPerformed
-
         datosProyectosVista datosProyecto = new datosProyectosVista();
         datosProyecto.setVisible(true);
-
         this.dispose();
     }//GEN-LAST:event_btnProyectoActionPerformed
 
     private void btnTorreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTorreActionPerformed
         // Crea una nueva instancia de la ventana para gestionar torres y la hace visible, cerrando la ventana actual
-        datosTorreVista newframe = new datosTorreVista();
-        newframe.setVisible(true);
+        datosTorreVista datosTorre = new datosTorreVista();
+        datosTorre.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnTorreActionPerformed
 
     private void btnApartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApartamentoActionPerformed
-
-        datosApartamentoVista newframe = new datosApartamentoVista();
-
-        newframe.setVisible(true);
+        datosApartamentoVista datosApartamento = new datosApartamentoVista();
+        datosApartamento.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnApartamentoActionPerformed
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
-        // TODO add your handling code here:
+        datosClienteVista datosCliente = new datosClienteVista();
+        datosCliente.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnClienteActionPerformed
+
+    private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
+        datosVentaVista datosVenta = new datosVentaVista();
+        datosVenta.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnVentasActionPerformed
+
+    private void btnCuotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuotaActionPerformed
+        datosCuotaVista datosCuota = new datosCuotaVista();
+        datosCuota.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCuotaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -283,6 +301,7 @@ public class DashBoardPrincipal extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new DashBoardPrincipal().setVisible(true);
             }

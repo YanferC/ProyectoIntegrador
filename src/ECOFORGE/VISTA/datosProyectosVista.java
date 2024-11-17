@@ -200,7 +200,7 @@ public class datosProyectosVista extends javax.swing.JFrame {
 
         if (confirmacion == JOptionPane.YES_OPTION) { // Crear una instancia del controlador //
             // Intentar eliminar el Proyecto 
-            if (crearProyecto.armarCrud().Eliminar(codigo_proyecto)) {
+            if (crearProyecto.armarCrud().Eliminar(codigo_proyecto, null)) {
                 JOptionPane.showMessageDialog(this, "Proyecto eliminado correctamente.");
 
                 // Actualizar la tabla después de eliminar el Proyecto

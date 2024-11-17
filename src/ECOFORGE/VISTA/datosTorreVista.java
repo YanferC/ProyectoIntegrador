@@ -4,10 +4,9 @@
  */
 package ECOFORGE.VISTA;
 
-import ECOFORGE.MODELO.Conectar;
-import ECOFORGE.MODELO.CrudTorre;
+
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
-import ECOFORGE.MODELO.DatabaseConnection;
+import ECOFORGE.CONTROLADOR.CrearTorreEntidad;
 import ECOFORGE.MODELO.Torre;
 import java.awt.Color;
 import java.util.List;
@@ -20,23 +19,20 @@ import javax.swing.table.DefaultTableModel;
  */
 public class datosTorreVista extends javax.swing.JFrame {
 
-    private Conectar controladorConectar;
-    private CrudTorre controlador;
+    //Crear instancia de la clase CrearTorreEntidad
+    CrearTorreEntidad crearTorre = null;
 
     /**
      * Creates new form datosTorreVista
      */
     public datosTorreVista() {
         initComponents();
-        // Inicializar el controlador de conexión y lo conectamos conectarlo
-        //controladorConectar = new Conectar(new DatabaseConnection());
-        controladorConectar.conectar();
-
-        controlador = new CrudTorre(controladorConectar);
+        
         ControladorUtilidades.centrarVentana(this);
-
+        
+        crearTorre = new CrearTorreEntidad();
         // Llenamos la tabla
-        List<Torre> listaTorres = controlador.obtenerTodasLasTorres();
+        List<Torre> listaTorres = crearTorre.armarCrud().ObtenerTodo();
         llenarTablaTorres(listaTorres);
     }
 
@@ -75,8 +71,7 @@ public class datosTorreVista extends javax.swing.JFrame {
         modelo.setRowCount(0); // Limpiar la tabla
 
         // Obtener todos las Torre y agregarlos a la tabla
-        CrudTorre controlador = new CrudTorre(controladorConectar);
-        List<Torre> listaTorres = controlador.obtenerTodasLasTorres();
+        List<Torre> listaTorres = crearTorre.armarCrud().ObtenerTodo();
 
         for (Torre torre : listaTorres) {
             Object[] fila = {
@@ -276,8 +271,8 @@ public class datosTorreVista extends javax.swing.JFrame {
         }
 
         // Obtener los datos del Proyecto seleccionado
-        Integer numero_Torre = Integer.parseInt(tTorre.getValueAt(filaSeleccionada, 0).toString());
-        Integer numero_Pisos = Integer.parseInt(tTorre.getValueAt(filaSeleccionada, 1).toString());
+        Integer numero_Torre = Integer.valueOf(tTorre.getValueAt(filaSeleccionada, 0).toString());
+        Integer numero_Pisos = Integer.valueOf(tTorre.getValueAt(filaSeleccionada, 1).toString());
         String codigo_proyecto = tTorre.getValueAt(filaSeleccionada, 2).toString();
 
         // Abrir el formulario CreandoTorreVista y pasar los datos
@@ -301,17 +296,14 @@ public class datosTorreVista extends javax.swing.JFrame {
         }
 
         // Obtener el numero de la torre seleccionado (asumiendo que está en la primera columna)
-        Integer numero_Torre = Integer.parseInt(tTorre.getValueAt(filaSeleccionada, 0).toString());
+        String numero_Torre = tTorre.getValueAt(filaSeleccionada, 0).toString();
         String codigo_Proyecto = tTorre.getValueAt(filaSeleccionada, 2).toString();
         // Confirmar la eliminación
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta Torre?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
 
         if (confirmacion == JOptionPane.YES_OPTION) {
-            // Crear una instancia del controlador
-            CrudTorre torre = new CrudTorre(controladorConectar);
-
             // Intentar eliminar la torre
-            if (controlador.eliminarTorre(numero_Torre, codigo_Proyecto)) {
+            if (crearTorre.armarCrud().Eliminar(numero_Torre, codigo_Proyecto)) {
                 JOptionPane.showMessageDialog(this, "Torre eliminada correctamente.");
 
                 // Actualizar la tabla después de eliminar la torre
@@ -350,10 +342,8 @@ public class datosTorreVista extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new datosTorreVista().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new datosTorreVista().setVisible(true);
         });
     }
 

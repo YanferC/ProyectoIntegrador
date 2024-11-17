@@ -13,24 +13,24 @@ import java.util.Date;
 public class Venta {
     private Integer id;
     private Integer precio_Total_Venta;
-    private Integer tipo_Pago;
+    private String tipo_Pago;
     private Date fecha_Venta;
-    private Integer numero_Cuotas;
-    private String matricula;
     private Date fecha_Escritura;
+    private String matricula;
+    private String numero_IdCliente;
+    private String numero_idAsesor;
     private Integer numero_Apartamento;
-    private Integer numero_Ident_Cli;
 
-    public Venta(Integer id, Integer precio_Total_Venta, Integer tipo_Pago, Date fecha_Venta, Integer numero_Cuotas, String matricula, Date fecha_Escritura, Integer numero_Apartamento, Integer numero_Ident_Cli) {
+    public Venta(Integer id, Integer precio_Total_Venta, String tipo_Pago, Date fecha_Venta, Date fecha_Escritura, String matricula, String numero_IdCliente, String numero_idAsesor, Integer numero_Apartamento) {
         this.id = id;
         this.precio_Total_Venta = precio_Total_Venta;
         this.tipo_Pago = tipo_Pago;
         this.fecha_Venta = fecha_Venta;
-        this.numero_Cuotas = numero_Cuotas;
-        this.matricula = matricula;
         this.fecha_Escritura = fecha_Escritura;
+        this.matricula = matricula;
+        this.numero_IdCliente = numero_IdCliente;
+        this.numero_idAsesor = numero_idAsesor;
         this.numero_Apartamento = numero_Apartamento;
-        this.numero_Ident_Cli = numero_Ident_Cli;
     }
 
     public Integer getId() {
@@ -49,11 +49,11 @@ public class Venta {
         this.precio_Total_Venta = precio_Total_Venta;
     }
 
-    public Integer getTipo_Pago() {
+    public String getTipo_Pago() {
         return tipo_Pago;
     }
 
-    public void setTipo_Pago(Integer tipo_Pago) {
+    public void setTipo_Pago(String tipo_Pago) {
         this.tipo_Pago = tipo_Pago;
     }
 
@@ -65,12 +65,12 @@ public class Venta {
         this.fecha_Venta = fecha_Venta;
     }
 
-    public Integer getNumero_Cuotas() {
-        return numero_Cuotas;
+    public Date getFecha_Escritura() {
+        return fecha_Escritura;
     }
 
-    public void setNumero_Cuotas(Integer numero_Cuotas) {
-        this.numero_Cuotas = numero_Cuotas;
+    public void setFecha_Escritura(Date fecha_Escritura) {
+        this.fecha_Escritura = fecha_Escritura;
     }
 
     public String getMatricula() {
@@ -81,12 +81,20 @@ public class Venta {
         this.matricula = matricula;
     }
 
-    public Date getFecha_Escritura() {
-        return fecha_Escritura;
+    public String getNumero_IdCliente() {
+        return numero_IdCliente;
     }
 
-    public void setFecha_Escritura(Date fecha_Escritura) {
-        this.fecha_Escritura = fecha_Escritura;
+    public void setNumero_IdCliente(String numero_IdCliente) {
+        this.numero_IdCliente = numero_IdCliente;
+    }
+
+    public String getNumero_idAsesor() {
+        return numero_idAsesor;
+    }
+
+    public void setNumero_idAsesor(String numero_idAsesor) {
+        this.numero_idAsesor = numero_idAsesor;
     }
 
     public Integer getNumero_Apartamento() {
@@ -96,14 +104,8 @@ public class Venta {
     public void setNumero_Apartamento(Integer numero_Apartamento) {
         this.numero_Apartamento = numero_Apartamento;
     }
-
-    public Integer getNumero_Ident_Cli() {
-        return numero_Ident_Cli;
-    }
-
-    public void setNumero_Ident_Cli(Integer numero_Ident_Cli) {
-        this.numero_Ident_Cli = numero_Ident_Cli;
-    }
+    
+    
     
     
 }

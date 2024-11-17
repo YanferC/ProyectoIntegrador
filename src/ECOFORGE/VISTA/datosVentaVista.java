@@ -8,17 +8,16 @@ package ECOFORGE.VISTA;
  *
  * @author YANFER
  */
-import ECOFORGE.MODELO.CrudCuota;
-
-import ECOFORGE.MODELO.Cuota;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
+import ECOFORGE.CONTROLADOR.CrearVentaEntidad;
+import ECOFORGE.MODELO.Venta;
+import java.awt.Color;
 
 public class datosVentaVista extends javax.swing.JFrame {
 
-    private CrudCuota cuota;
+    CrearVentaEntidad crearVenta = null;
 
     /**
      * Creates new form Asesor
@@ -26,13 +25,74 @@ public class datosVentaVista extends javax.swing.JFrame {
     public datosVentaVista() {
 
         initComponents();
-        cuota = new CrudCuota();
-        //cuota.conectar();
-        //cuota.llenarTablaCuotas(jTable1);
 
         ControladorUtilidades.centrarVentana(this);// Centra la ventana en la pantalla
 
-        
+        crearVenta = new CrearVentaEntidad();
+        // Llenamos la tabla
+        List<Venta> listaVentas = crearVenta.armarCrud().ObtenerTodo();
+        llenarTablaVentas(listaVentas);
+
+    }
+
+    public void llenarTablaVentas(List<Venta> listaVentas) {
+        //DefaultTableModel modelo = (DefaultTableModel) tProyecto.getModel();
+
+        // Crear el modelo de la tabla con las columnas definidas
+        DefaultTableModel modelo = new DefaultTableModel(
+                new String[]{
+                    "ID", "Precio Total Venta", "Tipo Pago",
+                    "Fecha Venta", "Fecha Escritura", "Matricula",
+                    "Cliente", "Asesor", "Apartamento"
+                }, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;  // Bloquear edición de las celdas
+            }
+        };
+
+        for (Venta venta : listaVentas) {
+            Object[] fila = {
+                venta.getId(),
+                venta.getPrecio_Total_Venta(),
+                venta.getTipo_Pago(),
+                venta.getFecha_Venta().getTime(),
+                venta.getFecha_Escritura().getTime(),
+                venta.getMatricula(),
+                venta.getNumero_IdCliente(),
+                venta.getNumero_idAsesor(),
+                venta.getNumero_Apartamento(),};
+            modelo.addRow(fila);
+        }
+
+        tVenta.setModel(modelo);
+        tVenta.setBackground(Color.decode("#AFE5EF"));
+        tVenta.setForeground(Color.BLACK);             // Texto en negro
+        tVenta.setSelectionBackground(new Color(100, 150, 255)); // Fondo al seleccionar
+        tVenta.setSelectionForeground(Color.WHITE);    // Texto al seleccionar
+    }
+
+    public void actualizarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) tVenta.getModel();
+        modelo.setRowCount(0); // Limpiar la tabla
+
+        // Obtener todos las Torre y agregarlos a la tabla
+        List<Venta> listaVentas = crearVenta.armarCrud().ObtenerTodo();
+
+        for (Venta venta : listaVentas) {
+            Object[] fila = {
+                venta.getId(),
+                venta.getPrecio_Total_Venta(),
+                venta.getTipo_Pago(),
+                venta.getFecha_Venta().getTime(),
+                venta.getFecha_Escritura().getTime(),
+                venta.getMatricula(),
+                venta.getNumero_IdCliente(),
+                venta.getNumero_idAsesor(),
+                venta.getNumero_Apartamento(),};
+            modelo.addRow(fila);
+        }
     }
 
     /**
@@ -51,7 +111,7 @@ public class datosVentaVista extends javax.swing.JFrame {
         jpInferior = new javax.swing.JPanel();
         btnVenta = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tVenta = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -133,8 +193,8 @@ public class datosVentaVista extends javax.swing.JFrame {
 
         jpFondo.add(jpInferior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 790, 70));
 
-        jTable1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tVenta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        tVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -145,8 +205,8 @@ public class datosVentaVista extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane1.setViewportView(jTable1);
+        tVenta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane1.setViewportView(tVenta);
 
         jpFondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 790, 380));
 
@@ -160,8 +220,12 @@ public class datosVentaVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
-      /**  VentaVista venta = new VentaVista(this);
-        venta.setVisible(true); */
+        // Crear una instancia del formulario CreandoVentaVista
+        CreandoVentaVista venta = new CreandoVentaVista(this);
+        // Configurar el formulario como visible
+        venta.setVisible(true);
+        // Opcional: Cerrar o ocultar el formulario actual si es necesario
+        this.dispose();
     }//GEN-LAST:event_btnVentaActionPerformed
 
     /**
@@ -200,6 +264,7 @@ public class datosVentaVista extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new datosVentaVista().setVisible(true);
             }
@@ -211,9 +276,9 @@ public class datosVentaVista extends javax.swing.JFrame {
     private javax.swing.JButton btnVenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel jpEncabezado;
     private javax.swing.JPanel jpFondo;
     private javax.swing.JPanel jpInferior;
+    private javax.swing.JTable tVenta;
     // End of variables declaration//GEN-END:variables
 }

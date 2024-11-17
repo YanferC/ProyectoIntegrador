@@ -6,10 +6,8 @@ package ECOFORGE.VISTA;
 
 import ECOFORGE.MODELO.Cliente;
 import javax.swing.JOptionPane;
-import ECOFORGE.MODELO.CrudCliente;
 import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
-import ECOFORGE.MODELO.Conectar;
-import ECOFORGE.MODELO.DatabaseConnection;
+import ECOFORGE.CONTROLADOR.CrearClienteEntidad;
 
 /**
  *
@@ -17,22 +15,17 @@ import ECOFORGE.MODELO.DatabaseConnection;
  */
 public class PanelCliente extends javax.swing.JPanel {
 
-    private CrudCliente controlador;
+    CrearClienteEntidad crearCliente = null;
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
     private ClienteAddedListener clienteAddedListener;
-    private Conectar controladorConectar;
 
     /**
      * Creates new form PanelCliente
      */
     public PanelCliente() {
         initComponents();
-        // Inicializar el controlador de conexión y lo conectamos conectarlo
-        //controladorConectar = new Conectar(new DatabaseConnection());
-       // controladorConectar.conectar();
-        
-        // Pasar la instancia de controladorConectar al controlador del cliente
-        controlador = new CrudCliente(controladorConectar);
+
+        crearCliente = new CrearClienteEntidad();
     }
 
     /**
@@ -158,6 +151,7 @@ public class PanelCliente extends javax.swing.JPanel {
         jPanel2.add(jtfNumeroIdentificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 192, -1));
 
         jPanel3.setBackground(new java.awt.Color(193, 65, 62));
+        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jbtAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Agregar_30.png"))); // NOI18N
         jbtAgregar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -176,29 +170,58 @@ public class PanelCliente extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(143, 143, 143)
                 .addComponent(jbtAgregar)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jbtAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                .addComponent(jbtAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 390, 70));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 390, 70));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 410, 480));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 410, 450));
 
         add(jPanel1, "card2");
     }// </editor-fold>//GEN-END:initComponents
 
+    private boolean validarEntradas() {
+        if (jtfNumeroIdentificacion.getText().isEmpty()
+                || jtfNombreCompleto.getText().isEmpty()
+                || jtfSisben.getText().isEmpty()
+                || jtfSubsidio_Ministerio.getText().isEmpty()
+                || jtfDireccion.getText().isEmpty()
+                || jtfTelefono.getText().isEmpty()
+                || jtfCorreoElectronico.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
+            return false;
+        }
+
+        if (!jtfCorreoElectronico.getText().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+            JOptionPane.showMessageDialog(this, "Ingrese un correo electrónico válido.");
+            return false;
+        }
+
+        if (!jtfSisben.getText().matches("[1-2]")) {
+            JOptionPane.showMessageDialog(this, "El nivel SISBEN debe ser 1 o 2.");
+            return false;
+        }
+
+        return true;
+    }
+
     private void jbtAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAgregarActionPerformed
+        if (!validarEntradas()) {
+            return;
+        }
+
         // Obtener datos de los campos de texto
         String numero_Identificacion = jtfNumeroIdentificacion.getText();
         String nombreCompleto = jtfNombreCompleto.getText();
         String sisben = jtfSisben.getText();
-        Integer subsidio_Ministerio = Integer.parseInt(jtfSubsidio_Ministerio.getText());
+        Integer subsidio_Ministerio = Integer.valueOf(jtfSubsidio_Ministerio.getText());
         String direccion = jtfDireccion.getText();
         String telefono = jtfTelefono.getText();
         String correo = jtfCorreoElectronico.getText();
@@ -207,7 +230,7 @@ public class PanelCliente extends javax.swing.JPanel {
         Cliente nuevoCliente = new Cliente(numero_Identificacion, nombreCompleto, sisben, subsidio_Ministerio, direccion, telefono, correo);
 
         // Agregar cliente utilizando el controlador
-        if (controlador.crearCliente(nuevoCliente)) {
+        if (crearCliente.armarCrud().Crear(nuevoCliente)) {
             JOptionPane.showMessageDialog(this, "Cliente agregado exitosamente.");
             // Notificar al listener que se ha agregado un cliente
             if (clienteAddedListener != null) {
@@ -239,7 +262,7 @@ public class PanelCliente extends javax.swing.JPanel {
 
     private void jtfTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTelefonoKeyTyped
         controladorCT.soloNumeros(evt);
-        controladorCT.longitudCaracter(jtfTelefono, 20, evt);
+        controladorCT.longitudCaracter(jtfTelefono, 10, evt);
     }//GEN-LAST:event_jtfTelefonoKeyTyped
 
     private void jtfNombreCompletoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreCompletoKeyTyped
@@ -248,8 +271,8 @@ public class PanelCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_jtfNombreCompletoKeyTyped
 
     private void jtfSisbenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfSisbenKeyTyped
-        controladorCT.longitudCaracter(jtfSisben, 2, evt);
-        
+        controladorCT.soloNumeros(evt);
+        controladorCT.longitudCaracter(jtfSisben, 1, evt);
     }//GEN-LAST:event_jtfSisbenKeyTyped
 
     private void jtfDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDireccionKeyTyped

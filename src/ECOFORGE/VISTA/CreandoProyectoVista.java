@@ -210,8 +210,8 @@ public class CreandoProyectoVista extends javax.swing.JFrame {
 
             // Actualizar la tabla en el formulario Proyecto
             formularioProyecto.actualizarTabla();
-           /** datosProyectosVista datosProyectos = new datosProyectosVista();
-            datosProyectos.setVisible(true);*/
+            datosProyectosVista datosProyectos = new datosProyectosVista();
+            datosProyectos.setVisible(true);
 
             this.dispose(); // Cerrar el formulario
         } else {
