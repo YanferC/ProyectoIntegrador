@@ -184,7 +184,13 @@ public class CreandoVentaVista extends javax.swing.JFrame implements PanelClient
     public void onClienteAdded() {
         showPanel("Venta");         // Cambiar al PanelVenta
         setButtonStates(false, true, false); // Activar botón Venta, desactivar Cliente
+        //Despúes de agregado un nuevo cliente se carga el id de la venta
         panelVenta.cargarIdVenta();
+        // Posteriormente se carga el id del cliente previamente creado
+        String idCliente = panelCliente.jtfNumeroIdentificacion.getText();
+        panelVenta.cargarIdCliente(idCliente);
+        // así mismo se carga el id del asesor que está creando la venta
+        panelVenta.cargarIdAsesor();
     }
 
     // Cuando se agrega una venta
@@ -193,16 +199,6 @@ public class CreandoVentaVista extends javax.swing.JFrame implements PanelClient
         showPanel("Cuota");         // Cambiar al PanelCuota
         setButtonStates(false, false, true); // Activar botón Cuota, desactivar Venta
     }
-
-    /**public void habilitarBotonVenta() {
-        jbtRegistrarVenta.setEnabled(true);
-        jbtAgregarCliente.setEnabled(false);
-    }
-
-    public void habilitarBotonCuota() {
-        jbtRegistrarCuota.setEnabled(true);
-        jbtRegistrarVenta.setEnabled(false);
-    }*/
 
     private void jbtAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAgregarClienteActionPerformed
 
