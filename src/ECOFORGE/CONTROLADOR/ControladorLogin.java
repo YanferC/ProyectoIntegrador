@@ -17,7 +17,19 @@ import java.sql.SQLException;
  */
 public class ControladorLogin {
 
+    private static ControladorLogin instancia;
     private LoginUsuario usuarioActivo; // Usuario autenticado actualmente
+
+    // Constructor privado para evitar instanciaciones externas
+    private ControladorLogin() { }
+
+    // Método para obtener la única instancia de ControladorLogin
+    public static ControladorLogin obtenerInstancia() {
+        if (instancia == null) {
+            instancia = new ControladorLogin();
+        }
+        return instancia;
+    }
 
     /**
      * Método para validar credenciales del usuario.
@@ -64,12 +76,12 @@ public class ControladorLogin {
                     resultSet.getString("Descripcion_Rol"),
                     contrasenaBD
             );
-            System.out.println("Inicio de sesión exitoso para el rol: " + tipoRol);
+            System.out.println("Inicio de sesión exitoso para el rol: " + tipoRol + " y Asesor: "+ resultSet.getString("id_Usuario"));
             return usuarioActivo;
         } else {
             System.out.println("Contraseña incorrecta.");
         }
-        return null;
+        return usuarioActivo;
     }
 
     /**

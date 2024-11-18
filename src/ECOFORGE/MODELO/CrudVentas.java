@@ -123,13 +123,13 @@ public class CrudVentas implements ClienteAddedListener, Crud<Venta> {
                 while (resultSet.next()) {
                     Venta venta;
                     venta = new Venta(
-                            resultSet.getInt("id"),
-                            resultSet.getInt("precio_Total_Venta"),
-                            resultSet.getString("tipo_Pago"),
+                            resultSet.getInt("ID"),
+                            resultSet.getInt("PRECIO_TOTALVENTA"),
+                            resultSet.getString("TIPO_PAGO"),
                             resultSet.getDate("fecha_Venta"),
                             resultSet.getDate("fecha_Escritura"),
                             resultSet.getString("matricula"),
-                            resultSet.getString("numero_idcliente"),
+                            resultSet.getString("numero_IdCliente"),
                             resultSet.getString("numero_idAsesor"),
                             resultSet.getInt("numero_Apartamento")
                     );
@@ -137,7 +137,7 @@ public class CrudVentas implements ClienteAddedListener, Crud<Venta> {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error al obtener las torres: " + e.getMessage());
+            System.out.println("Error al obtener las ventas: " + e.getMessage());
         }
 
         return listaVenta;
