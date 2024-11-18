@@ -257,7 +257,7 @@ public class PanelCliente extends javax.swing.JPanel {
 
     private void jtfSubsidio_MinisterioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfSubsidio_MinisterioKeyTyped
         controladorCT.soloNumeros(evt);
-        controladorCT.longitudCaracter(jtfSubsidio_Ministerio, 10, evt);
+        controladorCT.longitudCaracter(jtfSubsidio_Ministerio, 7, evt);
     }//GEN-LAST:event_jtfSubsidio_MinisterioKeyTyped
 
     private void jtfTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTelefonoKeyTyped

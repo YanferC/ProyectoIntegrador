@@ -15,7 +15,7 @@ import ECOFORGE.MODELO.LoginUsuario;
 
 public class Login extends javax.swing.JFrame {
 
-    private final ControladorLogin login;// Controlador de login
+    private ControladorLogin login;// Controlador de login
     private boolean primeraVezUsuario = true, primeraVezContra = true; // Controlar si es la primera vez que se hace clic
     private final ControladorCajaTexto controladorCT = new ControladorCajaTexto();
 
@@ -24,7 +24,8 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-        login = new ControladorLogin();
+        //login = new ControladorLogin();
+        login = ControladorLogin.obtenerInstancia(); 
         ControladorUtilidades.centrarVentana(this);
     }
 

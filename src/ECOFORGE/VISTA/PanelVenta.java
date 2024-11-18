@@ -12,6 +12,7 @@ import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
 import ECOFORGE.CONTROLADOR.ControladorLogin;
 import ECOFORGE.CONTROLADOR.ControladorVenta;
 import ECOFORGE.CONTROLADOR.CrearVentaEntidad;
+import ECOFORGE.MODELO.CalculosDatos;
 import ECOFORGE.MODELO.LoginUsuario;
 import javax.swing.JOptionPane;
 import ECOFORGE.MODELO.Venta;
@@ -23,9 +24,11 @@ public class PanelVenta extends javax.swing.JPanel {
 
     ControladorCajaTexto controladorCT = new ControladorCajaTexto();
     CrearVentaEntidad crearVenta = null;
+    CalculosDatos calculo = null;
     private VentaAddedListener ventaAddedListener;
     private ControladorVenta controladorVenta;
     private ControladorLogin controladorLogin;
+
     /**
      * Creates new form PanelVenta
      */
@@ -36,8 +39,23 @@ public class PanelVenta extends javax.swing.JPanel {
 
         // Crear instancia del controlador pasando los comboboxes del formulario
         controladorVenta = new ControladorVenta(jcbProyecto, jcbTorre, jcbApartamento);
-        
-        controladorLogin = new ControladorLogin();
+        calculo = new CalculosDatos();
+        controladorLogin = ControladorLogin.obtenerInstancia();
+
+        jcbApartamento.addItemListener(evt -> {
+            if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+                Object selectedItem = jcbApartamento.getSelectedItem();
+                if (selectedItem != null && !selectedItem.toString().equals("Seleccione...")) {
+                    cargarValorTotal();
+                } else {
+                    jtfPrecioTotalVenta.setText(""); // Limpia el campo si no hay selección válida
+                }
+            }
+        });
+
+        Date fechaActual = new Date();
+        jftfFechaVenta.setValue(fechaActual);
+        jftfFechaEscritura.setValue(fechaActual);
     }
 
     /**
@@ -146,6 +164,7 @@ public class PanelVenta extends javax.swing.JPanel {
         jPanel2.add(jtfIdVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 192, -1));
 
         jPanel3.setBackground(new java.awt.Color(193, 65, 62));
+        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jbtAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Agregar_30.png"))); // NOI18N
         jbtAgregar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -164,17 +183,14 @@ public class PanelVenta extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(143, 143, 143)
                 .addComponent(jbtAgregar)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jbtAgregar)
-                .addContainerGap(7, Short.MAX_VALUE))
+            .addComponent(jbtAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 390, 70));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 390, 60));
 
         jLabel8.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel8.setText("Asesor:");
@@ -223,7 +239,7 @@ public class PanelVenta extends javax.swing.JPanel {
         jftfFechaEscritura.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jPanel2.add(jftfFechaEscritura, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, 190, -1));
 
-        jftfFechaVenta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat(""))));
+        jftfFechaVenta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
         jftfFechaVenta.setEnabled(false);
         jftfFechaVenta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jftfFechaVenta.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -233,7 +249,7 @@ public class PanelVenta extends javax.swing.JPanel {
         });
         jPanel2.add(jftfFechaVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 190, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 410, 470));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 410, 460));
 
         add(jPanel1, "card2");
     }// </editor-fold>//GEN-END:initComponents
@@ -270,7 +286,7 @@ public class PanelVenta extends javax.swing.JPanel {
             String matricula = jtfMatricula.getText();
             String numero_idcliente = jtfIdCliente.getText();
             String numero_idAsesor = jtfIdAsesor.getText();
-            Integer numero_Apartamento = Integer.valueOf(jtfNumeroApartamento.getText());
+            Integer numero_Apartamento = Integer.valueOf((String) jcbApartamento.getSelectedItem());
             // Crear un objeto Cliente
             Venta nuevaVenta = new Venta(id_Venta, precio_Total_Venta, tipo_Pago, fecha_Venta, fecha_Escritura, matricula, numero_idcliente, numero_idAsesor, numero_Apartamento);
 
@@ -329,7 +345,7 @@ public class PanelVenta extends javax.swing.JPanel {
     }
 
     void cargarIdAsesor() {
-       LoginUsuario usuarioActivo = controladorLogin.getUsuarioActivo();
+        LoginUsuario usuarioActivo = controladorLogin.getUsuarioActivo();
         if (usuarioActivo != null) {
             jtfIdAsesor.setText(usuarioActivo.getID_USUARIO()); // Suponiendo que LoginUsuario tiene el método getIdUsuario
         } else {
@@ -337,6 +353,17 @@ public class PanelVenta extends javax.swing.JPanel {
         }
     }
 
+    public void cargarValorTotal() {
+        Integer num_Torre = Integer.valueOf((String) jcbTorre.getSelectedItem());
+        Integer apt = Integer.valueOf((String) jcbApartamento.getSelectedItem());
+        if (apt != null && num_Torre != null) {
+            Integer valor_apt = calculo.ObtenerValorApartamento(apt, num_Torre);
+            Integer valor_subM = calculo.ObtenerSubsidioMinisterio(Integer.valueOf(jtfIdCliente.getText()));
+
+            Integer valor_Total = calculo.Calcular_Valor_Total(valor_apt, valor_subM);
+            jtfPrecioTotalVenta.setText(String.valueOf(valor_Total));
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
