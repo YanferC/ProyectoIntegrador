@@ -90,7 +90,6 @@ public class PanelVenta extends javax.swing.JPanel {
         jcbApartamento = new javax.swing.JComboBox<>();
         jtfNumeroApartamento = new javax.swing.JTextField();
         jcbTipoPago = new javax.swing.JComboBox<>();
-        jcbCuotas = new javax.swing.JComboBox<>();
         jftfFechaEscritura = new javax.swing.JFormattedTextField();
         jftfFechaVenta = new javax.swing.JFormattedTextField();
 
@@ -231,9 +230,6 @@ public class PanelVenta extends javax.swing.JPanel {
         });
         jPanel2.add(jcbTipoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 190, -1));
 
-        jcbCuotas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "2", "4", "6", "8", "10" }));
-        jPanel2.add(jcbCuotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 190, -1));
-
         jftfFechaEscritura.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
         jftfFechaEscritura.setEnabled(false);
         jftfFechaEscritura.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -322,17 +318,7 @@ public class PanelVenta extends javax.swing.JPanel {
     }//GEN-LAST:event_jtfIdAsesorKeyTyped
 
     private void jcbTipoPagoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbTipoPagoItemStateChanged
-        String seleccion = (String) jcbTipoPago.getSelectedItem();
-        if ("De Contado".equals(seleccion)) {
-            jcbCuotas.enable(false);
-            jcbCuotas.setVisible(false);
-        } else {
-            jcbTipoPago.enable(false);
-            jcbTipoPago.setVisible(false);
-            jcbCuotas.enable(true);
-            jcbCuotas.setVisible(true);
-        }
-
+        
     }//GEN-LAST:event_jcbTipoPagoItemStateChanged
 
     void cargarIdVenta() {
@@ -379,7 +365,6 @@ public class PanelVenta extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JButton jbtAgregar;
     private javax.swing.JComboBox<String> jcbApartamento;
-    private javax.swing.JComboBox<String> jcbCuotas;
     private javax.swing.JComboBox<String> jcbProyecto;
     private javax.swing.JComboBox<String> jcbTipoPago;
     private javax.swing.JComboBox<String> jcbTorre;

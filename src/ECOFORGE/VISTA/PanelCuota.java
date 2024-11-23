@@ -29,7 +29,6 @@ public class PanelCuota extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jtfNumeroCuota = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -45,7 +44,8 @@ public class PanelCuota extends javax.swing.JPanel {
         jbtAgregar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jtfIntereses = new javax.swing.JTextField();
-        jftfFechaVencimiento = new javax.swing.JFormattedTextField();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jcbCuotas = new javax.swing.JComboBox<>();
 
         setLayout(new java.awt.CardLayout());
 
@@ -58,16 +58,8 @@ public class PanelCuota extends javax.swing.JPanel {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        jLabel2.setText("Número Cuota:");
+        jLabel2.setText("Número de Cuotas:");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 170, -1));
-
-        jtfNumeroCuota.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jtfNumeroCuota.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtfNumeroCuotaKeyTyped(evt);
-            }
-        });
-        jPanel2.add(jtfNumeroCuota, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 192, -1));
 
         jLabel1.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel1.setText("ID Cuota:");
@@ -94,6 +86,7 @@ public class PanelCuota extends javax.swing.JPanel {
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 170, -1));
 
         jtfEstadoCuota.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jtfEstadoCuota.setEnabled(false);
         jtfEstadoCuota.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtfEstadoCuotaKeyTyped(evt);
@@ -102,6 +95,7 @@ public class PanelCuota extends javax.swing.JPanel {
         jPanel2.add(jtfEstadoCuota, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, 192, -1));
 
         jtfIdVenta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jtfIdVenta.setEnabled(false);
         jtfIdVenta.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtfIdVentaKeyTyped(evt);
@@ -110,6 +104,7 @@ public class PanelCuota extends javax.swing.JPanel {
         jPanel2.add(jtfIdVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, 192, -1));
 
         jtfnumero_Asesor.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jtfnumero_Asesor.setEnabled(false);
         jtfnumero_Asesor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtfnumero_AsesorKeyTyped(evt);
@@ -126,6 +121,7 @@ public class PanelCuota extends javax.swing.JPanel {
         jPanel2.add(jtfMontoCuota, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 192, -1));
 
         jtfIdCuota.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jtfIdCuota.setEnabled(false);
         jtfIdCuota.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtfIdCuotaKeyTyped(evt);
@@ -176,26 +172,15 @@ public class PanelCuota extends javax.swing.JPanel {
             }
         });
         jPanel2.add(jtfIntereses, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 192, -1));
+        jPanel2.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 190, -1));
 
-        jftfFechaVencimiento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
-        jftfFechaVencimiento.setEnabled(false);
-        jftfFechaVencimiento.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jftfFechaVencimiento.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jftfFechaVencimientoKeyTyped(evt);
-            }
-        });
-        jPanel2.add(jftfFechaVencimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 190, -1));
+        jcbCuotas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "2", "4", "6", "8", "10" }));
+        jPanel2.add(jcbCuotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 190, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 410, 450));
 
         add(jPanel1, "card2");
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jtfNumeroCuotaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNumeroCuotaKeyTyped
-        /*controladorCT.soloLetras(evt);
-        controladorCT.longitudCaracter(jtfNumeroCuota, 50, evt);*/
-    }//GEN-LAST:event_jtfNumeroCuotaKeyTyped
 
     private void jtfEstadoCuotaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfEstadoCuotaKeyTyped
        // controladorCT.longitudCaracter(jtfDireccion, 50, evt);
@@ -253,12 +238,9 @@ public class PanelCuota extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfInteresesKeyTyped
 
-    private void jftfFechaVencimientoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jftfFechaVencimientoKeyTyped
-
-    }//GEN-LAST:event_jftfFechaVencimientoKeyTyped
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -271,13 +253,12 @@ public class PanelCuota extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JButton jbtAgregar;
-    private javax.swing.JFormattedTextField jftfFechaVencimiento;
+    private javax.swing.JComboBox<String> jcbCuotas;
     private javax.swing.JTextField jtfEstadoCuota;
     public javax.swing.JTextField jtfIdCuota;
     private javax.swing.JTextField jtfIdVenta;
     private javax.swing.JTextField jtfIntereses;
     private javax.swing.JTextField jtfMontoCuota;
-    private javax.swing.JTextField jtfNumeroCuota;
     private javax.swing.JTextField jtfnumero_Asesor;
     // End of variables declaration//GEN-END:variables
 }
