@@ -212,9 +212,10 @@ public class CreandoVentaVista extends javax.swing.JFrame implements PanelClient
     }//GEN-LAST:event_jbtRegistrarVentaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        datosCuotaVista newframe = new datosCuotaVista();
+        datosVentaVista newframe = new datosVentaVista();
         newframe.setVisible(true);
         this.dispose();
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jbtRegistrarCuotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtRegistrarCuotaActionPerformed

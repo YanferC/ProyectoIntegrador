@@ -47,7 +47,7 @@ public class datosCuotaVista extends javax.swing.JFrame {
         jpFondo = new javax.swing.JPanel();
         jpEncabezado = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnCerrarSesion = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jpInferior = new javax.swing.JPanel();
         btnVenta = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -67,12 +67,13 @@ public class datosCuotaVista extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("¡Bienvenido a EcoForge Asesor!");
 
-        btnCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
-        btnCerrarSesion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        btnCerrarSesion.setText("Cerrar Sesión");
-        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setBackground(new java.awt.Color(255, 188, 71));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Regresar_30.png"))); // NOI18N
+        jButton1.setFocusPainted(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesionActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -81,25 +82,23 @@ public class datosCuotaVista extends javax.swing.JFrame {
         jpEncabezadoLayout.setHorizontalGroup(
             jpEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpEncabezadoLayout.createSequentialGroup()
-                .addContainerGap(266, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(155, 155, 155)
-                .addComponent(btnCerrarSesion)
-                .addContainerGap())
+                .addGap(264, 264, 264))
         );
         jpEncabezadoLayout.setVerticalGroup(
             jpEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpEncabezadoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jpEncabezadoLayout.createSequentialGroup()
-                        .addComponent(btnCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(3, 3, 3))
+                .addGroup(jpEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
-        jpFondo.add(jpEncabezado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 40));
+        jpFondo.add(jpEncabezado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 50));
 
         jpInferior.setBackground(new java.awt.Color(193, 65, 62));
 
@@ -147,21 +146,24 @@ public class datosCuotaVista extends javax.swing.JFrame {
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(jTable1);
 
-        jpFondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 790, 380));
+        jpFondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 790, 370));
 
         getContentPane().add(jpFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnCerrarSesionActionPerformed
-
     private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
        /** CreandoVentaVista venta = new CreandoVentaVista(this);
         venta.setVisible(true); */
     }//GEN-LAST:event_btnVentaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Crea una nueva instancia de la ventana principal del dashboard y la hace visible, luego cierra la ventana actual
+        DashBoardPrincipal newframe = new DashBoardPrincipal();
+        newframe.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,8 +208,8 @@ public class datosCuotaVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnVenta;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
