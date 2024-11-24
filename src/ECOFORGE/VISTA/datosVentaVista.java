@@ -77,7 +77,7 @@ public class datosVentaVista extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) tVenta.getModel();
         modelo.setRowCount(0); // Limpiar la tabla
 
-        // Obtener todos las Torre y agregarlos a la tabla
+        // Obtener todos las Ventas y agregarlos a la tabla
         List<Venta> listaVentas = crearVenta.armarCrud().ObtenerTodo();
 
         for (Venta venta : listaVentas) {
@@ -107,7 +107,6 @@ public class datosVentaVista extends javax.swing.JFrame {
         jpFondo = new javax.swing.JPanel();
         jpEncabezado = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnCerrarSesion = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jpInferior = new javax.swing.JPanel();
         btnVenta = new javax.swing.JButton();
@@ -128,15 +127,6 @@ public class datosVentaVista extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("¡Bienvenido a EcoForge Asesor!");
 
-        btnCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
-        btnCerrarSesion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        btnCerrarSesion.setText("Cerrar Sesión");
-        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesionActionPerformed(evt);
-            }
-        });
-
         jButton2.setBackground(new java.awt.Color(255, 188, 72));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Regresar_30.png"))); // NOI18N
         jButton2.setFocusPainted(false);
@@ -156,18 +146,16 @@ public class datosVentaVista extends javax.swing.JFrame {
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 262, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(153, 153, 153)
-                .addComponent(btnCerrarSesion)
-                .addContainerGap())
+                .addGap(262, 262, 262))
         );
         jpEncabezadoLayout.setVerticalGroup(
             jpEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpEncabezadoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpEncabezadoLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton2))
                 .addGap(10, 10, 10))
         );
@@ -228,10 +216,6 @@ public class datosVentaVista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnCerrarSesionActionPerformed
-
     private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
         // Crear una instancia del formulario CreandoVentaVista
         CreandoVentaVista venta = new CreandoVentaVista(this);
@@ -242,8 +226,11 @@ public class datosVentaVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVentaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        DashBoardPrincipal newframe = new DashBoardPrincipal();
-        newframe.setVisible(true);
+        DashBoardPrincipal ventanaprincipal = new DashBoardPrincipal();
+        ventanaprincipal.setVisible(true);
+        ventanaprincipal.btnProyecto.setEnabled(false); // Desactivar botones de administrador en el DashBoard
+        ventanaprincipal.btnTorre.setEnabled(false);
+        ventanaprincipal.btnApartamento.setEnabled(false);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -291,7 +278,6 @@ public class datosVentaVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnVenta;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

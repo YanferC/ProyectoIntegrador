@@ -30,10 +30,10 @@ public class datosClienteVista extends javax.swing.JFrame {
 
         crearCliente = new CrearClienteEntidad();
         ControladorUtilidades.centrarVentana(this);
-        
+
         // Llenamos la tabla
         List<Cliente> listaClientes = crearCliente.armarCrud().ObtenerTodo();
-        llenarTablaClientes(listaClientes); 
+        llenarTablaClientes(listaClientes);
 
     }
 
@@ -64,7 +64,7 @@ public class datosClienteVista extends javax.swing.JFrame {
             };
             modelo.addRow(fila);
         }
-        
+
         tCliente.setModel(modelo);
         tCliente.setBackground(Color.decode("#AFE5EF"));
         tCliente.setForeground(Color.BLACK);             // Texto en negro
@@ -274,19 +274,20 @@ public class datosClienteVista extends javax.swing.JFrame {
         String telefono = tCliente.getValueAt(filaSeleccionada, 5).toString();
         String correo = tCliente.getValueAt(filaSeleccionada, 6).toString();
 
-        
         // Pasar los datos al formulario
         //actualizarCliente.cargarDatos(numero_Identificacion, nombre, sisben, subsidio_Ministerio, direccion, telefono, correo);
-
         // Establecer un modo de "actualización"
         //actualizarCliente.setModoActualizar(true);      // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Crea una nueva instancia de la ventana principal del dashboard y la hace visible, luego cierra la ventana actual
-        DashBoardPrincipal newframe = new DashBoardPrincipal();
-        newframe.setVisible(true);
+        DashBoardPrincipal ventanaprincipal = new DashBoardPrincipal();
+        ventanaprincipal.setVisible(true);
+        ventanaprincipal.btnProyecto.setEnabled(false); // Desactivar botones de administrador en el DashBoard
+        ventanaprincipal.btnTorre.setEnabled(false);
+        ventanaprincipal.btnApartamento.setEnabled(false);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

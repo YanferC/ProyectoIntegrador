@@ -49,12 +49,12 @@ public class PanelCliente extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jtfDireccion = new javax.swing.JTextField();
         jtfCorreoElectronico = new javax.swing.JTextField();
-        jtfSisben = new javax.swing.JTextField();
         jtfTelefono = new javax.swing.JTextField();
         jtfSubsidio_Ministerio = new javax.swing.JTextField();
         jtfNumeroIdentificacion = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jbtAgregar = new javax.swing.JButton();
+        jcbSisben = new javax.swing.JComboBox<>();
 
         setLayout(new java.awt.CardLayout());
 
@@ -118,14 +118,6 @@ public class PanelCliente extends javax.swing.JPanel {
         });
         jPanel2.add(jtfCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 340, 192, -1));
 
-        jtfSisben.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jtfSisben.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtfSisbenKeyTyped(evt);
-            }
-        });
-        jPanel2.add(jtfSisben, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 192, -1));
-
         jtfTelefono.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jtfTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -182,6 +174,9 @@ public class PanelCliente extends javax.swing.JPanel {
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 390, 70));
 
+        jcbSisben.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Si", "No" }));
+        jPanel2.add(jcbSisben, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 190, -1));
+
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 410, 450));
 
         add(jPanel1, "card2");
@@ -190,7 +185,7 @@ public class PanelCliente extends javax.swing.JPanel {
     private boolean validarEntradas() {
         if (jtfNumeroIdentificacion.getText().isEmpty()
                 || jtfNombreCompleto.getText().isEmpty()
-                || jtfSisben.getText().isEmpty()
+                || jcbSisben.getSelectedItem().toString().isEmpty()
                 || jtfSubsidio_Ministerio.getText().isEmpty()
                 || jtfDireccion.getText().isEmpty()
                 || jtfTelefono.getText().isEmpty()
@@ -201,11 +196,6 @@ public class PanelCliente extends javax.swing.JPanel {
 
         if (!jtfCorreoElectronico.getText().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
             JOptionPane.showMessageDialog(this, "Ingrese un correo electrónico válido.");
-            return false;
-        }
-
-        if (!jtfSisben.getText().matches("[1-2]")) {
-            JOptionPane.showMessageDialog(this, "El nivel SISBEN debe ser 1 o 2.");
             return false;
         }
 
@@ -220,7 +210,7 @@ public class PanelCliente extends javax.swing.JPanel {
         // Obtener datos de los campos de texto
         String numero_Identificacion = jtfNumeroIdentificacion.getText();
         String nombreCompleto = jtfNombreCompleto.getText();
-        String sisben = jtfSisben.getText();
+        String sisben = (String) jcbSisben.getSelectedItem();
         Integer subsidio_Ministerio = Integer.valueOf(jtfSubsidio_Ministerio.getText());
         String direccion = jtfDireccion.getText();
         String telefono = jtfTelefono.getText();
@@ -270,11 +260,6 @@ public class PanelCliente extends javax.swing.JPanel {
         controladorCT.longitudCaracter(jtfNombreCompleto, 50, evt);
     }//GEN-LAST:event_jtfNombreCompletoKeyTyped
 
-    private void jtfSisbenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfSisbenKeyTyped
-        controladorCT.soloNumeros(evt);
-        controladorCT.longitudCaracter(jtfSisben, 1, evt);
-    }//GEN-LAST:event_jtfSisbenKeyTyped
-
     private void jtfDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDireccionKeyTyped
         controladorCT.longitudCaracter(jtfDireccion, 50, evt);
     }//GEN-LAST:event_jtfDireccionKeyTyped
@@ -296,11 +281,11 @@ public class PanelCliente extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JButton jbtAgregar;
+    private javax.swing.JComboBox<String> jcbSisben;
     private javax.swing.JTextField jtfCorreoElectronico;
     private javax.swing.JTextField jtfDireccion;
     private javax.swing.JTextField jtfNombreCompleto;
-    public javax.swing.JTextField jtfNumeroIdentificacion;
-    private javax.swing.JTextField jtfSisben;
+    protected javax.swing.JTextField jtfNumeroIdentificacion;
     private javax.swing.JTextField jtfSubsidio_Ministerio;
     private javax.swing.JTextField jtfTelefono;
     // End of variables declaration//GEN-END:variables

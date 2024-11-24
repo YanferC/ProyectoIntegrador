@@ -88,7 +88,6 @@ public class datosApartamentoVista extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnCerrarSesion = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -196,16 +195,6 @@ public class datosApartamentoVista extends javax.swing.JFrame {
         jLabel1.setText("Apartamento");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 3, 200, 40));
 
-        btnCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
-        btnCerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        btnCerrarSesion.setText("Cerrar Sesión");
-        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesionActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 10, -1, 31));
-
         jButton1.setBackground(new java.awt.Color(255, 188, 71));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Regresar_30.png"))); // NOI18N
         jButton1.setFocusPainted(false);
@@ -253,11 +242,6 @@ public class datosApartamentoVista extends javax.swing.JFrame {
         apartamentoVistaC.btnActualizar.setEnabled(false);
         this.dispose(); // Cierra la ventana actual
     }//GEN-LAST:event_btnAgregarActionPerformed
-    // Este método se ejecuta cuando se hace clic en el botón de cerrar sesión
-    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        
-        this.dispose();
-    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // Verificar que se ha seleccionado un registro en la tabla
@@ -289,8 +273,11 @@ public class datosApartamentoVista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        DashBoardPrincipal newframe = new DashBoardPrincipal();
-        newframe.setVisible(true);
+        DashBoardPrincipal ventanaprincipal = new DashBoardPrincipal();
+        ventanaprincipal.setVisible(true);
+        ventanaprincipal.btnVentas.setEnabled(false); // Desactivar botones de Asesor en el DashBoard
+        ventanaprincipal.btnCuota.setEnabled(false);
+        ventanaprincipal.btnCliente.setEnabled(false);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
     
@@ -349,7 +336,6 @@ public class datosApartamentoVista extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

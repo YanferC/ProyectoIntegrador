@@ -8,31 +8,92 @@ package ECOFORGE.VISTA;
  *
  * @author YANFER
  */
-
-import ECOFORGE.MODELO.CrudCuota;
-
 import ECOFORGE.CONTROLADOR.ControladorUtilidades;
-
+import ECOFORGE.CONTROLADOR.CrearCuotaEntidad;
 
 import ECOFORGE.MODELO.Cuota;
+import java.awt.Color;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class datosCuotaVista extends javax.swing.JFrame {
 
-    private CrudCuota cuota;
+    CrearCuotaEntidad crearCuota = null;
 
     /**
      * Creates new form Asesor
      */
     public datosCuotaVista() {
         initComponents();
-        cuota = new CrudCuota();
-        //cuota.conectar();
-        //cuota.llenarTablaCuotas(jTable1);
         ControladorUtilidades.centrarVentana(this);
-        
+
+        crearCuota = new CrearCuotaEntidad();
+        // Llenamos la tabla
+        List<Cuota> listaCuotas = crearCuota.armarCrud().ObtenerTodo();
+        llenarTablaCuotas(listaCuotas);
+
+    }
+
+    public void llenarTablaCuotas(List<Cuota> listaCuotas) {
+        //DefaultTableModel modelo = (DefaultTableModel) tProyecto.getModel();
+
+        // Crear el modelo de la tabla con las columnas definidas
+        DefaultTableModel modelo = new DefaultTableModel(
+                new String[]{
+                    "Id", "Numero Cuota", "Fecha Vencimiento",
+                    "Monto Cuota", "Estado Cuota", "Asesor",
+                    "Intereses", "Venta"
+                }, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;  // Bloquear edición de las celdas
+            }
+        };
+
+        // Agregar los datos al modelo
+        for (Cuota cuota : listaCuotas) {
+            Object[] fila = {
+                cuota.getId(),
+                cuota.getNumero_Cuota(),
+                cuota.getFecha_Vencimiento(),
+                cuota.getMonto_Cuota(),
+                cuota.getEstado_Cuota(),
+                cuota.getNumero_Asesor(),
+                cuota.getIntereses(),
+                cuota.getId_Venta()
+            };
+            modelo.addRow(fila);
+        }
+
+        tCuotas.setModel(modelo);
+        tCuotas.setBackground(Color.decode("#AFE5EF"));
+        tCuotas.setForeground(Color.BLACK);             // Texto en negro
+        tCuotas.setSelectionBackground(new Color(100, 150, 255)); // Fondo al seleccionar
+        tCuotas.setSelectionForeground(Color.WHITE);    // Texto al seleccionar
+    }
+
+    public void actualizarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) tCuotas.getModel();
+        modelo.setRowCount(0); // Limpiar la tabla
+
+        // Obtener todos las Cuotas y agregarlos a la tabla
+        List<Cuota> listaCuotas = crearCuota.armarCrud().ObtenerTodo();
+
+        // Agregar los datos al modelo
+        for (Cuota cuota : listaCuotas) {
+            Object[] fila = {
+                cuota.getId(),
+                cuota.getNumero_Cuota(),
+                cuota.getFecha_Vencimiento(),
+                cuota.getMonto_Cuota(),
+                cuota.getEstado_Cuota(),
+                cuota.getNumero_Asesor(),
+                cuota.getIntereses(),
+                cuota.getId_Venta()
+            };
+            modelo.addRow(fila);
+        }
     }
 
     /**
@@ -51,7 +112,7 @@ public class datosCuotaVista extends javax.swing.JFrame {
         jpInferior = new javax.swing.JPanel();
         btnVenta = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tCuotas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -132,7 +193,7 @@ public class datosCuotaVista extends javax.swing.JFrame {
 
         jpFondo.add(jpInferior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 790, 70));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tCuotas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -143,8 +204,8 @@ public class datosCuotaVista extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane1.setViewportView(jTable1);
+        tCuotas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane1.setViewportView(tCuotas);
 
         jpFondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 790, 370));
 
@@ -154,14 +215,21 @@ public class datosCuotaVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
-       /** CreandoVentaVista venta = new CreandoVentaVista(this);
-        venta.setVisible(true); */
+        // Crear una instancia del formulario CreandoVentaVista
+        CreandoVentaVista venta = new CreandoVentaVista(this);
+        // Configurar el formulario como visible
+        venta.setVisible(true);
+        // Opcional: Cerrar o ocultar el formulario actual si es necesario
+        this.dispose();
     }//GEN-LAST:event_btnVentaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Crea una nueva instancia de la ventana principal del dashboard y la hace visible, luego cierra la ventana actual
-        DashBoardPrincipal newframe = new DashBoardPrincipal();
-        newframe.setVisible(true);
+        DashBoardPrincipal ventanaprincipal = new DashBoardPrincipal();
+        ventanaprincipal.setVisible(true);
+        ventanaprincipal.btnProyecto.setEnabled(false); // Desactivar botones de administrador en el DashBoard
+        ventanaprincipal.btnTorre.setEnabled(false);
+        ventanaprincipal.btnApartamento.setEnabled(false);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -201,6 +269,7 @@ public class datosCuotaVista extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new datosCuotaVista().setVisible(true);
             }
@@ -212,9 +281,9 @@ public class datosCuotaVista extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel jpEncabezado;
     private javax.swing.JPanel jpFondo;
     private javax.swing.JPanel jpInferior;
+    private javax.swing.JTable tCuotas;
     // End of variables declaration//GEN-END:variables
 }

@@ -26,8 +26,8 @@ public class PanelVenta extends javax.swing.JPanel {
     CrearVentaEntidad crearVenta = null;
     CalculosDatos calculo = null;
     private VentaAddedListener ventaAddedListener;
-    private ControladorVenta controladorVenta;
-    private ControladorLogin controladorLogin;
+    private final ControladorVenta controladorVenta;
+    private final ControladorLogin controladorLogin;
 
     /**
      * Creates new form PanelVenta
@@ -293,7 +293,7 @@ public class PanelVenta extends javax.swing.JPanel {
                     ventaAddedListener.onVentaAdded();
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Error al agregar cliente.");
+                JOptionPane.showMessageDialog(this, "Error al agregar la venta.");
             }
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this, "Error al convertir las fechas. Por favor, verifica el formato (dd/MM/yyyy).");
@@ -318,7 +318,7 @@ public class PanelVenta extends javax.swing.JPanel {
     }//GEN-LAST:event_jtfIdAsesorKeyTyped
 
     private void jcbTipoPagoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbTipoPagoItemStateChanged
-        
+
     }//GEN-LAST:event_jcbTipoPagoItemStateChanged
 
     void cargarIdVenta() {
@@ -366,13 +366,13 @@ public class PanelVenta extends javax.swing.JPanel {
     private javax.swing.JButton jbtAgregar;
     private javax.swing.JComboBox<String> jcbApartamento;
     private javax.swing.JComboBox<String> jcbProyecto;
-    private javax.swing.JComboBox<String> jcbTipoPago;
+    protected javax.swing.JComboBox<String> jcbTipoPago;
     private javax.swing.JComboBox<String> jcbTorre;
     private javax.swing.JFormattedTextField jftfFechaEscritura;
     private javax.swing.JFormattedTextField jftfFechaVenta;
     private javax.swing.JTextField jtfIdAsesor;
     private javax.swing.JTextField jtfIdCliente;
-    private javax.swing.JTextField jtfIdVenta;
+    protected javax.swing.JTextField jtfIdVenta;
     private javax.swing.JTextField jtfMatricula;
     private javax.swing.JTextField jtfNumeroApartamento;
     private javax.swing.JTextField jtfPrecioTotalVenta;

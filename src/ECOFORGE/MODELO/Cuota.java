@@ -19,8 +19,18 @@ public class Cuota {
     private String numero_Iden_Ase;
     private Integer intereses;
     private Integer id_Venta;
+    private Integer num_Cuotas;
 
-    public Cuota(Integer id, Integer numero_Cuota, Date fecha_Vencimiento, Integer monto_Cuota, String estado_Cuota, String numero_Iden_Ase, Integer intereses, Integer id_Venta) {
+    public Integer getNum_Cuotas() {
+        return num_Cuotas;
+    }
+
+    public void setNum_Cuotas(Integer num_Cuotas) {
+        this.num_Cuotas = num_Cuotas;
+    }
+
+    public Cuota(Integer id, Integer numero_Cuota, Date fecha_Vencimiento, Integer monto_Cuota, String estado_Cuota, String numero_Iden_Ase, Integer intereses, Integer id_Venta,
+            Integer num_cuotas) {
         this.id = id;
         this.numero_Cuota = numero_Cuota;
         this.fecha_Vencimiento = fecha_Vencimiento;
@@ -29,6 +39,7 @@ public class Cuota {
         this.numero_Iden_Ase = numero_Iden_Ase;
         this.intereses = intereses;
         this.id_Venta = id_Venta;
+        this.num_Cuotas = num_cuotas;
     }
 
     public Integer getId() {
