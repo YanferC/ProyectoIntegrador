@@ -37,6 +37,7 @@ public class CreandoVentaVista extends javax.swing.JFrame implements PanelClient
         // Configurar Listeners
         panelCliente.setClienteAddedListener(this);
         panelVenta.setVentaAddedListener(this);
+        panelCuota.setCuotaAddedListener(this);
 
         // Agregar paneles al CardLayout
         cardLayout = new CardLayout();

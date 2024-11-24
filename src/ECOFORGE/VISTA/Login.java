@@ -83,6 +83,11 @@ public class Login extends javax.swing.JFrame {
                 jTFNombreUsuarioMouseClicked(evt);
             }
         });
+        jTFNombreUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFNombreUsuarioActionPerformed(evt);
+            }
+        });
         jTFNombreUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTFNombreUsuarioKeyTyped(evt);
@@ -116,6 +121,11 @@ public class Login extends javax.swing.JFrame {
 
         btnCrearAsesor.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         btnCrearAsesor.setText("Crear Asesor");
+        btnCrearAsesor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearAsesorActionPerformed(evt);
+            }
+        });
         Fondo.add(btnCrearAsesor, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 420, 110, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -183,6 +193,13 @@ public class Login extends javax.swing.JFrame {
     private void jTFNombreUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFNombreUsuarioKeyTyped
         controladorCT.soloNumeros(evt);
     }//GEN-LAST:event_jTFNombreUsuarioKeyTyped
+
+    private void btnCrearAsesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearAsesorActionPerformed
+        // TODO add your handling code here:
+        datosAsesorVista asesorVista = new datosAsesorVista();
+        asesorVista.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCrearAsesorActionPerformed
 
     /**
      * @param args the command line arguments

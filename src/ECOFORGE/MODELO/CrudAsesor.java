@@ -8,105 +8,117 @@ package ECOFORGE.MODELO;
  *
  * @author YANFER
  */
-import ECOFORGE.MODELO.Asesor;
+import ECOFORGE.CONTROLADOR.Crud;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
-public class CrudAsesor {
-   
-    private DatabaseConnection dbConnection;
-    private Connection connection;
 
-    public CrudAsesor() {
-       // dbConnection = new DatabaseConnection();
-    }
-/**
-    public void conectar() {
-        connection = dbConnection.connect(); // Conectar a la base de datos
-    }
+public class CrudAsesor implements Crud<Asesor> {
 
-    // Método para crear un asesor
-    public boolean crearAsesor(Asesor asesor) {
-        String sql = "INSERT INTO Asesor (NUMERO_IDENTIFICACION, NOMBRE_COMPLETO, DIRECCION, TELEFONO, CORREO_ELECTRONICO, ID_TIPO_ROL) VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
+    @Override
+    public boolean Crear(Asesor asesor) {
+        String sql = "{ call inc_Asesor(?, ?, ?, ?, ?) }";
+        try (Connection conexion = DatabaseConnection.getConexion(); CallableStatement statement = conexion.prepareCall(sql)) {
 
-            statement.setInt(1, asesor.getNumero_Identificacion());
+            // Establece los parámetros para el procedimiento
+            statement.setString(1, asesor.getNumero_Identificacion());
             statement.setString(2, asesor.getNombre_Completo());
             statement.setString(3, asesor.getDireccion());
             statement.setString(4, asesor.getTelefono());
             statement.setString(5, asesor.getCorreo_Electronico());
-            statement.setInt(6, asesor.getId_Tipo_Rol());
 
-            int rowsInserted = statement.executeUpdate();
-            return rowsInserted > 0;
+            // Ejecuta el procedimiento
+            statement.execute();
+            return true;  // Devuelve true si se ejecuta correctamente
+
         } catch (SQLException e) {
-            System.out.println("Error al crear Asesor: " + e.getMessage());
+            System.out.println("Error al crear el Asesor: " + e.getMessage());
             return false;
         }
     }
 
-    // Método para leer un asesor por cédula
-    public Asesor obtenerAsesor(String numero_Identificacion) {
-        String sql = "SELECT * FROM Asesor WHERE numero_Identificacion = ?";
-        Asesor asesor = null;
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
+    @Override
+    public boolean Actualizar(Asesor asesor) {
+        String sql = "{ call mod_datos_Asesor(?, ?, ?, ?) }";
+        try (Connection conexion = DatabaseConnection.getConexion(); CallableStatement statement = conexion.prepareCall(sql)) {
 
-            statement.setString(1, numero_Identificacion);
-            ResultSet resultSet = statement.executeQuery();
+            // Establece los parámetros para el procedimiento
+            statement.setString(1, asesor.getNumero_Identificacion());
+            statement.setString(2, asesor.getDireccion());
+            statement.setString(3, asesor.getTelefono());
+            statement.setString(4, asesor.getCorreo_Electronico());
 
-            if (resultSet.next()) {
-                asesor = new Asesor(
-                        resultSet.getInt("numero_Identificacion"),
-                        resultSet.getString("nombre_Completo"),
+            int rowsUpdated = statement.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar el Asesor: " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean Eliminar(String Codigo1, String Codigo2) {
+        String sql = "{ call eliminar_Asesor(?) }";
+        try (Connection conexion = DatabaseConnection.getConexion(); CallableStatement statement = conexion.prepareCall(sql)) {
+
+            statement.setString(1, Codigo1);
+            statement.execute();
+            return true;  // Elimina exitosamente si no hay dependencias.
+
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 2292) {  // Error ORA-02292: restricción de integridad referencial violada - registro secundario encontrado
+                System.out.println("Error al eliminar el Asesor: Existen registros relacionados en otras tablas.");
+            } else {
+                System.out.println("Error al eliminar el Asesor: " + e.getMessage());
+            }
+            return false;
+        }
+    }
+
+    @Override
+    public List<Asesor> ObtenerTodo() {
+        String sql = "{ ? = call obtener_Todos_Asesor}";
+        List<Asesor> listaAsesor = new ArrayList<>();
+
+        try (Connection conexion = DatabaseConnection.getConexion(); CallableStatement statement = conexion.prepareCall(sql)) {
+
+            // Registrar el primer parámetro como el cursor de salida
+            statement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+
+            // Ejecutar la función
+            statement.execute();
+
+            // Obtener el cursor como ResultSet
+            try (ResultSet resultSet = (ResultSet) statement.getObject(1)) {
+                while (resultSet.next()) {
+                     Asesor asesor = new Asesor(
+                        resultSet.getString("numero_Identificacion"),
+                        resultSet.getString("nombre_completo"),
                         resultSet.getString("direccion"),
                         resultSet.getString("telefono"),
-                        resultSet.getString("correo_Electronico"),
-                        resultSet.getInt("id_Tipo_Rol")
-                );
+                        resultSet.getString("correo_electronico")
+                    );
+                    listaAsesor.add(asesor);
+                }
             }
         } catch (SQLException e) {
-            System.out.println("Error al obtener Asesor: " + e.getMessage());
+            System.out.println("Error al obtener los clientes: " + e.getMessage());
         }
-        return asesor;
+
+        return listaAsesor;
     }
 
-    // Método para eliminar un asesor
-    public boolean eliminarAsesor(Integer Numero_Identificacion) {
-        String sql = "DELETE FROM Asesor WHERE numero_Identificacion = ?";
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            statement.setInt(1, Numero_Identificacion);
-
-            int rowsDeleted = statement.executeUpdate();
-            return rowsDeleted > 0;
-        } catch (SQLException e) {
-            System.out.println("Error al eliminar asesor: " + e.getMessage());
-            return false;
-        }
+    @Override
+    public Asesor ObtenerPorCodigo(String Codigo) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    // Método para obtener el ID del tipo de rol por cédula
-    public Integer obtenerTipoRol(String numero_Identificacion) {
-        String sql = "SELECT id_Tipo_Rol FROM Asesor WHERE numero_Identificacion = ?";
-        Integer idTipoRol = null;
-
-        try (Connection connection = dbConnection.connect(); PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            statement.setString(1, numero_Identificacion);
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                idTipoRol = resultSet.getInt("id_Tipo_Rol");
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al obtener el tipo de rol: " + e.getMessage());
-        }
-        return idTipoRol;
-    }*/
+    @Override
+    public String ObtenerID() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

@@ -273,6 +273,7 @@ public class PanelCuota extends javax.swing.JPanel {
             // Notificar al listener que se ha agregado un cliente
             if (cuotaAddedListener != null) {
                 cuotaAddedListener.onCuotaAdded();
+                System.out.print("Terminó");
             }
         } else {
             JOptionPane.showMessageDialog(this, "Error al agregar Cuotas.");
@@ -313,6 +314,10 @@ public class PanelCuota extends javax.swing.JPanel {
     public interface CuotaAddedListener {
 
         void onCuotaAdded();
+    }
+    
+    public void setCuotaAddedListener(CuotaAddedListener listener) {
+        this.cuotaAddedListener = listener;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

@@ -232,7 +232,7 @@ public class datosProyectosVista extends javax.swing.JFrame {
         agregarProyecto.setVisible(true);
         agregarProyecto.btnActualizar.setEnabled(false);
         agregarProyecto.setCodigoProyecto(crearProyecto.armarCrud().ObtenerID());
-        dispose();
+        this.dispose();
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAgregarActionPerformed
