@@ -76,7 +76,7 @@ public class ControladorLogin {
                     resultSet.getString("Descripcion_Rol"),
                     contrasenaBD
             );
-            System.out.println("Inicio de sesión exitoso para el rol: " + tipoRol + " y Asesor: "+ resultSet.getString("id_Usuario"));
+            System.out.println("Inicio de sesión exitoso para el rol: " + tipoRol + " y Usuario: "+ resultSet.getString("id_Usuario"));
             return usuarioActivo;
         } else {
             System.out.println("Contraseña incorrecta.");
