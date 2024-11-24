@@ -90,4 +90,31 @@ public class CalculosDatos {
 
         return valorSubsidio;
     }
+    
+    public Integer CalcularValorCuota(Integer idVenta, Integer numeroCuotas, Double porcentajeInteres) {
+        String sql = "{ ? = call CALCULAR_VALOR_CUOTA(?, ?, ?) }";
+        Integer valorCuota = null;
+
+        try (Connection conexion = DatabaseConnection.getConexion(); CallableStatement statement = conexion.prepareCall(sql)) {
+
+            // Registrar el parámetro de salida
+            statement.registerOutParameter(1, java.sql.Types.NUMERIC);
+
+            // Configurar los parámetros de entrada
+            statement.setInt(2, idVenta);               // ID de la venta
+            statement.setInt(3, numeroCuotas);          // Número de cuotas
+            statement.setDouble(4, porcentajeInteres);  // Porcentaje de interés
+
+            // Ejecutar la función
+            statement.execute();
+
+            // Obtener el valor de salida
+            valorCuota = statement.getInt(1);
+
+        } catch (SQLException e) {
+            System.out.println("Error al calcular el valor de la cuota: " + e.getMessage());
+        }
+
+        return valorCuota;
+    }
 }

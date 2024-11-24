@@ -4,6 +4,14 @@
  */
 package ECOFORGE.VISTA;
 
+import ECOFORGE.CONTROLADOR.ControladorCajaTexto;
+import ECOFORGE.CONTROLADOR.ControladorLogin;
+import ECOFORGE.CONTROLADOR.CrearCuotaEntidad;
+import ECOFORGE.MODELO.CalculosDatos;
+import ECOFORGE.MODELO.Cuota;
+import ECOFORGE.MODELO.LoginUsuario;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author YANFER
@@ -13,8 +21,30 @@ public class PanelCuota extends javax.swing.JPanel {
     /**
      * Creates new form PanelCuota
      */
+    CrearCuotaEntidad crearCuota = null;
+    CalculosDatos calculo = null;
+    ControladorCajaTexto controladorCT = new ControladorCajaTexto();
+    private final ControladorLogin controladorLogin;
+    private CuotaAddedListener cuotaAddedListener;
+
     public PanelCuota() {
         initComponents();
+
+        crearCuota = new CrearCuotaEntidad();
+
+        calculo = new CalculosDatos();
+        controladorLogin = ControladorLogin.obtenerInstancia();
+
+        jcbCuotas.addItemListener(evt -> {
+            if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+                Object selectedItem = jcbCuotas.getSelectedItem();
+                if (selectedItem != null && !selectedItem.toString().equals("Seleccione...")) {
+                    cargarValorCuota();
+                } else {
+                    jtfMontoCuota.setText(""); // Limpia el campo si no hay selección válida
+                }
+            }
+        });
     }
 
     /**
@@ -29,7 +59,6 @@ public class PanelCuota extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jtfNumeroCuota = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -38,14 +67,15 @@ public class PanelCuota extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jtfEstadoCuota = new javax.swing.JTextField();
         jtfIdVenta = new javax.swing.JTextField();
-        jtfnumero_Asesor = new javax.swing.JTextField();
+        jtfIdAsesor = new javax.swing.JTextField();
         jtfMontoCuota = new javax.swing.JTextField();
         jtfIdCuota = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jbtAgregar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jtfIntereses = new javax.swing.JTextField();
-        jftfFechaVencimiento = new javax.swing.JFormattedTextField();
+        jdcFechaVencimiento = new com.toedter.calendar.JDateChooser();
+        jcbCuotas = new javax.swing.JComboBox<>();
 
         setLayout(new java.awt.CardLayout());
 
@@ -58,19 +88,11 @@ public class PanelCuota extends javax.swing.JPanel {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        jLabel2.setText("Número Cuota:");
+        jLabel2.setText("Número de Cuotas:");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 170, -1));
 
-        jtfNumeroCuota.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jtfNumeroCuota.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtfNumeroCuotaKeyTyped(evt);
-            }
-        });
-        jPanel2.add(jtfNumeroCuota, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 192, -1));
-
         jLabel1.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        jLabel1.setText("ID Cuota:");
+        jLabel1.setText("Numero Cuota:");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 190, -1));
 
         jLabel3.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
@@ -94,6 +116,8 @@ public class PanelCuota extends javax.swing.JPanel {
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 170, -1));
 
         jtfEstadoCuota.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jtfEstadoCuota.setText("Pendiente");
+        jtfEstadoCuota.setEnabled(false);
         jtfEstadoCuota.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtfEstadoCuotaKeyTyped(evt);
@@ -102,6 +126,7 @@ public class PanelCuota extends javax.swing.JPanel {
         jPanel2.add(jtfEstadoCuota, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, 192, -1));
 
         jtfIdVenta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jtfIdVenta.setEnabled(false);
         jtfIdVenta.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtfIdVentaKeyTyped(evt);
@@ -109,15 +134,17 @@ public class PanelCuota extends javax.swing.JPanel {
         });
         jPanel2.add(jtfIdVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, 192, -1));
 
-        jtfnumero_Asesor.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jtfnumero_Asesor.addKeyListener(new java.awt.event.KeyAdapter() {
+        jtfIdAsesor.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jtfIdAsesor.setEnabled(false);
+        jtfIdAsesor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtfnumero_AsesorKeyTyped(evt);
+                jtfIdAsesorKeyTyped(evt);
             }
         });
-        jPanel2.add(jtfnumero_Asesor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, 192, -1));
+        jPanel2.add(jtfIdAsesor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, 192, -1));
 
         jtfMontoCuota.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jtfMontoCuota.setEnabled(false);
         jtfMontoCuota.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtfMontoCuotaKeyTyped(evt);
@@ -126,6 +153,8 @@ public class PanelCuota extends javax.swing.JPanel {
         jPanel2.add(jtfMontoCuota, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 192, -1));
 
         jtfIdCuota.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jtfIdCuota.setText("1");
+        jtfIdCuota.setEnabled(false);
         jtfIdCuota.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtfIdCuotaKeyTyped(evt);
@@ -170,48 +199,44 @@ public class PanelCuota extends javax.swing.JPanel {
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 170, -1));
 
         jtfIntereses.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jtfIntereses.setText("4");
+        jtfIntereses.setEnabled(false);
+        jtfIntereses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfInteresesActionPerformed(evt);
+            }
+        });
         jtfIntereses.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtfInteresesKeyTyped(evt);
             }
         });
         jPanel2.add(jtfIntereses, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 192, -1));
+        jPanel2.add(jdcFechaVencimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 190, -1));
 
-        jftfFechaVencimiento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
-        jftfFechaVencimiento.setEnabled(false);
-        jftfFechaVencimiento.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jftfFechaVencimiento.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jftfFechaVencimientoKeyTyped(evt);
-            }
-        });
-        jPanel2.add(jftfFechaVencimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 190, -1));
+        jcbCuotas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "2", "4", "6", "8", "10" }));
+        jPanel2.add(jcbCuotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 190, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 410, 450));
 
         add(jPanel1, "card2");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtfNumeroCuotaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNumeroCuotaKeyTyped
-        /*controladorCT.soloLetras(evt);
-        controladorCT.longitudCaracter(jtfNumeroCuota, 50, evt);*/
-    }//GEN-LAST:event_jtfNumeroCuotaKeyTyped
-
     private void jtfEstadoCuotaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfEstadoCuotaKeyTyped
-       // controladorCT.longitudCaracter(jtfDireccion, 50, evt);
+        // controladorCT.longitudCaracter(jtfDireccion, 50, evt);
     }//GEN-LAST:event_jtfEstadoCuotaKeyTyped
 
     private void jtfIdVentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfIdVentaKeyTyped
         //controladorCT.longitudCaracter(jtfCorreoElectronico, 30, evt);
     }//GEN-LAST:event_jtfIdVentaKeyTyped
 
-    private void jtfnumero_AsesorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfnumero_AsesorKeyTyped
-       // controladorCT.soloNumeros(evt);
+    private void jtfIdAsesorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfIdAsesorKeyTyped
+        // controladorCT.soloNumeros(evt);
         //controladorCT.longitudCaracter(jtfTelefono, 10, evt);
-    }//GEN-LAST:event_jtfnumero_AsesorKeyTyped
+    }//GEN-LAST:event_jtfIdAsesorKeyTyped
 
     private void jtfMontoCuotaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfMontoCuotaKeyTyped
-       // controladorCT.soloNumeros(evt);
+        // controladorCT.soloNumeros(evt);
         //controladorCT.longitudCaracter(jtfSubsidio_Ministerio, 7, evt);
     }//GEN-LAST:event_jtfMontoCuotaKeyTyped
 
@@ -221,43 +246,74 @@ public class PanelCuota extends javax.swing.JPanel {
     }//GEN-LAST:event_jtfIdCuotaKeyTyped
 
     private void jbtAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAgregarActionPerformed
-        /**if (!validarEntradas()) {
-            return;
-        }
 
         // Obtener datos de los campos de texto
-        String numero_Identificacion = jtfIdCuota.getText();
-        String nombreCompleto = jtfNumeroCuota.getText();
-        String sisben = jtfSisben.getText();
-        Integer subsidio_Ministerio = Integer.valueOf(jtfSubsidio_Ministerio.getText());
-        String direccion = jtfDireccion.getText();
-        String telefono = jtfTelefono.getText();
-        String correo = jtfCorreoElectronico.getText();
+        Integer id_Venta = Integer.valueOf(jtfIdVenta.getText());
+
+        java.util.Date utilDate = jdcFechaVencimiento.getDate(); // Obtener la fecha como java.util.Date
+        java.sql.Date fecha_vencimiento = null;
+
+        // Verificar si la fecha no es nula antes de la conversión
+        if (utilDate != null) {
+            fecha_vencimiento = new java.sql.Date(utilDate.getTime());
+        }
+
+        Integer monto_Cuota = Integer.valueOf(jtfMontoCuota.getText());
+        String estado_Cuota = jtfEstadoCuota.getText();
+        String numero_Asesor = jtfIdAsesor.getText();
+        Integer intereses = Integer.valueOf(jtfIntereses.getText());
+        Integer numero_Cuotas = Integer.valueOf((String) jcbCuotas.getSelectedItem());
 
         // Crear un objeto Cliente
-        Cliente nuevoCliente = new Cliente(numero_Identificacion, nombreCompleto, sisben, subsidio_Ministerio, direccion, telefono, correo);
+        Cuota nuevaCuota = new Cuota(1, 1, fecha_vencimiento, monto_Cuota, estado_Cuota, numero_Asesor, intereses, id_Venta, numero_Cuotas);
 
         // Agregar cliente utilizando el controlador
-        if (crearCliente.armarCrud().Crear(nuevoCliente)) {
-            JOptionPane.showMessageDialog(this, "Cliente agregado exitosamente.");
+        if (crearCuota.armarCrud().Crear(nuevaCuota)) {
+            JOptionPane.showMessageDialog(this, "Cuotas agregadas exitosamente.");
             // Notificar al listener que se ha agregado un cliente
-            if (clienteAddedListener != null) {
-                clienteAddedListener.onClienteAdded();
+            if (cuotaAddedListener != null) {
+                cuotaAddedListener.onCuotaAdded();
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Error al agregar cliente.");
-        }*/
+            JOptionPane.showMessageDialog(this, "Error al agregar Cuotas.");
+        }
     }//GEN-LAST:event_jbtAgregarActionPerformed
 
     private void jtfInteresesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfInteresesKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfInteresesKeyTyped
 
-    private void jftfFechaVencimientoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jftfFechaVencimientoKeyTyped
+    private void jtfInteresesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfInteresesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfInteresesActionPerformed
 
-    }//GEN-LAST:event_jftfFechaVencimientoKeyTyped
+    void cargarIdVenta(String numero_Venta) {
+        jtfIdVenta.setText(numero_Venta);
+    }
 
+    void cargarIdAsesor() {
+        LoginUsuario usuarioActivo = controladorLogin.getUsuarioActivo();
+        if (usuarioActivo != null) {
+            jtfIdAsesor.setText(usuarioActivo.getID_USUARIO()); // Suponiendo que LoginUsuario tiene el método getIdUsuario
+        } else {
+            jtfIdAsesor.setText("No hay usuario activo.");
+        }
+    }
 
+    public void cargarValorCuota() {
+        Integer idVenta = Integer.valueOf(jtfIdVenta.getText());
+        Integer numeroCuotas = Integer.valueOf((String) jcbCuotas.getSelectedItem());
+        double intereses = Integer.parseInt(jtfIntereses.getText());
+        if (idVenta != null && numeroCuotas > 0 && intereses > 0) {
+            Integer valor_Total = calculo.CalcularValorCuota(idVenta, numeroCuotas, intereses);
+            jtfMontoCuota.setText(String.valueOf(valor_Total));
+        }
+    }
+
+    public interface CuotaAddedListener {
+
+        void onCuotaAdded();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -271,13 +327,13 @@ public class PanelCuota extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JButton jbtAgregar;
-    private javax.swing.JFormattedTextField jftfFechaVencimiento;
+    private javax.swing.JComboBox<String> jcbCuotas;
+    private com.toedter.calendar.JDateChooser jdcFechaVencimiento;
     private javax.swing.JTextField jtfEstadoCuota;
+    private javax.swing.JTextField jtfIdAsesor;
     public javax.swing.JTextField jtfIdCuota;
     private javax.swing.JTextField jtfIdVenta;
     private javax.swing.JTextField jtfIntereses;
     private javax.swing.JTextField jtfMontoCuota;
-    private javax.swing.JTextField jtfNumeroCuota;
-    private javax.swing.JTextField jtfnumero_Asesor;
     // End of variables declaration//GEN-END:variables
 }

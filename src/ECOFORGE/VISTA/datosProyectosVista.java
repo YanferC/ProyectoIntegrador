@@ -75,7 +75,6 @@ public class datosProyectosVista extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jbtCerrarSesion = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tProyecto = new javax.swing.JTable();
@@ -101,16 +100,6 @@ public class datosProyectosVista extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Proyecto");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, -1, 60));
-
-        jbtCerrarSesion.setBackground(new java.awt.Color(255, 188, 71));
-        jbtCerrarSesion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jbtCerrarSesion.setText("Cerrar Sesión");
-        jbtCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtCerrarSesionActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jbtCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, -1, 38));
 
         jButton1.setBackground(new java.awt.Color(255, 188, 72));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ECOFORGE/IMAGENES/Regresar_30.png"))); // NOI18N
@@ -248,20 +237,13 @@ public class datosProyectosVista extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-    private void jbtCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCerrarSesionActionPerformed
-        Login inicioSesion = new Login();
-        inicioSesion.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jbtCerrarSesionActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        DashBoardPrincipal vistaPrincipal = new DashBoardPrincipal();
-    
-    
-    vistaPrincipal.setVisible(true);
-    
-    
-    this.dispose();
+        DashBoardPrincipal ventanaprincipal = new DashBoardPrincipal();
+        ventanaprincipal.setVisible(true);
+        ventanaprincipal.btnVentas.setEnabled(false); // Desactivar botones de Asesor en el DashBoard
+        ventanaprincipal.btnCuota.setEnabled(false);
+        ventanaprincipal.btnCliente.setEnabled(false);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void actualizarTabla() {
@@ -338,7 +320,6 @@ public class datosProyectosVista extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton jbtCerrarSesion;
     private javax.swing.JTable tProyecto;
     // End of variables declaration//GEN-END:variables
 }

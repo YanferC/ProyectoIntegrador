@@ -107,7 +107,7 @@ public class CrudVentas implements ClienteAddedListener, Crud<Venta> {
      */
     @Override
     public List<Venta> ObtenerTodo() {
-         String sql = "{ ? = call obtener_Todas_Ventas }";
+        String sql = "{ ? = call obtener_Todas_Ventas }";
         List<Venta> listaVenta = new ArrayList<>();
 
         try (Connection conexion = DatabaseConnection.getConexion(); CallableStatement statement = conexion.prepareCall(sql)) {
